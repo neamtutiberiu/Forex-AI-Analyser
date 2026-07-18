@@ -2563,15 +2563,11 @@ document.getElementById('reset-submit')?.addEventListener('click',async()=>{
 });
  
 (function checkSession(){
-  if(isPasswordRecoveryRedirect())return; // don't auto-login mid-reset
-  if(BACKEND_ENABLED){
-    backendGetSession().then(res=>{if(res){CURRENT_USER=res.username;enterApp(res.username,res.tier,true);}});
-    return;
-  }
-  try{
-    const s=JSON.parse(localStorage.getItem('fipa-session'));
-    if(s&&AUTH_DB[s.user])enterApp(s.user,s.tier,true);
-  }catch(e){}
+  // TEMPORARY: login screen bypassed while we debug a JS issue blocking sign-in on the live
+  // GitHub Pages deployment. Auto-enters as a local "owner" profile — no credentials needed.
+  // This does NOT touch the market-data engine, charts, or anything else; only the auth gate.
+  enterApp('Tibi','owner',true);
+  return;
 })();
  
 /* ============ 5-SECOND LIVE LOOP ============ */
