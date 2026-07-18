@@ -550,7 +550,7 @@ body.light .ambient-orb{opacity:.18}
     <div class="auth-field"><label id="auth-lbl-pass">Parolă</label><input type="password" id="auth-pass" autocomplete="current-password"></div>
     <button class="btn primary auth-submit" id="auth-submit"><i class="lucide-log-in"></i><span id="auth-btn-lbl">Intră în cont</span></button>
     <button class="btn auth-submit" id="auth-signup" style="display:none;margin-top:10px;background:transparent"><i class="lucide-user-plus"></i><span id="auth-signup-lbl">Creează cont nou</span></button>
-    <button class="btn auth-submit" id="auth-forgot" style="display:none;margin-top:10px;background:transparent;font-size:12px;color:var(--text-3)"><i class="lucide-key-round"></i><span id="auth-forgot-lbl">Recuperare parolă</span></button>
+    <button class="btn auth-submit" id="auth-forgot" style="display:none;margin-top:10px;background:transparent;font-size:12px;color:var(--text-3)"><i class="lucide-key-round"></i><span id="auth-forgot-lbl">Recuperare cont</span></button>
     <div class="auth-note" id="auth-note">Cont demo: <b>demo</b> / <b>demo</b> · Cont Creator (drepturi depline): <b>admin</b> / schimbă parola din cod înainte de lansare.</div>
   </div>
 </div>
@@ -2378,11 +2378,25 @@ function setPassOverride(u,p){const o=JSON.parse(localStorage.getItem('fipa-auth
 function tryLogin(){
   const u=document.getElementById('auth-user').value.trim();
   const p=document.getElementById('auth-pass').value;
+  hideAuthError();
+  if(!u||!p){
+    showAuthError(LANG==='en'?'Please fill in both fields.':'Completează ambele câmpuri.');
+    return;
+  }
   if(BACKEND_ENABLED){
+    const btn=document.getElementById('auth-submit');
+    btn.disabled=true;
+    const origLbl=document.getElementById('auth-btn-lbl').textContent;
+    document.getElementById('auth-btn-lbl').textContent=LANG==='en'?'Signing in…':'Se conectează…';
     backendSignIn(u,p).then(res=>{
       CURRENT_USER=res.username;
       enterApp(res.username,res.tier,false);
-    }).catch(()=>{document.getElementById('auth-error').classList.add('show');});
+    }).catch(e=>{
+      showAuthError((LANG==='en'?'Login failed: ':'Autentificare eșuată: ')+(e.message||String(e)));
+    }).finally(()=>{
+      btn.disabled=false;
+      document.getElementById('auth-btn-lbl').textContent=origLbl;
+    });
     return;
   }
   const acc=AUTH_DB[u];
@@ -2391,7 +2405,7 @@ function tryLogin(){
     localStorage.setItem('fipa-session',JSON.stringify({user:u,tier:acc.tier}));
     enterApp(u,acc.tier,false);
   }else{
-    document.getElementById('auth-error').classList.add('show');
+    showAuthError(LANG==='en'?'Incorrect username or password.':'Utilizator sau parolă incorectă.');
   }
 }
 function enterApp(user,tier,silent){
@@ -2457,7 +2471,10 @@ if(BACKEND_ENABLED){
       return;
     }
     const btn=document.getElementById('auth-forgot');
+    const lbl=document.getElementById('auth-forgot-lbl');
+    const origLbl=lbl.textContent;
     btn.disabled=true;
+    lbl.textContent=LANG==='en'?'Sending…':'Se trimite…';
     try{
       const redirectTo=location.origin+location.pathname;
       const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo});
@@ -2467,6 +2484,7 @@ if(BACKEND_ENABLED){
       showAuthError((LANG==='en'?'Error: ':'Eroare: ')+e.message);
     }finally{
       btn.disabled=false;
+      lbl.textContent=origLbl;
     }
   });
   document.getElementById('auth-signup').addEventListener('click',async()=>{
