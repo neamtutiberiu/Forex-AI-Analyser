@@ -316,6 +316,30 @@ tbody tr:hover td{background:color-mix(in srgb,var(--accent) 6%,transparent)}
 .news-sentiment.up{background:color-mix(in srgb,var(--up) 12%,transparent);color:var(--up)}
 .news-sentiment.down{background:color-mix(in srgb,var(--down) 12%,transparent);color:var(--down)}
 
+/* ============ CALENDAR ============ */
+.cal-item{display:grid;grid-template-columns:100px 34px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:13px}
+.cal-item:last-child{border-bottom:none}
+.cal-time{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--text-2);font-size:12px}
+.cal-ccy{width:44px;height:24px;background:var(--bg-hover);border-radius:5px;display:grid;place-items:center;font-size:10.5px;font-weight:800;color:var(--text-2);letter-spacing:.4px}
+.cal-event{font-weight:600;color:var(--text)}
+.cal-vals{display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-3);font-weight:500;justify-content:flex-end}
+.cal-vals b{color:var(--text);font-weight:700;margin-left:4px}
+.cal-imp{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px;flex-shrink:0}
+.cal-imp.high{background:var(--down)}
+.cal-imp.medium{background:var(--warn)}
+.cal-imp.low{background:var(--text-4)}
+.cal-imp.holiday{background:var(--brand-2)}
+.cal-day-sep{margin:18px 0 8px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text-3)}
+.cal-day-sep:first-child{margin-top:0}
+
+/* ============ MT5 / POZIȚII LOCALE ============ */
+.pos-item{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:13px}
+.pos-item:last-child{border-bottom:none}
+.pos-dir{font-size:10.5px;font-weight:800;letter-spacing:.6px;padding:4px 10px;border-radius:6px;text-transform:uppercase}
+.pos-dir.buy{background:color-mix(in srgb,var(--up) 15%,transparent);color:var(--up)}
+.pos-dir.sell{background:color-mix(in srgb,var(--down) 15%,transparent);color:var(--down)}
+.pos-pnl{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:14px}
+
 /* ============ SMC / TAGS ============ */
 .smc-list{display:flex;flex-wrap:wrap;gap:8px}
 .smc-tag{padding:6px 12px;background:color-mix(in srgb,var(--violet) 10%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);color:#a78bfa;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
@@ -364,13 +388,6 @@ body.light .btn.primary{color:#fff}
 .toast.info{background:var(--grad-violet);color:#fff}
 .toast.error{background:linear-gradient(135deg,var(--down),#f97316);color:#fff}
 @keyframes slideIn{from{transform:translateX(500px);opacity:0}to{transform:translateX(0);opacity:1}}
-
-/* ============ DOWNLOAD SOURCE BUTTON (floating, nu afectează layout-ul) ============ */
-#dl-source-btn{position:fixed;bottom:22px;right:22px;z-index:1500;display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:30px;background:var(--grad);color:#031;border:none;font-family:inherit;font-size:13px;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:0 10px 30px rgba(0,229,160,.35);transition:all .2s}
-body.light #dl-source-btn{color:#fff}
-#dl-source-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,229,160,.5)}
-#dl-source-btn i{font-size:15px}
-@media(max-width:640px){#dl-source-btn span{display:none}#dl-source-btn{padding:12px;border-radius:50%}}
 
 /* ============ UTILS ============ */
 .disclaimer{margin-top:36px;padding:16px 22px;background:color-mix(in srgb,var(--warn) 10%,transparent);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);border-radius:12px;font-size:12.5px;color:var(--warn);line-height:1.7;font-weight:500}
@@ -569,7 +586,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.1</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.2</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -582,9 +599,11 @@ body.light .ambient-orb{opacity:.18}
 
     <div class="nav-section" data-i18n="s_market">Piață</div>
     <div class="nav-item" data-view="news"><i class="icon-radio"></i><span data-i18n="n_news">Știri AI</span></div>
+    <div class="nav-item" data-view="calendar"><i class="icon-calendar"></i><span data-i18n="n_cal">Calendar Economic</span></div>
     <div class="nav-item" data-view="strength"><i class="icon-bar-chart-3"></i><span data-i18n="n_str">Currency Strength</span></div>
 
     <div class="nav-section" data-i18n="s_trading">Trading</div>
+    <div class="nav-item" data-view="mt5"><i class="icon-briefcase"></i><span data-i18n="n_mt5">MT5 · Poziții</span></div>
     <div class="nav-item" data-view="journal"><i class="icon-book-open"></i><span data-i18n="n_journal">Jurnal</span></div>
     <div class="nav-item" data-view="risk"><i class="icon-shield"></i><span data-i18n="n_risk">Risk</span></div>
     <div class="nav-item active" data-view="alerts"><i class="icon-bell"></i><span data-i18n="n_alerts">Alerte</span></div>
@@ -622,7 +641,7 @@ body.light .ambient-orb{opacity:.18}
           <button data-theme="dark" class="active" title="Dark (bec aprins)"><i class="icon-lightbulb"></i></button>
           <button data-theme="light" title="Light (bec stins)" class=""><i class="icon-lightbulb-off"></i></button>
         </div>
-        <div class="tier-pill free" id="tier-btn" onclick="handleTierClick()" style="position:relative"><i class="icon-crown"></i><span id="tier-label">FREE</span>
+        <div class="tier-pill owner" id="tier-btn" onclick="handleTierClick()" style="position:relative" title="Cont Owner — acces complet la toate funcțiile"><i class="icon-crown"></i><span id="tier-label">OWNER</span>
           <div class="owner-menu" id="owner-menu"></div>
         </div>
         <div class="icon-btn icon-btn-labeled" id="notif-btn" title="Notificări"><i class="icon-bell"></i><span class="badge" id="notif-badge">3</span>
@@ -1026,6 +1045,18 @@ body.light .ambient-orb{opacity:.18}
       </div>
 
       <!-- Recomandările au fost contopite în Scanner (filtrul A+/A) ----->
+      <div class="view" id="view-calendar">
+        <div class="page-head">
+          <div><h1>Calendar <span class="accent">Economic</span></h1><p id="cal-subtitle">Evenimente reale săptămâna aceasta · sursă publică ForexFactory</p></div>
+          <div class="tabs" id="cal-tabs">
+            <div class="tab active" data-cweek="last">Săpt. trecută</div>
+            <div class="tab" data-cweek="this">Săpt. aceasta</div>
+            <div class="tab" data-cweek="next">Săpt. viitoare</div>
+          </div>
+        </div>
+        <div class="disclaimer" id="cal-disclaimer">⚠ Se încarcă calendarul real…</div>
+        <div class="card mt-lg"><div id="cal-full"><p class="dim">Se încarcă...</p></div></div>
+      </div>
       <div class="view" id="view-watchlist"><div class="page-head"><div><h1><span class="accent">Watchlist</span></h1><p>Perechile tale favorite cu alerte personalizate</p></div></div>
         <div class="card">
           <div style="display:flex;gap:8px;margin-bottom:14px">
@@ -1087,6 +1118,30 @@ body.light .ambient-orb{opacity:.18}
       <div class="strength-val down">-42</div></div><div class="strength-item"><div class="code">JPY</div>
       <div class="strength-track"><div class="strength-bar neg" style="right:50%;width:29%"></div></div>
       <div class="strength-val down">-58</div></div></div></div></div>
+      <div class="view" id="view-mt5">
+        <div class="page-head"><div><h1>MT5 <span class="accent">Poziții</span></h1><p>Tracker local de poziții deschise · P&amp;L calculat live din prețurile reale ale aplicației</p></div></div>
+        <div class="disclaimer">⚠ Acesta e un tracker local, salvat doar în browser-ul tău — <b>nu</b> e o conexiune reală la un cont broker MT5. Nu există un API public gratuit prin care o pagină web să se conecteze direct la un terminal/cont MT5 real. Deschide poziții aici ca să urmărești P&amp;L live pe baza prețurilor reale (Frankfurter/CoinGecko) deja folosite în restul aplicației.</div>
+        <div class="grid grid-3 mt-lg">
+          <div class="card kpi"><div class="lbl">Poziții deschise</div><div class="val" id="pos-count">0</div></div>
+          <div class="card kpi"><div class="lbl">P&amp;L flotant total</div><div class="val mono" id="pos-total-pnl">$0.00</div></div>
+          <div class="card kpi"><div class="lbl">Expunere (loturi)</div><div class="val mono" id="pos-total-lots">0.00</div></div>
+        </div>
+        <div class="card mt-lg">
+          <div class="card-title"><h3><i class="icon-plus-circle"></i>Deschide poziție</h3></div>
+          <div style="display:grid;grid-template-columns:1.1fr 0.8fr 1fr 0.8fr auto;gap:8px;margin-bottom:10px">
+            <select id="pos-symbol-select" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px"></select>
+            <select id="pos-dir-select" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px">
+              <option value="BUY">BUY</option>
+              <option value="SELL">SELL</option>
+            </select>
+            <input type="number" step="any" id="pos-entry-input" placeholder="Preț intrare (gol = prețul curent)" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px">
+            <input type="number" step="0.01" id="pos-lot-input" placeholder="Loturi" value="0.10" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px">
+            <button class="btn primary" id="pos-add-btn" style="width:auto;padding:0 16px">Deschide</button>
+          </div>
+          <div id="pos-error" style="display:none;color:var(--down);font-size:13px;margin-bottom:10px"></div>
+          <div id="pos-list"><p class="dim">Se încarcă...</p></div>
+        </div>
+      </div>
       <div class="view" id="view-journal"><div class="page-head"><div><h1>Trading <span class="accent">Journal</span></h1><p>Adaugă tranzacții manual · statistici calculate real din datele tale (salvate local)</p></div></div>
         <div class="grid grid-3">
           <div class="card kpi"><div class="lbl">Win Rate</div><div class="val" id="j-winrate">—</div></div>
@@ -1153,11 +1208,6 @@ body.light .ambient-orb{opacity:.18}
   <div class="modal-box" id="pair-modal-box"></div>
 </div>
 
-<button id="dl-source-btn" title="Descarcă acest fișier .html pe calculatorul tău">
-  <i class="icon-download"></i><span>Descarcă .html</span>
-</button>
-
-
 <script>
 /* ============ SAFETY NET: nu rămâne blocat pe ecranul de login ============ */
 // Motivul din trecut pentru care uneori cerea credențiale: dacă orice script extern (Supabase,
@@ -1171,34 +1221,14 @@ body.light .ambient-orb{opacity:.18}
   }catch(e){}
 })();
 
-/* ============ DESCARCĂ FIȘIERUL .HTML DIRECT DIN PAGINĂ ============ */
-// Butonul flotant "Descarcă .html" salvează pagina curentă (cod + stare live) ca fișier
-// .html real pe calculatorul tău, direct din Safari/Chrome — fără zip, fără server.
-document.getElementById('dl-source-btn')?.addEventListener('click', ()=>{
-  try{
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    const blob = new Blob([html], {type:'text/html'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'forex-ai-pro.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(()=>URL.revokeObjectURL(url), 2000);
-    if(typeof toast==='function')toast(LANG==='en'?'✓ Downloading forex-ai-pro.html':'✓ Se descarcă forex-ai-pro.html','success');
-  }catch(e){
-    alert((LANG==='en'?'Download failed: ':'Descărcarea a eșuat: ')+e.message);
-  }
-});
 /* ============ I18N ============ */
 const I18N = {
   ro: {
     s_overview:'Overview',s_analysis:'Analiză',s_market:'Piață',s_trading:'Trading',s_ai:'AI',
     n_dash:'Dashboard',n_scan:'Scanner',n_watch:'Watchlist',
     n_analysis:'Smart Money & Tehnic',
-    n_news:'Știri AI',n_str:'Currency Strength',
-    n_journal:'Jurnal',n_risk:'Risk',n_alerts:'Alerte',
+    n_news:'Știri AI',n_cal:'Calendar Economic',n_str:'Currency Strength',
+    n_mt5:'MT5 · Poziții',n_journal:'Jurnal',n_risk:'Risk',n_alerts:'Alerte',
     search:'Caută pereche, știre, indicator...',
     dash_h:'Dashboard',dash_a:'Intelligence',dash_sub:'Motor AI ansamblu · 6 modele confluente · scor de încredere în timp real pentru fiecare pereche.',
     sc_h:'Live',sc_a:'Scanner',nw_h:'AI News',nw_a:'Engine',
@@ -1207,8 +1237,8 @@ const I18N = {
     s_overview:'Overview',s_analysis:'Analysis',s_market:'Market',s_trading:'Trading',s_ai:'AI',
     n_dash:'Dashboard',n_scan:'Scanner',n_watch:'Watchlist',
     n_analysis:'Smart Money & Technical',
-    n_news:'AI News',n_str:'Currency Strength',
-    n_journal:'Journal',n_risk:'Risk',n_alerts:'Alerts',
+    n_news:'AI News',n_cal:'Economic Calendar',n_str:'Currency Strength',
+    n_mt5:'MT5 · Positions',n_journal:'Journal',n_risk:'Risk',n_alerts:'Alerts',
     search:'Search pair, news, indicator...',
     dash_h:'AI',dash_a:'Dashboard',dash_sub:'Ensemble AI engine · 6 confluent models · real-time confidence scoring per pair.',
     sc_h:'Live',sc_a:'Scanner',nw_h:'AI News',nw_a:'Engine',
@@ -1237,17 +1267,17 @@ document.querySelectorAll('.theme-toggle button').forEach(b=>b.addEventListener(
 }));
 
 /* ============ TIER ============ */
-let TIER = localStorage.getItem('fipa-tier') || 'free';
+// Aplicație personală, cu un singur utilizator (tu) — nu există cont Free/PRO, ai mereu
+// drepturi depline (OWNER) asupra tuturor funcțiilor.
+let TIER = 'owner';
 function setTier(t,silent){
-  TIER=t;localStorage.setItem('fipa-tier',TIER);
+  TIER='owner';localStorage.setItem('fipa-tier','owner');
   const btn=document.getElementById('tier-btn');
-  btn.classList.remove('free','pro','inst','owner');btn.classList.add(TIER);
-  document.getElementById('tier-label').textContent=t.toUpperCase();
+  if(btn){btn.classList.remove('free','pro','inst','owner');btn.classList.add('owner');}
+  const lbl=document.getElementById('tier-label');
+  if(lbl)lbl.textContent='OWNER';
   if(silent)return;
-  const msgs=LANG==='en'
-    ?{free:'✓ Free plan active',pro:'🚀 Upgraded to PRO! (demo)',inst:'👑 Upgraded to INSTITUTIONAL! (demo)',owner:'👑 Welcome back, Creator — full access unlocked'}
-    :{free:'✓ Plan Free activ',pro:'🚀 Upgrade la PRO! (demo)',inst:'👑 Upgrade la INSTITUTIONAL! (demo)',owner:'👑 Bine ai revenit, Creator — acces complet deblocat'};
-  toast(msgs[t],'success');
+  toast(LANG==='en'?'👑 Welcome back — full access to every feature':'👑 Bine ai revenit — acces complet la toate funcțiile','success');
 }
 
 function toast(msg,type='info'){
@@ -2057,26 +2087,38 @@ function relTimeFromDate(d){
   return Math.round(hrs/24)+'d';
 }
 function stripHtml(s){ return (s||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(); }
+async function fetchOneNewsAttempt(){
+  const url='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://www.forexlive.com/feed/news');
+  const res=await fetch(url);
+  if(!res.ok)throw new Error('rss2json HTTP '+res.status);
+  const data=await res.json();
+  if(data.status!=='ok'||!Array.isArray(data.items)||!data.items.length)throw new Error('rss2json: fără items');
+  return data.items.slice(0,20).map(it=>{
+    const title=stripHtml(it.title);
+    const desc=stripHtml(it.description).slice(0,160);
+    const pub=new Date(String(it.pubDate).replace(' ','T')+'Z');
+    const combined=title+' '+desc;
+    const impact=/fed|ecb|boj|boe|rate decision|\bcpi\b|\bnfp\b|\bgdp\b|fomc/i.test(title)?'high':'med';
+    return { impact, title, title_en:title, src:'ForexLive', time:relTimeFromDate(pub),
+      tags:guessNewsTags(combined), sent:guessNewsSentiment(combined), text:desc, text_en:desc, url:it.link };
+  });
+}
 async function fetchRealNewsRSS(){
+  // Feed-ul RSS public poate avea sincope tranzitorii de rețea — încercăm de 2 ori înainte
+  // să renunțăm la datele reale și să afișăm demo-ul etichetat onest.
   try{
-    const url='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://www.forexlive.com/feed/news');
-    const res=await fetch(url);
-    if(!res.ok)throw new Error('rss2json HTTP '+res.status);
-    const data=await res.json();
-    if(data.status!=='ok'||!Array.isArray(data.items)||!data.items.length)throw new Error('rss2json: fără items');
-    NEWS=data.items.slice(0,20).map(it=>{
-      const title=stripHtml(it.title);
-      const desc=stripHtml(it.description).slice(0,160);
-      const pub=new Date(String(it.pubDate).replace(' ','T')+'Z');
-      const combined=title+' '+desc;
-      const impact=/fed|ecb|boj|boe|rate decision|\bcpi\b|\bnfp\b|\bgdp\b|fomc/i.test(title)?'high':'med';
-      return { impact, title, title_en:title, src:'ForexLive', time:relTimeFromDate(pub),
-        tags:guessNewsTags(combined), sent:guessNewsSentiment(combined), text:desc, text_en:desc, url:it.link };
-    });
+    NEWS = await fetchOneNewsAttempt();
     NEWS_IS_REAL=true;
-  }catch(e){
-    console.warn('Fetch știri reale eșuat, revenim la demo etichetat onest:',e);
-    NEWS=NEWS_DEMO; NEWS_IS_REAL=false;
+  }catch(e1){
+    console.warn('Fetch știri reale eșuat (încercarea 1), reîncercăm:',e1);
+    try{
+      await new Promise(r=>setTimeout(r,1500));
+      NEWS = await fetchOneNewsAttempt();
+      NEWS_IS_REAL=true;
+    }catch(e2){
+      console.warn('Fetch știri reale eșuat (încercarea 2), revenim la demo etichetat onest:',e2);
+      NEWS=NEWS_DEMO; NEWS_IS_REAL=false;
+    }
   }
   const badge=document.getElementById('news-demo-badge');
   if(badge){
@@ -2095,6 +2137,162 @@ async function fetchRealNewsRSS(){
 }
 async function refreshRealNews(){ await fetchRealNewsRSS(); }
 
+/* ============ CALENDAR ECONOMIC REAL ============
+   Sursă: nfs.faireconomy.media/ff_calendar_{last|this|next}week.json — feed public, gratuit,
+   fără cheie, întreținut de Fair Economy (compania din spatele widget-ului de calendar al
+   ForexFactory) special pentru a fi consumat de aplicații terțe. Nu e un API oficial documentat
+   (poate să-și schimbe formatul fără preaviz), dar e sursa reală folosită de majoritatea
+   indicatoarelor de calendar din MT4/MT5 și a extensiilor de trading gratuite. */
+let CAL_CACHE={};
+let CAL_CURRENT_WEEK='this';
+async function fetchEconomicCalendar(week){
+  if(CAL_CACHE[week])return CAL_CACHE[week];
+  const url='https://nfs.faireconomy.media/ff_calendar_'+week+'week.json';
+  const res=await fetch(url);
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  const data=await res.json();
+  if(!Array.isArray(data))throw new Error('format neașteptat');
+  CAL_CACHE[week]=data;
+  return data;
+}
+function calImpactClass(imp){
+  const l=(imp||'').toLowerCase();
+  if(l==='high')return 'high';
+  if(l==='medium')return 'medium';
+  if(l==='holiday')return 'holiday';
+  return 'low';
+}
+async function renderCalendar(week){
+  week=week||CAL_CURRENT_WEEK;
+  CAL_CURRENT_WEEK=week;
+  const el=document.getElementById('cal-full');
+  const disc=document.getElementById('cal-disclaimer');
+  if(!el)return;
+  el.innerHTML='<p class="dim">Se încarcă...</p>';
+  try{
+    const items=await fetchEconomicCalendar(week);
+    if(!items.length){
+      el.innerHTML=`<p class="dim">${LANG==='en'?'No events for this week.':'Niciun eveniment pentru această săptămână.'}</p>`;
+    }else{
+      const sorted=items.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+      let lastDay='';
+      let html='';
+      sorted.forEach(ev=>{
+        const d=new Date(ev.date);
+        const dayKey=d.toLocaleDateString(LANG==='en'?'en-US':'ro-RO',{weekday:'long',day:'numeric',month:'short'});
+        if(dayKey!==lastDay){ html+=`<div class="cal-day-sep">${dayKey}</div>`; lastDay=dayKey; }
+        const time=isNaN(d.getTime())?'--:--':d.toLocaleTimeString(LANG==='en'?'en-US':'ro-RO',{hour:'2-digit',minute:'2-digit'});
+        const impCls=calImpactClass(ev.impact);
+        html+=`<div class="cal-item">
+          <div class="cal-time">${time}</div>
+          <div class="cal-ccy">${ev.country||'—'}</div>
+          <div><span class="cal-imp ${impCls}"></span><span class="cal-event">${ev.title||'—'}</span></div>
+          <div class="cal-vals">${ev.forecast?('<span>'+(LANG==='en'?'Fcst':'Prog')+'<b>'+ev.forecast+'</b></span>'):''}${ev.previous?('<span>'+(LANG==='en'?'Prev':'Ant')+'<b>'+ev.previous+'</b></span>'):''}</div>
+        </div>`;
+      });
+      el.innerHTML=html;
+    }
+    if(disc)disc.textContent=LANG==='en'
+      ?'✓ Real events from the public ForexFactory/Fair Economy calendar feed (nfs.faireconomy.media) — the same source used by most free MT4/MT5 calendar indicators. Times shown in your browser’s local timezone. This feed is not an officially documented API and can occasionally change format or be unavailable.'
+      :'✓ Evenimente reale din feed-ul public de calendar ForexFactory/Fair Economy (nfs.faireconomy.media) — aceeași sursă folosită de majoritatea indicatoarelor gratuite de calendar din MT4/MT5. Orele afișate sunt în fusul orar local al browser-ului tău. Acest feed nu e un API oficial documentat și își poate schimba ocazional formatul sau poate fi indisponibil.';
+  }catch(e){
+    console.warn('Fetch calendar economic eșuat:',e);
+    el.innerHTML=`<p class="dim">${LANG==='en'?'Live calendar fetch failed. Try again later.':'Fetch-ul calendarului real a eșuat. Încearcă din nou mai târziu.'}</p>`;
+    if(disc)disc.textContent=LANG==='en'
+      ?'⚠ Could not reach the calendar feed right now — no fabricated events are shown instead.'
+      :'⚠ Nu am putut contacta feed-ul de calendar acum — nu afișăm evenimente inventate în loc.';
+  }
+}
+
+/* ============ MT5 — TRACKER LOCAL DE POZIȚII (NU o conexiune la broker real) ============
+   Poziții salvate în localStorage. P&L calculat live din PAIRS (prețurile reale deja folosite
+   în restul aplicației). Pip size aproximat: 0.01 pentru perechi cotate în JPY, altfel 0.0001.
+   Estimarea în $ folosește regula practică $10/pip pentru un lot standard pe perechi cotate în
+   USD — pentru perechile care nu sunt cotate în USD e o aproximare, marcată explicit ca atare. */
+function pipSizeFor(sym){ return /JPY/.test(sym)?0.01:0.0001; }
+function posList(){ return localGet('fipa-local-positions'); }
+function posAdd(pos){
+  const arr=posList();
+  arr.unshift({id:localNextId('fipa-local-positions'),...pos,opened_at:new Date().toISOString()});
+  localSet('fipa-local-positions',arr);
+}
+function posRemove(id){
+  localSet('fipa-local-positions',posList().filter(x=>x.id!==id));
+}
+function computePosPnl(pos){
+  const p=PAIRS.find(x=>x.sym===pos.symbol);
+  if(!p)return {pips:0,usd:0,px:null};
+  const px=parseFloat(p.px);
+  const entry=parseFloat(pos.entry);
+  const pip=pipSizeFor(pos.symbol);
+  const dirMul=pos.direction==='BUY'?1:-1;
+  const pips=((px-entry)/pip)*dirMul;
+  const usd=pips*parseFloat(pos.lot)*10; // aproximare $10/pip/lot standard
+  return {pips,usd,px};
+}
+async function renderPositions(){
+  const el=document.getElementById('pos-list');
+  if(!el)return;
+  const items=posList();
+  if(!items.length){
+    el.innerHTML=`<p class="dim">${LANG==='en'?'No open positions. Open one above.':'Nicio poziție deschisă. Deschide una mai sus.'}</p>`;
+  }else{
+    el.innerHTML=items.map(it=>{
+      const {pips,usd,px}=computePosPnl(it);
+      const pnlClass=usd>=0?'up':'down';
+      return `<div class="pos-item">
+        <div class="pos-dir ${it.direction==='BUY'?'buy':'sell'}">${it.direction}</div>
+        <div><b>${it.symbol}</b><div class="dim" style="font-size:11px">${LANG==='en'?'Entry':'Intrare'} <span class="mono">${it.entry}</span> · ${LANG==='en'?'Lot':'Lot'} <span class="mono">${it.lot}</span></div></div>
+        <div class="mono" style="text-align:right">${px!==null?px:'—'}</div>
+        <div class="pos-pnl ${pnlClass}" style="text-align:right">${usd>=0?'+':''}$${usd.toFixed(2)}<div class="dim" style="font-size:11px;font-weight:500">${pips>=0?'+':''}${pips.toFixed(1)} pips</div></div>
+        <button class="icon-btn" onclick="posCloseClick(${it.id})" title="${LANG==='en'?'Close':'Închide'}"><i class="icon-x-circle"></i></button>
+      </div>`;
+    }).join('');
+  }
+  const totalUsd=items.reduce((a,it)=>a+computePosPnl(it).usd,0);
+  const totalLots=items.reduce((a,it)=>a+parseFloat(it.lot||0),0);
+  const countEl=document.getElementById('pos-count');
+  const pnlEl=document.getElementById('pos-total-pnl');
+  const lotsEl=document.getElementById('pos-total-lots');
+  if(countEl)countEl.textContent=items.length;
+  if(pnlEl){pnlEl.textContent=(totalUsd>=0?'+':'-')+'$'+Math.abs(totalUsd).toFixed(2);pnlEl.className='val mono '+(totalUsd>=0?'up':'down');}
+  if(lotsEl)lotsEl.textContent=totalLots.toFixed(2);
+}
+async function posCloseClick(id){
+  const items=posList();
+  const pos=items.find(x=>x.id===id);
+  if(!pos)return;
+  const {usd}=computePosPnl(pos);
+  posRemove(id);
+  renderPositions();
+  try{
+    await journalAdd({symbol:pos.symbol,direction:pos.direction,pnl:Number(usd.toFixed(2)),note:(LANG==='en'?'Closed from MT5 tracker':'Închisă din tracker MT5'),opened_at:pos.opened_at});
+    toast((LANG==='en'?'✓ Position closed — logged to Journal (':'✓ Poziție închisă — trecută în Jurnal (')+(usd>=0?'+':'')+'$'+usd.toFixed(2)+')','success');
+    if(typeof renderJournal==='function')renderJournal();
+  }catch(e){
+    toast((LANG==='en'?'✓ Position closed':'✓ Poziție închisă'),'success');
+  }
+}
+document.getElementById('pos-add-btn')?.addEventListener('click',()=>{
+  const sym=document.getElementById('pos-symbol-select').value;
+  const dir=document.getElementById('pos-dir-select').value;
+  const entryInput=document.getElementById('pos-entry-input');
+  const lotInput=document.getElementById('pos-lot-input');
+  const errEl=document.getElementById('pos-error');
+  errEl.style.display='none';
+  const lot=parseFloat(lotInput.value)||0.10;
+  let entry=parseFloat(entryInput.value);
+  if(!sym){ errEl.textContent=LANG==='en'?'Pick a pair.':'Alege o pereche.'; errEl.style.display='block'; return; }
+  if(isNaN(entry)){
+    const p=PAIRS.find(x=>x.sym===sym);
+    if(!p){ errEl.textContent=LANG==='en'?'No current price available for this pair yet.':'Nu există încă un preț curent pentru această pereche.'; errEl.style.display='block'; return; }
+    entry=parseFloat(p.px);
+  }
+  posAdd({symbol:sym,direction:dir,entry,lot});
+  entryInput.value=''; lotInput.value='0.10';
+  renderPositions();
+});
+
 /* ============ METODOLOGIE — cum se construiește analiza, onest, fără marketing gol ============ */
 function renderMethodologyPanel(){
   const el=document.getElementById('methodology-panel');
@@ -2104,8 +2302,8 @@ function renderMethodologyPanel(){
     <div class="card-title"><h3><i class="icon-book-open"></i>${en?'How this analysis is built':'Cum se construiește această analiză'}</h3></div>
     <div style="font-size:12.5px;line-height:1.8;color:var(--text-2)">
       <p><b style="color:var(--text)">${en?'1. Data sources (real, not simulated):':'1. Surse de date (reale, nu simulate):'}</b><br>
-      ${en?'Forex: European Central Bank daily reference rates via Frankfurter API (31 currencies). Bitcoin &amp; Gold (via PAX Gold, a token backed 1:1 by physical gold): CoinGecko daily history. News: live RSS from ForexLive/InvestingLive via the public rss2json proxy.'
-          :'Forex: cursuri de referință zilnice BCE, prin Frankfurter API (31 valute). Bitcoin și Aur (via PAX Gold, un token susținut 1:1 de aur fizic): istoric zilnic CoinGecko. Știri: RSS live din ForexLive/InvestingLive, prin proxy public rss2json.'}</p>
+      ${en?'Forex: European Central Bank daily reference rates via Frankfurter API (31 currencies). Bitcoin &amp; Gold (via PAX Gold, a token backed 1:1 by physical gold): CoinGecko daily history. News: live RSS from ForexLive/InvestingLive via the public rss2json proxy. Economic calendar: the public ForexFactory/Fair Economy feed (nfs.faireconomy.media), the same source most free MT4/MT5 calendar indicators use.'
+          :'Forex: cursuri de referință zilnice BCE, prin Frankfurter API (31 valute). Bitcoin și Aur (via PAX Gold, un token susținut 1:1 de aur fizic): istoric zilnic CoinGecko. Știri: RSS live din ForexLive/InvestingLive, prin proxy public rss2json. Calendar economic: feed-ul public ForexFactory/Fair Economy (nfs.faireconomy.media), aceeași sursă folosită de majoritatea indicatoarelor gratuite de calendar din MT4/MT5.'}</p>
       <p><b style="color:var(--text)">${en?'2. Technical indicators computed from those real closes:':'2. Indicatori tehnici calculați din aceste close-uri reale:'}</b><br>
       EMA(20/50/200) ${en?'for trend':'pentru trend'} · RSI(14) Wilder ${en?'for momentum':'pentru momentum'} · MACD(12,26,9) ${en?'for momentum confirmation':'pentru confirmarea momentum-ului'} · ATR(14) ${en?'(close-to-close proxy, no free intraday high/low) for stop/target sizing':'(proxy close-to-close, fără high/low intraday gratuit) pentru dimensionarea SL/TP'} · Efficiency Ratio(10) ${en?'to measure whether the market is trending cleanly or just noisy/range-bound':'pentru a măsura dacă piața se mișcă direcțional-curat sau e doar zgomot/range'}.</p>
       <p><b style="color:var(--text)">${en?'3. Scoring formula (transparent, not a black box):':'3. Formula de scor (transparentă, nu o cutie neagră):'}</b><br>
@@ -2117,8 +2315,11 @@ function renderMethodologyPanel(){
       <p><b style="color:var(--text)">${en?'5. Smart Money Concepts (Tehnic/Smart Money pages):':'5. Smart Money Concepts (paginile Tehnic/Smart Money):'}</b><br>
       ${en?'Swing highs/lows, Break of Structure, Order Blocks, Fair Value Gaps and Premium/Discount zones are detected geometrically from real price action — not predicted by a model.'
           :'Swing highs/lows, Break of Structure, Order Blocks, Fair Value Gaps și zonele Premium/Discount sunt detectate geometric din price action real — nu prezise de un model.'}</p>
-      <p style="color:var(--text-3)"><b style="color:var(--warn)">${en?'Honest limits:':'Limite oneste:'}</b> ${en?'this is daily (EOD) data, not intraday ticks — there is no free, key-free, real-time forex feed. The economic calendar was removed entirely rather than shown as fake data, since no free real calendar API exists. News sentiment is a simple keyword heuristic, not NLP/AI. None of this is financial advice.'
-          :'acestea sunt date zilnice (EOD), nu tick-uri intraday — nu există niciun feed forex gratuit, fără cheie, în timp real. Calendarul economic a fost eliminat complet, nu afișat cu date fictive — nicio sursă gratuită reală de calendar economic nu există. Sentiment-ul știrilor e un scor euristic simplu pe cuvinte-cheie, nu NLP/AI. Nimic din acestea nu reprezintă sfat financiar.'}</p>
+      <p><b style="color:var(--text)">${en?'6. MT5 page:':'6. Pagina MT5:'}</b><br>
+      ${en?'A local position tracker only — there is no free public API that lets a webpage connect to a real MT5 broker account. Positions you open there are saved in your browser and their P&amp;L is computed live from the same real prices used everywhere else in the app (not a broker feed).'
+          :'Doar un tracker local de poziții — nu există un API public gratuit prin care o pagină web să se conecteze la un cont broker MT5 real. Pozițiile deschise acolo sunt salvate în browser-ul tău, iar P&amp;L-ul se calculează live din aceleași prețuri reale folosite peste tot în aplicație (nu dintr-un feed de broker).'}</p>
+      <p style="color:var(--text-3)"><b style="color:var(--warn)">${en?'Honest limits:':'Limite oneste:'}</b> ${en?'this is daily (EOD) data, not intraday ticks — there is no free, key-free, real-time forex feed. The economic calendar comes from an unofficial, undocumented public feed that could occasionally change format or go offline. News sentiment is a simple keyword heuristic, not NLP/AI. MT5 is a local tracker, not a live broker connection. None of this is financial advice.'
+          :'acestea sunt date zilnice (EOD), nu tick-uri intraday — nu există niciun feed forex gratuit, fără cheie, în timp real. Calendarul economic provine dintr-un feed public neoficial, nedocumentat, care își poate schimba ocazional formatul sau poate fi indisponibil. Sentiment-ul știrilor e un scor euristic simplu pe cuvinte-cheie, nu NLP/AI. MT5 e un tracker local, nu o conexiune reală la broker. Nimic din acestea nu reprezintă sfat financiar.'}</p>
     </div>`;
 }
 
@@ -2140,6 +2341,7 @@ function renderNews(id,items){
 }
 renderNews('news-list',NEWS.slice(0,4));renderNews('news-full',NEWS);
 fetchRealNewsRSS(); // preluare reală, la încărcare — înlocuiește demo-ul dacă reușește
+renderCalendar('this'); // preluare reală calendar, la încărcare
 renderMethodologyPanel();
 
 /* Chart */
@@ -2338,6 +2540,11 @@ function handleTabChange(group,tab,idx){
   // Scanner filter tabs
   if(['Toate','All','A+/A','BUY','SELL'].includes(txt)){
     filterScanner(txt);
+    return;
+  }
+  // Calendar economic — săptămâna afișată
+  if(group.id==='cal-tabs'){
+    renderCalendar(tab.dataset.cweek);
     return;
   }
 }
@@ -2717,7 +2924,7 @@ async function backendSignIn(email,password){
   const {data,error}=await sb.auth.signInWithPassword({email,password});
   if(error)throw error;
   const {data:profile}=await sb.from('profiles').select('username,role').eq('id',data.user.id).single();
-  return {user:data.user.email,tier:profile?.role||'free',username:profile?.username||email};
+  return {user:data.user.email,tier:profile?.role||'owner',username:profile?.username||email};
 }
 async function backendSignUp(email,password,username){
   const {data,error}=await sb.auth.signUp({email,password,options:{data:{username}}});
@@ -2728,7 +2935,7 @@ async function backendGetSession(){
   const {data}=await sb.auth.getSession();
   if(!data.session)return null;
   const {data:profile}=await sb.from('profiles').select('username,role').eq('id',data.session.user.id).single();
-  return {user:data.session.user.email,tier:profile?.role||'free',username:profile?.username};
+  return {user:data.session.user.email,tier:profile?.role||'owner',username:profile?.username};
 }
 async function fetchLiveMarketData(symbols){
   if(!BACKEND_ENABLED)return null; // fallback: motorul local de simulare rămâne activ
@@ -2762,17 +2969,6 @@ async function fetchRealCandles(symbol,resolution){
     });
     return await r.json();
   }catch(e){console.warn('candles fetch failed',e);return null;}
-}
-async function fetchEconomicCalendar(){
-  if(!BACKEND_ENABLED)return null;
-  const {data:sess}=await sb.auth.getSession();
-  if(!sess.session)return null;
-  try{
-    const r=await fetch(`${SUPABASE_URL}/functions/v1/economic-calendar`,{
-      headers:{Authorization:`Bearer ${sess.session.access_token}`}
-    });
-    return await r.json();
-  }catch(e){console.warn('economic-calendar fetch failed',e);return null;}
 }
 /* ---- Watchlist: Supabase dacă există sesiune reală, altfel local (localStorage) ---- */
 async function wlList(){
@@ -2871,14 +3067,16 @@ async function journalRemove(id){
 }
 
 /* ============ AUTH / LOGIN ============ */
-// Cont Creator (drepturi depline) — schimbă parola aici înainte de a publica aplicația public!
+// Aplicație personală — un singur cont, OWNER, cu drepturi depline. Ecranul de login e păstrat
+// în cod doar ca plasă de siguranță (vezi checkSession mai jos, care intră automat ca owner),
+// nu mai există niciun cont Free/Demo.
+// Schimbă parola aici înainte de a publica aplicația public!
 const AUTH_DB={
-  admin:{pass:'admin123',tier:'owner',label:'Creator'},
-  demo:{pass:'demo',tier:'free',label:'Demo'},
+  admin:{pass:'admin123',tier:'owner',label:'Owner'},
 };
 function authTexts(){
-  return LANG==='en'?{title:'Sign in',sub:'Sign in to access the platform.',err:'Incorrect username or password.',user:'Username',pass:'Password',btn:'Sign in',note:'Demo account: <b>demo</b> / <b>demo</b> · Creator account (full rights): <b>admin</b> / change the password in the code before launch.'}
-  :{title:'Autentificare',sub:'Conectează-te pentru a accesa platforma.',err:'Utilizator sau parolă incorectă.',user:'Utilizator',pass:'Parolă',btn:'Intră în cont',note:'Cont demo: <b>demo</b> / <b>demo</b> · Cont Creator (drepturi depline): <b>admin</b> / schimbă parola din cod înainte de lansare.'};
+  return LANG==='en'?{title:'Sign in',sub:'Sign in to access the platform.',err:'Incorrect username or password.',user:'Username',pass:'Password',btn:'Sign in',note:'Owner account (full rights): <b>admin</b> / change the password in the code before launch.'}
+  :{title:'Autentificare',sub:'Conectează-te pentru a accesa platforma.',err:'Utilizator sau parolă incorectă.',user:'Utilizator',pass:'Parolă',btn:'Intră în cont',note:'Cont Owner (drepturi depline): <b>admin</b> / schimbă parola din cod înainte de lansare.'};
 }
 function applyAuthTexts(){
   const t=authTexts();
@@ -2940,14 +3138,11 @@ function unlockOwnerMode(){
   if(banner)banner.style.display='flex';
 }
 function handleTierClick(){
-  if(TIER==='owner'||CURRENT_USER){
-    const menu=document.getElementById('owner-menu');
-    menu.classList.toggle('open');
-    if(menu.classList.contains('open')){
-      menu.innerHTML=`<div class="om-item" onclick="changeOwnerPassword()"><i class="icon-key"></i>${LANG==='en'?'Change password':'Schimbă parola'}</div><div class="om-item" onclick="logoutApp()"><i class="icon-log-out"></i>${LANG==='en'?'Log out':'Deconectare'}</div>`;
-    }
-  }else{
-    openView('pricing');
+  // TIER e mereu 'owner' — nu mai există niciun alt plan către care să "faci upgrade".
+  const menu=document.getElementById('owner-menu');
+  menu.classList.toggle('open');
+  if(menu.classList.contains('open')){
+    menu.innerHTML=`<div class="om-item" onclick="changeOwnerPassword()"><i class="icon-key"></i>${LANG==='en'?'Change password':'Schimbă parola'}</div><div class="om-item" onclick="logoutApp()"><i class="icon-log-out"></i>${LANG==='en'?'Log out':'Deconectare'}</div>`;
   }
 }
 document.addEventListener('click',e=>{if(!e.target.closest('#tier-btn'))document.getElementById('owner-menu')?.classList.remove('open');});
@@ -3100,6 +3295,7 @@ function refreshLiveData(silent){
   renderIndicatorBadges();
   checkAlerts();
   if(typeof renderDashboardHero==='function')renderDashboardHero();
+  if(typeof renderPositions==='function')renderPositions();
   if(!silent){toast(LANG==='en'?'✓ Live data refreshed':'✓ Date live actualizate','success');}
 }
 let LAST_REAL_REFRESH=null;
@@ -3119,9 +3315,11 @@ function populateSymbolSelects(){
   const wlSel=document.getElementById('wl-symbol-select');
   const alSel=document.getElementById('al-symbol-select');
   const jSel=document.getElementById('j-symbol-select');
+  const posSel=document.getElementById('pos-symbol-select');
   if(wlSel)wlSel.innerHTML=opts;
   if(alSel)alSel.innerHTML=opts;
   if(jSel)jSel.innerHTML=opts;
+  if(posSel)posSel.innerHTML=opts;
 }
 populateSymbolSelects();
 
@@ -3282,8 +3480,11 @@ openView=function(name){
   if(name==='analysis'){renderSMCPage();renderTechnicalPage();}
   if(name==='journal')renderJournal();
   if(name==='risk')renderRiskStats();
+  if(name==='calendar')renderCalendar(CAL_CURRENT_WEEK);
+  if(name==='mt5')renderPositions();
 };
 renderAlerts(); // "Alerte" e vederea activă implicit la încărcare — o randăm imediat
+renderPositions(); // pozițiile MT5 locale, randate imediat (P&L live din PAIRS)
 
 
 /* ============ SMART MONEY MINI-CHART ============ */
