@@ -340,6 +340,22 @@ tbody tr:hover td{background:color-mix(in srgb,var(--accent) 6%,transparent)}
 .pos-dir.sell{background:color-mix(in srgb,var(--down) 15%,transparent);color:var(--down)}
 .pos-pnl{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:14px}
 
+/* ============ ANALIZE LIVE FOREX (carduri complete per pereche) ============ */
+.live-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+.live-card-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.live-card-head .sym{font-size:16px;font-weight:800;letter-spacing:.2px}
+.live-card-head .px{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text-2)}
+.live-spark{flex-shrink:0;width:120px;height:36px}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:14px}
+.live-block{background:color-mix(in srgb,var(--text) 3%,transparent);border-radius:10px;padding:12px 14px}
+.live-block-title{font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.live-block p{font-size:12.5px;line-height:1.6;color:var(--text-2);margin:0}
+.live-fact{display:flex;justify-content:space-between;padding:3px 0;font-size:12px}
+.live-fact b{color:var(--text);font-family:'JetBrains Mono',monospace}
+.live-plan{background:color-mix(in srgb,var(--brand) 6%,transparent);border:1px solid color-mix(in srgb,var(--brand) 20%,transparent);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.live-plan.wait{background:color-mix(in srgb,var(--text) 4%,transparent);border-color:var(--border)}
+.live-actions{display:flex;gap:8px;flex-wrap:wrap}
+
 /* ============ SMC / TAGS ============ */
 .smc-list{display:flex;flex-wrap:wrap;gap:8px}
 .smc-tag{padding:6px 12px;background:color-mix(in srgb,var(--violet) 10%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);color:#a78bfa;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
@@ -586,11 +602,12 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.2</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.3</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
     <div class="nav-item" data-view="dashboard"><i class="icon-layout-dashboard"></i><span data-i18n="n_dash">Dashboard</span></div>
+    <div class="nav-item" data-view="liveanalysis"><i class="icon-activity"></i><span data-i18n="n_live">Analize Live Forex</span></div>
     <div class="nav-item" data-view="scanner"><i class="icon-radar"></i><span data-i18n="n_scan">Scanner</span></div>
     <div class="nav-item" data-view="watchlist"><i class="icon-star"></i><span data-i18n="n_watch">Watchlist</span></div>
 
@@ -891,6 +908,23 @@ body.light .ambient-orb{opacity:.18}
         <div class="disclaimer">
           ⚠ <b>Disclaimer:</b> Această platformă oferă analize probabilistice bazate pe date istorice și modele AI. Nu garantează win rate sau direcție. Tranzacționarea Forex implică risc semnificativ de pierdere. Folosește doar capital pe care îți permiți să-l pierzi.
         </div>
+      </div>
+
+      <!-- ============ ANALIZE LIVE FOREX ============ -->
+      <div class="view" id="view-liveanalysis">
+        <div class="page-head">
+          <div><h1>Analize <span class="accent">Live</span> Forex</h1><p id="live-subtitle">Toate perechile, sortate descrescător după procentul de încredere · tehnic + Smart Money + context fundamental real</p></div>
+          <div class="tabs" id="live-tabs">
+            <div class="tab active">Toate</div>
+            <div class="tab">A+/A</div>
+            <div class="tab">BUY</div>
+            <div class="tab">SELL</div>
+          </div>
+        </div>
+        <div class="disclaimer" id="live-disclaimer">
+          ⚠ Analiza tehnică (EMA/RSI/MACD/ATR/Efficiency Ratio) și Smart Money (BOS/Order Block/FVG) sunt calculate real din închideri D1. Contextul „fundamental" e construit din date reale disponibile gratuit — variația recentă a fiecărei valute, evenimente de calendar și știri relevante — nu dintr-un model economic propriu-zis. Lot-ul sugerat folosește setările din pagina Risk (cont/risc%). Nimic din acestea nu reprezintă sfat financiar.
+        </div>
+        <div id="live-analysis-list" class="mt-lg"><p class="dim">Se încarcă analizele...</p></div>
       </div>
 
       <!-- ============ SCANNER ============ -->
@@ -1225,7 +1259,7 @@ body.light .ambient-orb{opacity:.18}
 const I18N = {
   ro: {
     s_overview:'Overview',s_analysis:'Analiză',s_market:'Piață',s_trading:'Trading',s_ai:'AI',
-    n_dash:'Dashboard',n_scan:'Scanner',n_watch:'Watchlist',
+    n_dash:'Dashboard',n_live:'Analize Live Forex',n_scan:'Scanner',n_watch:'Watchlist',
     n_analysis:'Smart Money & Tehnic',
     n_news:'Știri AI',n_cal:'Calendar Economic',n_str:'Currency Strength',
     n_mt5:'MT5 · Poziții',n_journal:'Jurnal',n_risk:'Risk',n_alerts:'Alerte',
@@ -1235,7 +1269,7 @@ const I18N = {
   },
   en: {
     s_overview:'Overview',s_analysis:'Analysis',s_market:'Market',s_trading:'Trading',s_ai:'AI',
-    n_dash:'Dashboard',n_scan:'Scanner',n_watch:'Watchlist',
+    n_dash:'Dashboard',n_live:'Live Forex Analysis',n_scan:'Scanner',n_watch:'Watchlist',
     n_analysis:'Smart Money & Technical',
     n_news:'AI News',n_cal:'Economic Calendar',n_str:'Currency Strength',
     n_mt5:'MT5 · Positions',n_journal:'Journal',n_risk:'Risk',n_alerts:'Alerts',
@@ -1463,6 +1497,27 @@ function computeRealStrength(fxHistory){
   const scale = 90/maxAbs;
   return STRENGTH_CODES.map(c=> ({ c, v: Math.round(changes[c]*scale) })).sort((a,b)=> b.v-a.v);
 }
+// Variație reală (nescalată, în %) a unei valute pe ultimele ~20 zile, direct din RAW_FX_SERIES —
+// funcționează pentru ORICE valută din FX_BASKET (nu doar cele 8 din STRENGTH_CODES folosite în
+// widget-ul Currency Strength), ca să avem context fundamental real inclusiv pentru perechi exotice.
+function currencyMomentumPct(code){
+  if(!RAW_FX_SERIES||!RAW_FX_SERIES.EUR)return null;
+  const s=RAW_FX_SERIES;
+  const n=s.EUR.length;
+  const lookback=Math.min(20,n-2);
+  if(lookback<1)return null;
+  if(code==='USD'){
+    const vals=FX_BASKET.filter(c=>s[c]).map(c=>{
+      const now=s[c][n-1], then=s[c][n-1-lookback];
+      return -((now-then)/then*100);
+    });
+    if(!vals.length)return null;
+    return -(vals.reduce((a,b)=>a+b,0)/vals.length);
+  }
+  if(!s[code])return null;
+  const now=s[code][n-1], then=s[code][n-1-lookback];
+  return -((now-then)/then*100);
+}
 
 // ---- Standard technical indicators (validated against known reference cases) ----
 function smaCalc(vals, period){
@@ -1652,6 +1707,22 @@ function detectEqualLevels(swings,tolPct){
   if(!swings||swings.length<2)return false;
   const a=swings[swings.length-1].price, b=swings[swings.length-2].price;
   return Math.abs(a-b)/((a+b)/2) <= (tolPct||0.0015);
+}
+// Versiune „pură" (fără atingere de DOM) a detecției Smart Money de mai jos — reutilizată de
+// pagina Analiză (randare pe select) ȘI de Analize Live Forex (randare pe toate perechile deodată).
+function computeSmcSummary(sym){
+  const closes=PAIR_SERIES[sym];
+  if(!closes||closes.length<40)return null;
+  const bars=buildSyntheticBars(closes, sym==='BTC/USD'?null:PAIR_DATES);
+  const {swingHighs,swingLows}=findSwings(bars,2);
+  const bos=detectBOS(bars,swingHighs,swingLows);
+  const ob=detectOrderBlock(bars,bos);
+  const fvgs=detectFVG(bars);
+  const zone=detectPremiumDiscount(bars);
+  const eqHighs=detectEqualLevels(swingHighs);
+  const eqLows=detectEqualLevels(swingLows);
+  const dec=closes[closes.length-1]>=100?2:5;
+  return {bos,ob,fvgs,zone,eqHighs,eqLows,dec};
 }
 function renderSMCPage(){
   populateAnalysisPairSelects();
@@ -1860,6 +1931,7 @@ function renderMarketUI(){
   if(typeof populateSymbolSelects==='function')populateSymbolSelects();
   if(typeof renderMainChartReal==='function')renderMainChartReal(CURRENT_CHART_TF||'D1');
   if(typeof renderMethodologyPanel==='function')renderMethodologyPanel();
+  if(typeof renderLiveAnalysisList==='function')renderLiveAnalysisList(document.querySelector('#live-tabs .tab.active')?.textContent.trim());
 }
 /* ---- Dashboard hero + KPI-uri, calculate din date reale (PAIRS/STRENGTH) ---- */
 function renderDashboardHero(){
@@ -2210,6 +2282,21 @@ async function renderCalendar(week){
    Estimarea în $ folosește regula practică $10/pip pentru un lot standard pe perechi cotate în
    USD — pentru perechile care nu sunt cotate în USD e o aproximare, marcată explicit ca atare. */
 function pipSizeFor(sym){ return /JPY/.test(sym)?0.01:0.0001; }
+// Lot sugerat pentru un setup — folosește EXACT aceeași formulă ca și calculatorul din Risk Manager
+// (risc$ = cont × risc% / 100; lot = risc$ / (SL_pips × 10)), citind valorile live din acel
+// calculator (#calc-acc/#calc-risk) dacă există în pagină, altfel valorile implicite 10000/1%.
+function suggestLotSize(p){
+  if(!p||p.entry==null||p.sl==null)return null;
+  const accEl=document.getElementById('calc-acc'), riskEl=document.getElementById('calc-risk');
+  const acc=accEl&&accEl.value?(+accEl.value):10000;
+  const riskPct=riskEl&&riskEl.value?(+riskEl.value):1;
+  const pip=pipSizeFor(p.sym);
+  const slPips=Math.abs(p.entry-p.sl)/pip;
+  if(!slPips)return null;
+  const riskUsd=acc*riskPct/100;
+  const lots=riskUsd/(slPips*10);
+  return {lots:Math.max(0.01,Math.round(lots*100)/100),riskUsd,acc,riskPct,slPips:Math.round(slPips)};
+}
 function posList(){ return localGet('fipa-local-positions'); }
 function posAdd(pos){
   const arr=posList();
@@ -2293,6 +2380,148 @@ document.getElementById('pos-add-btn')?.addEventListener('click',()=>{
   renderPositions();
 });
 
+/* ============ ANALIZE LIVE FOREX — pagină agregată per pereche ============
+   Combină tot ce e deja real în aplicație: semnal tehnic (computeSignal/rationale), Smart Money
+   (computeSmcSummary), context "fundamental" onest (variație reală valută, calendar economic,
+   știri reale taggate), plan de tranzacție (entry/SL/TP/RR/lot sugerat). PAIRS e deja sortat
+   descrescător după conf — filtrele păstrează ordinea. */
+function drawSparkline(canvas,closes){
+  // Grafic decorativ — nu trebuie să poată rupe randarea restului paginii dacă ceva neașteptat
+  // apare la nivel de canvas (browser vechi, canvas nemontat încă etc.).
+  try{
+    if(!canvas||!closes||closes.length<2||typeof canvas.getContext!=='function')return;
+    const dpr=window.devicePixelRatio||1;
+    const w=canvas.clientWidth||120, h=canvas.clientHeight||36;
+    canvas.width=w*dpr; canvas.height=h*dpr;
+    const ctx=canvas.getContext('2d');
+    if(!ctx)return;
+    ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,w,h);
+    const slice=closes.slice(-40);
+    const min=Math.min(...slice), max=Math.max(...slice);
+    const range=(max-min)||1;
+    const up=slice[slice.length-1]>=slice[0];
+    ctx.beginPath();
+    slice.forEach((v,i)=>{
+      const x=(i/(slice.length-1))*w;
+      const y=h-((v-min)/range)*h*0.85-h*0.075;
+      if(i===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.strokeStyle=up?'#00e5a0':'#f5576c';
+    ctx.lineWidth=1.6;
+    ctx.stroke();
+  }catch(e){ console.warn('drawSparkline eșuat (decorativ, ignorat):',e); }
+}
+function calCurrencyEvents(code){
+  const items=CAL_CACHE[CAL_CURRENT_WEEK]||CAL_CACHE['this']||[];
+  return items.filter(ev=>ev.country===code && (ev.impact==='High'||ev.impact==='Medium'))
+    .slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,2);
+}
+function newsForCurrency(code){
+  return (NEWS||[]).filter(n=>n.tags&&n.tags.includes(code)).slice(0,2);
+}
+function tradeTimingText(p,en){
+  if(p.sig==='WAIT'){
+    return en?'Nu deschide nimic acum — trendul și momentum-ul nu sunt suficient aliniate pentru un semnal clar (vezi mai sus). Așteaptă până apare un semnal BUY/SELL.'
+             :'Nu deschide nimic acum — trendul și momentum-ul nu sunt suficient aliniate pentru un semnal clar (vezi mai sus). Așteaptă până apare un semnal BUY/SELL.';
+  }
+  const dir=p.sig==='BUY'?(en?'long':'long'):(en?'short':'short');
+  return en
+    ? `Deschide ${dir} acum, aproape de prețul curent (~${p.px}) — confirmă manual alinierea trend+moment de mai sus și verifică dacă nu urmează un eveniment de calendar cu impact ridicat în următoarele 30-60 min pentru ${p.sym.split('/')[0]} sau ${p.sym.split('/')[1]}. Închide la Stop Loss (${p.sl}) sau Take Profit (${p.tp}); ieși manual mai devreme dacă prețul trece de partea opusă a EMA50 înainte de a atinge oricare nivel — semn că teza s-a invalidat.`
+    : `Deschide ${dir} acum, aproape de prețul curent (~${p.px}) — confirmă manual alinierea trend+moment de mai sus și verifică să nu urmeze un eveniment de calendar cu impact ridicat în următoarele 30-60 min pentru ${p.sym.split('/')[0]} sau ${p.sym.split('/')[1]}. Închide la Stop Loss (${p.sl}) sau Take Profit (${p.tp}); ieși manual mai devreme dacă prețul trece de partea opusă a EMA50 înainte de a atinge oricare nivel — semn că teza s-a invalidat.`;
+}
+function renderLiveAnalysisCard(p){
+  const en=LANG==='en';
+  const gc=p.grade==='A+'?'aplus':p.grade==='A'?'a':p.grade==='B'?'b':'c';
+  const [base,quote]=p.sym.split('/');
+  const smc=computeSmcSummary(p.sym);
+  const baseMom=currencyMomentumPct(base), quoteMom=currencyMomentumPct(quote);
+  const baseEvents=calCurrencyEvents(base), quoteEvents=(quote!==base)?calCurrencyEvents(quote):[];
+  const baseNews=newsForCurrency(base), quoteNews=(quote!==base)?newsForCurrency(quote):[];
+  const lotInfo=suggestLotSize(p);
+  const rationale=en?p.rationaleEn:p.rationale;
+
+  const smcHtml=smc?`
+    <div class="live-fact"><span>BOS</span><b class="${smc.bos?(smc.bos.type==='bullish'?'up':'down'):''}">${smc.bos?smc.bos.type.toUpperCase():'—'}</b></div>
+    <div class="live-fact"><span>Order Block</span><b>${smc.ob?smc.ob.level.toFixed(smc.dec):'—'}</b></div>
+    <div class="live-fact"><span>FVG</span><b>${smc.fvgs.length}</b></div>
+    <div class="live-fact"><span>${en?'Zone':'Zonă'}</span><b>${smc.zone}</b></div>`
+    : `<p class="dim">${en?'Not enough data yet.':'Date insuficiente încă.'}</p>`;
+
+  const fundHtml=`
+    <div class="live-fact"><span>${base}</span><b class="${baseMom!=null?(baseMom>=0?'up':'down'):''}">${baseMom!=null?(baseMom>=0?'+':'')+baseMom.toFixed(2)+'%':'—'} <span class="dim" style="font-weight:500">(20z)</span></b></div>
+    ${quote!==base?`<div class="live-fact"><span>${quote}</span><b class="${quoteMom!=null?(quoteMom>=0?'up':'down'):''}">${quoteMom!=null?(quoteMom>=0?'+':'')+quoteMom.toFixed(2)+'%':'—'} <span class="dim" style="font-weight:500">(20z)</span></b></div>`:''}
+    ${[...baseEvents,...quoteEvents].length?[...baseEvents,...quoteEvents].map(ev=>{
+      const d=new Date(ev.date);
+      const when=isNaN(d.getTime())?'':d.toLocaleString(en?'en-US':'ro-RO',{weekday:'short',hour:'2-digit',minute:'2-digit'});
+      return `<p style="margin-top:6px"><span class="cal-imp ${calImpactClass(ev.impact)}"></span>${ev.country} ${ev.title} <span class="dim">— ${when}</span></p>`;
+    }).join(''):`<p class="dim" style="margin-top:6px">${en?'No high/medium impact events this week for '+base+(quote!==base?'/'+quote:'')+'.':'Niciun eveniment cu impact ridicat/mediu săptămâna aceasta pentru '+base+(quote!==base?'/'+quote:'')+'.'}</p>`}
+    ${[...baseNews,...quoteNews].length?[...baseNews,...quoteNews].slice(0,2).map(n=>`<p style="margin-top:6px;font-size:11.5px" class="dim">📰 ${en?n.title_en:n.title}</p>`).join(''):''}`;
+
+  const planHtml = p.sig==='WAIT' ? `
+    <div class="live-plan wait">
+      <div class="live-block-title">${en?'Trade plan':'Plan de tranzacție'}</div>
+      <p>${en?'No active signal — no recommended entry right now.':'Niciun semnal activ — nicio intrare recomandată acum.'}</p>
+    </div>` : `
+    <div class="live-plan">
+      <div class="live-block-title">${en?'Trade plan':'Plan de tranzacție'}</div>
+      <div class="live-fact"><span>Entry</span><b>${p.entry}</b></div>
+      <div class="live-fact"><span>Stop Loss</span><b class="down">${p.sl}</b></div>
+      <div class="live-fact"><span>Take Profit</span><b class="up">${p.tp}</b></div>
+      <div class="live-fact"><span>Risk:Reward</span><b>${p.rr}</b></div>
+      <div class="live-fact"><span>${en?'Suggested lot':'Lot sugerat'}</span><b>${lotInfo?lotInfo.lots:'—'}</b></div>
+      ${lotInfo?`<p class="dim" style="margin-top:6px;font-size:11px">${en?`Based on Risk Manager settings: $${lotInfo.acc} account, ${lotInfo.riskPct}% risk ($${lotInfo.riskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`:`Din setările Risk Manager: cont $${lotInfo.acc}, risc ${lotInfo.riskPct}% ($${lotInfo.riskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`}</p>`:''}
+      <p style="margin-top:8px">${tradeTimingText(p,en)}</p>
+    </div>`;
+
+  return `<div class="live-card">
+    <div class="live-card-head">
+      <span class="grade ${gc}">${p.grade}</span>
+      <span class="sym">${p.sym}</span>
+      <span class="px">${p.px}</span>
+      <span class="${p.ch>=0?'up':'down'} mono">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span>
+      <span class="signal-badge ${p.sig.toLowerCase()}">${p.sig}</span>
+      <div class="conf-cell" style="width:110px"><span class="conf-bar"><span style="width:${p.conf}%"></span></span>${p.conf}%</div>
+      <canvas class="live-spark" id="spark-${p.sym.replace('/','')}"></canvas>
+    </div>
+    <div class="live-grid">
+      <div class="live-block"><div class="live-block-title"><i class="icon-line-chart"></i>${en?'Technical':'Tehnic'}</div><p>${rationale}</p></div>
+      <div class="live-block"><div class="live-block-title"><i class="icon-network"></i>Smart Money</div>${smcHtml}</div>
+      <div class="live-block"><div class="live-block-title"><i class="icon-globe"></i>${en?'Fundamental context':'Context fundamental'}</div>${fundHtml}</div>
+    </div>
+    ${planHtml}
+    <div class="live-actions">
+      <button class="btn" onclick="showPairDetail('${p.sym}')"><i class="icon-info"></i>${en?'Full detail':'Detalii complete'}</button>
+      ${p.sig!=='WAIT'?`<button class="btn primary" onclick="quickOpenPosition('${p.sym}','${p.sig==='BUY'?'BUY':'SELL'}',${p.entry})"><i class="icon-briefcase"></i>${en?'Open in MT5 tracker':'Deschide în tracker MT5'}</button>`:''}
+    </div>
+  </div>`;
+}
+function quickOpenPosition(sym,dir,entry){
+  openView('mt5');
+  const symSel=document.getElementById('pos-symbol-select'), dirSel=document.getElementById('pos-dir-select'), entryInput=document.getElementById('pos-entry-input');
+  if(symSel)symSel.value=sym;
+  if(dirSel)dirSel.value=dir;
+  if(entryInput)entryInput.value=entry;
+}
+function renderLiveAnalysisList(filter){
+  const el=document.getElementById('live-analysis-list');
+  if(!el)return;
+  if(!PAIRS.length){ el.innerHTML=`<p class="dim">${LANG==='en'?'Loading real data...':'Se încarcă date reale...'}</p>`; return; }
+  filter=filter||'Toate';
+  let rows=PAIRS.filter(p=>p.sym!=='DXY');
+  if(filter==='A+/A')rows=rows.filter(p=>p.grade==='A+'||p.grade==='A');
+  else if(filter==='BUY'||filter==='SELL')rows=rows.filter(p=>p.sig===filter);
+  // PAIRS e deja sortat descrescător după conf la sursă (initRealMarketData) — repetăm explicit
+  // aici ca garanție, indiferent de ordinea de filtrare de mai sus.
+  rows=rows.slice().sort((a,b)=>b.conf-a.conf);
+  el.innerHTML = rows.length ? rows.map(renderLiveAnalysisCard).join('') : `<p class="dim">${LANG==='en'?'No pairs match this filter.':'Niciun rezultat pentru acest filtru.'}</p>`;
+  rows.forEach(p=>{
+    const canvas=document.getElementById('spark-'+p.sym.replace('/',''));
+    const closes=PAIR_SERIES[p.sym];
+    if(canvas&&closes)drawSparkline(canvas,closes);
+  });
+}
+
 /* ============ METODOLOGIE — cum se construiește analiza, onest, fără marketing gol ============ */
 function renderMethodologyPanel(){
   const el=document.getElementById('methodology-panel');
@@ -2340,8 +2569,9 @@ function renderNews(id,items){
   }).join('');
 }
 renderNews('news-list',NEWS.slice(0,4));renderNews('news-full',NEWS);
-fetchRealNewsRSS(); // preluare reală, la încărcare — înlocuiește demo-ul dacă reușește
-renderCalendar('this'); // preluare reală calendar, la încărcare
+const refreshLiveAnalysisIfPresent=()=>{ if(typeof renderLiveAnalysisList==='function')renderLiveAnalysisList(document.querySelector('#live-tabs .tab.active')?.textContent.trim()); };
+fetchRealNewsRSS().then(refreshLiveAnalysisIfPresent); // preluare reală, la încărcare — înlocuiește demo-ul dacă reușește
+renderCalendar('this').then(refreshLiveAnalysisIfPresent); // preluare reală calendar, la încărcare
 renderMethodologyPanel();
 
 /* Chart */
@@ -2423,6 +2653,7 @@ function updateCalc(){
   document.getElementById('risk-usd').textContent='$'+risk.toFixed(2);
 }
 ['calc-acc','calc-risk','calc-sl'].forEach(id=>document.getElementById(id)?.addEventListener('input',updateCalc));
+['calc-acc','calc-risk'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>{ if(typeof renderLiveAnalysisList==='function')renderLiveAnalysisList(document.querySelector('#live-tabs .tab.active')?.textContent.trim()); }));
 
 /* Chat */
 
@@ -2535,6 +2766,11 @@ function handleTabChange(group,tab,idx){
     const smcP=document.getElementById('analysis-smc-panel'), techP=document.getElementById('analysis-tech-panel');
     if(smcP)smcP.style.display=which==='smc'?'':'none';
     if(techP)techP.style.display=which==='tech'?'':'none';
+    return;
+  }
+  // Analize Live Forex — filtru (verificat ÎNAINTE de tab-urile Scanner, care au aceleași etichete)
+  if(group.id==='live-tabs'){
+    renderLiveAnalysisList(txt);
     return;
   }
   // Scanner filter tabs
@@ -3482,6 +3718,7 @@ openView=function(name){
   if(name==='risk')renderRiskStats();
   if(name==='calendar')renderCalendar(CAL_CURRENT_WEEK);
   if(name==='mt5')renderPositions();
+  if(name==='liveanalysis')renderLiveAnalysisList(document.querySelector('#live-tabs .tab.active')?.textContent.trim());
 };
 renderAlerts(); // "Alerte" e vederea activă implicit la încărcare — o randăm imediat
 renderPositions(); // pozițiile MT5 locale, randate imediat (P&L live din PAIRS)
