@@ -23,10 +23,10 @@
   --bg-input:#0a1220;
   --border:#1f2a3e;
   --border-strong:#2d3d5c;
-  --text:#f0f4fb;
-  --text-2:#c7d2e1;
-  --text-3:#8695ae;
-  --text-4:#5a6a85;
+  --text:#ffffff;
+  --text-2:#ffffff;
+  --text-3:#ffffff;
+  --text-4:#ffffff;
   --brand:#00e5a0;
   --brand-2:#22d3ee;
   --violet:#8b5cf6;
@@ -606,7 +606,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.0</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.1</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="lucide-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -848,7 +848,7 @@ body.light .ambient-orb{opacity:.18}
           <div class="card-title">
             <h3><i class="lucide-radar"></i>Top Oportunități · Multi-Factor Scanner</h3>
             <div class="flex gap" style="gap:8px">
-              <span class="risk-pill low"><span class="pulse"></span>LIVE · 28 perechi</span>
+              <span class="risk-pill low"><span class="pulse"></span>LIVE · 50+ perechi</span>
               <button class="btn" onclick="openView('scanner')">Vezi tot <i class="lucide-arrow-right"></i></button>
             </div>
           </div>
@@ -1015,7 +1015,7 @@ body.light .ambient-orb{opacity:.18}
             <div class="pricing-desc">Trader activ · execuție zilnică.</div>
             <ul class="pricing-features">
               <li><i class="lucide-check-circle"></i><b>Tot din Free +</b></li>
-              <li><i class="lucide-check-circle"></i>Live Scanner 28 perechi × 9 TF</li>
+              <li><i class="lucide-check-circle"></i>Live Scanner 50+ perechi × 9 TF</li>
               <li><i class="lucide-check-circle"></i>AI Recomandări A+/A</li>
               <li><i class="lucide-check-circle"></i>Smart Money / ICT detection</li>
               <li><i class="lucide-check-circle"></i>MT5 · MEX Atlantic</li>
@@ -1058,7 +1058,7 @@ body.light .ambient-orb{opacity:.18}
       <!-- ============ SCANNER ============ -->
       <div class="view" id="view-scanner">
         <div class="page-head">
-          <div><h1><span data-i18n="sc_h">Live</span> <span class="accent" data-i18n="sc_a">Scanner</span></h1><p>28 perechi × 9 timeframes · detecție instant setup-uri A+/A</p></div>
+          <div><h1><span data-i18n="sc_h">Live</span> <span class="accent" data-i18n="sc_a">Scanner</span></h1><p>50+ perechi × 9 timeframes · detecție instant setup-uri A+/A</p></div>
           <div class="tabs" id="scanner-filter-tabs">
             <div class="tab active" data-filter="all">Toate</div>
             <div class="tab" data-filter="aplus">A+/A</div>
@@ -1544,7 +1544,13 @@ setInterval(updateSessionsLive,1000);updateSessionsLive();
 //   • XAU/USD (gold) isn't included yet: a free, no-key source for LIVE gold price exists, but a
 //     free historical series doesn't — and indicators need history. Rather than fake it, it's left
 //     out until we add a way to accumulate real history over time.
-const FX_BASKET = ['EUR','GBP','AUD','CAD','CHF','JPY','NZD','SEK'];
+// FX_BASKET: setul complet de valute cu curs de referință real BCE/Frankfurter (base=USD).
+// MAJOR_FX (7 valute + USD) generează automat cele 28 de perechi standard (major + minor crosses)
+// pe care le oferă orice broker retail. EXOTIC_FX adaugă zeci de perechi suplimentare reale
+// (USD/XXX) — ca "orice pereche care există pe piață" să chiar existe, nu doar un subset mic.
+const MAJOR_FX = ['EUR','GBP','AUD','NZD','CAD','CHF','JPY'];
+const EXOTIC_FX = ['SEK','NOK','DKK','PLN','CZK','HUF','TRY','ZAR','MXN','SGD','HKD','CNY','INR','KRW','THB','ILS','RON','PHP','BRL','IDR','MYR','BGN','ISK'];
+const FX_BASKET = [...MAJOR_FX, ...EXOTIC_FX];
 const STRENGTH_CODES = ['EUR','AUD','GBP','NZD','CAD','CHF','USD','JPY'];
 
 async function fetchFxHistory(days){
@@ -1568,19 +1574,29 @@ async function fetchBtcHistory(days){
   return data.prices.map(p=>p[1]);
 }
 
+// price of 1 unit of `base` expressed in `quote`, la momentul i, din ratele reale "valută per USD"
+function fxPairPrice(s,i,base,quote){
+  if(base==='USD')return s[quote][i];
+  if(quote==='USD')return 1/s[base][i];
+  return s[quote][i]/s[base][i];
+}
 function deriveFxPairSeries(fxHistory){
   const s = fxHistory.series;
   const n = s.EUR.length;
   const out = {};
-  out['EUR/USD'] = s.EUR.map(v=>1/v);
-  out['GBP/USD'] = s.GBP.map(v=>1/v);
-  out['AUD/USD'] = s.AUD.map(v=>1/v);
-  out['NZD/USD'] = s.NZD.map(v=>1/v);
-  out['USD/CAD'] = s.CAD.slice();
-  out['USD/CHF'] = s.CHF.slice();
-  out['USD/JPY'] = s.JPY.slice();
-  out['EUR/JPY'] = s.EUR.map((v,i)=> s.JPY[i]/v);
-  out['GBP/JPY'] = s.GBP.map((v,i)=> s.JPY[i]/v);
+  // Cele 28 de perechi standard major/minor (7 valute majore + USD, toate combinațiile),
+  // cu ordinea bază/cotație conform convenției reale de piață (EUR>GBP>AUD>NZD>USD>CAD>CHF>JPY).
+  const ORDER=['EUR','GBP','AUD','NZD','USD','CAD','CHF','JPY'];
+  for(let a=0;a<ORDER.length;a++){
+    for(let b=a+1;b<ORDER.length;b++){
+      const base=ORDER[a], quote=ORDER[b];
+      if(base!=='USD' && !MAJOR_FX.includes(base))continue;
+      if(quote!=='USD' && !MAJOR_FX.includes(quote))continue;
+      out[base+'/'+quote]=Array.from({length:n},(_,i)=>fxPairPrice(s,i,base,quote));
+    }
+  }
+  // Perechi exotice reale suplimentare (convenție de piață: USD e mereu baza pentru acestea).
+  EXOTIC_FX.forEach(c=>{ out['USD/'+c]=s[c].slice(); });
   const dxy = [];
   for(let i=0;i<n;i++){
     const eurusd=1/s.EUR[i], gbpusd=1/s.GBP[i];
@@ -2158,7 +2174,7 @@ setTimeout(()=>{
   if(!el||typeof LightweightCharts==='undefined')return;
   const isDark=!document.body.classList.contains('light');
   const chart=LightweightCharts.createChart(el,{
-    layout:{background:{color:'transparent'},textColor:isDark?'#8695ae':'#64748b'},
+    layout:{background:{color:'transparent'},textColor:isDark?'#ffffff':'#64748b'},
     grid:{vertLines:{color:isDark?'rgba(31,42,62,.4)':'rgba(226,232,240,.5)'},horzLines:{color:isDark?'rgba(31,42,62,.4)':'rgba(226,232,240,.5)'}},
     rightPriceScale:{borderColor:isDark?'#1f2a3e':'#e2e8f0'},
     timeScale:{borderColor:isDark?'#1f2a3e':'#e2e8f0',timeVisible:true}
@@ -2671,7 +2687,7 @@ const RO_EN_PAIRS=[
   ['USD slăbește · EUR & AUD forte','USD weakens · EUR & AUD strong'],
   ['247 setup-uri identificate · Avg mișcare: ','247 setups identified · Avg move: '],
   ['Top Oportunități · Multi-Factor Scanner','Top Opportunities · Multi-Factor Scanner'],
-  ['28 perechi × 9 timeframes · detecție instant setup-uri A+/A','28 pairs × 9 timeframes · instant A+/A setup detection'],
+  ['50+ perechi × 9 timeframes · detecție instant setup-uri A+/A','50+ pairs × 9 timeframes · instant A+/A setup detection'],
   ['Asistent AI Forex · Claude Sonnet 4.6 · Context real-time cu piața','Forex AI Assistant · Claude Sonnet 4.6 · Real-time market context'],
   ['Multibank Group · Cont Demo · Read-only mode enterprise-grade','Multibank Group · Demo Account · Enterprise-grade read-only mode'],
   ['Cont Demo · #82419044','Demo Account · #82419044'],
@@ -2687,7 +2703,7 @@ const RO_EN_PAIRS=[
   ['Trader activ · execuție zilnică.','Active trader · daily execution.'],
   ['💰 Economisești $98 · 2 luni gratis','💰 Save $98 · 2 months free'],
   ['💰 Economisești $398 · 2 luni gratis','💰 Save $398 · 2 months free'],
-  ['Live Scanner 28 perechi × 9 TF','Live Scanner 28 pairs × 9 TF'],
+  ['Live Scanner 50+ perechi × 9 TF','Live Scanner 50+ pairs × 9 TF'],
   ['AI Recomandări A+/A','AI Recommendations A+/A'],
   ['Risk Manager complet','Full Risk Manager'],
   ['News LIVE fără delay','LIVE news, no delay'],
@@ -3479,7 +3495,7 @@ async function initSMCChart(){
   const el=document.getElementById('smc-mini-chart');
   if(!el||typeof LightweightCharts==='undefined')return;
   smcChart=LightweightCharts.createChart(el,{
-    height:180,layout:{background:{color:'transparent'},textColor:'rgba(255,255,255,0.35)',fontSize:10},
+    height:180,layout:{background:{color:'transparent'},textColor:'rgba(255,255,255,0.9)',fontSize:10},
     grid:{vertLines:{visible:false},horzLines:{color:'rgba(255,255,255,0.04)'}},
     timeScale:{visible:true,borderVisible:false,timeVisible:true},
     rightPriceScale:{borderVisible:false},crosshair:{mode:0},
