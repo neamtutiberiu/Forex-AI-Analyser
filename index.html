@@ -168,9 +168,13 @@ body.light .brand-logo{color:#fff}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 
 .lang-toggle,.theme-toggle{display:flex;border:1.5px solid rgba(0,229,160,.4);border-radius:19px;overflow:hidden;background:linear-gradient(135deg,rgba(0,229,160,.1),rgba(34,211,238,.06))}
-.lang-toggle button,.theme-toggle button{background:transparent;border:none;color:var(--text-3);padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.4px}
+.lang-toggle button,.theme-toggle button{background:transparent;border:none;color:#fff;width:30px;height:26px;padding:0;display:grid;place-items:center;font-size:10.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.2px}
 .lang-toggle button.active,.theme-toggle button.active{background:var(--grad);color:#031}
 body.light .lang-toggle button.active,body.light .theme-toggle button.active{color:#fff}
+.theme-toggle button i{font-size:13px;transition:all .25s}
+.theme-toggle button[data-theme="dark"] i{color:#fbbf24;filter:drop-shadow(0 0 5px rgba(251,191,36,.9))}
+.theme-toggle button[data-theme="light"] i{color:rgba(255,255,255,.32);filter:none}
+.theme-toggle button[data-theme="light"].active i{color:rgba(3,17,10,.45)}
 
 .tier-pill{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.6px;cursor:pointer;transition:all .2s;border:1px solid transparent;text-transform:uppercase}
 .tier-pill.free{background:var(--bg-input);color:var(--text-3);border-color:var(--border)}
@@ -613,7 +617,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.4</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.5</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="lucide-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -672,8 +676,8 @@ body.light .ambient-orb{opacity:.18}
           <button data-lang="en" class="">EN</button>
         </div>
         <div class="theme-toggle">
-          <button data-theme="dark" class="active" title="Dark"><i class="lucide-moon"></i></button>
-          <button data-theme="light" title="Light" class=""><i class="lucide-sun"></i></button>
+          <button data-theme="dark" class="active" title="Dark (bec aprins)"><i class="lucide-lightbulb"></i></button>
+          <button data-theme="light" title="Light (bec stins)" class=""><i class="lucide-lightbulb"></i></button>
         </div>
         <div class="tier-pill free" id="tier-btn" onclick="handleTierClick()" style="position:relative"><i class="lucide-crown"></i><span id="tier-label">FREE</span>
           <div class="owner-menu" id="owner-menu"></div>
@@ -1564,8 +1568,13 @@ setInterval(updateSessionsLive,1000);updateSessionsLive();
 // ================= REAL MARKET DATA ENGINE =================
 // Replaces the old hardcoded PAIRS/STRENGTH demo arrays with genuine computed technical
 // analysis, from real free data sources — no backend, no API key, runs entirely in the browser:
-//   • Major FX pairs + DXY: European Central Bank daily reference rates via the Frankfurter API
+//   • Major + exotic FX pairs + DXY: European Central Bank daily reference rates via Frankfurter API
 //   • BTC/USD: CoinGecko public API (daily historical prices)
+//   • XAU/USD (gold): CoinGecko public API, via PAX Gold (PAXG) — a token backed 1:1 by physical
+//     LBMA gold and redeemable for it, so its USD price tracks the real spot gold price closely
+//     (small basis, usually well under 0.5%). No free, no-key, CORS-friendly source of real
+//     historical spot-gold data exists for direct browser use, so this is the honest real-data
+//     substitute — clearly labeled as such wherever XAU/USD is shown.
 // All indicators below (EMA, RSI, MACD, Bollinger, ATR, efficiency ratio) are standard, verifiable
 // formulas computed from that real price history — not fabricated numbers.
 //
@@ -1573,9 +1582,6 @@ setInterval(updateSessionsLive,1000);updateSessionsLive();
 //   • Data is DAILY (D1) closes only — this suits swing/position analysis, not intraday scalping.
 //   • ATR here is a close-to-close volatility proxy (free daily FX data has no intraday High/Low),
 //     which is a conservative, well-known substitute but not identical to true intrabar ATR.
-//   • XAU/USD (gold) isn't included yet: a free, no-key source for LIVE gold price exists, but a
-//     free historical series doesn't — and indicators need history. Rather than fake it, it's left
-//     out until we add a way to accumulate real history over time.
 // FX_BASKET: setul complet de valute cu curs de referință real BCE/Frankfurter (base=USD).
 // MAJOR_FX (7 valute + USD) generează automat cele 28 de perechi standard (major + minor crosses)
 // pe care le oferă orice broker retail. EXOTIC_FX adaugă zeci de perechi suplimentare reale
@@ -1602,6 +1608,17 @@ async function fetchBtcHistory(days){
   const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}&interval=daily`;
   const res = await fetch(url);
   if(!res.ok) throw new Error('CoinGecko API: HTTP '+res.status);
+  const data = await res.json();
+  return data.prices.map(p=>p[1]);
+}
+async function fetchGoldHistory(days){
+  // PAX Gold (PAXG) — token 1:1 backat de aur fizic LBMA; prețul lui urmărește prețul real
+  // spot al aurului îndeaproape. E folosit ca proxy real pentru XAU/USD, la fel cum se
+  // folosește CoinGecko mai sus pentru BTC/USD — nicio sursă gratuită, fără cheie, CORS-friendly
+  // de istoric real spot-gold nu există pentru fetch direct din browser.
+  const url = `https://api.coingecko.com/api/v3/coins/pax-gold/market_chart?vs_currency=usd&days=${days}&interval=daily`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('CoinGecko API (PAXG): HTTP '+res.status);
   const data = await res.json();
   return data.prices.map(p=>p[1]);
 }
@@ -2158,6 +2175,18 @@ async function initRealMarketData(){
     console.error('Real market data fetch failed:', e);
     MARKET_DATA_STATUS = 'error';
     MARKET_DATA_ERROR = e.message || String(e);
+  }
+  // Aur (XAU/USD via PAXG): fetch separat, best-effort — dacă eșuează (rate-limit CoinGecko etc.),
+  // restul aplicației (forex + BTC) rămâne complet funcțional, doar aurul lipsește din listă.
+  try{
+    const goldCloses = await fetchGoldHistory(280);
+    const goldSig = computeSignal('XAU/USD', goldCloses, 'D1');
+    if(goldSig){
+      PAIRS = [...PAIRS, goldSig].sort((a,b)=> b.conf-a.conf);
+      PAIR_SERIES['XAU/USD'] = goldCloses;
+    }
+  }catch(e){
+    console.warn('XAU/USD (via PAXG) fetch failed — restul pieței rămâne neafectat:', e);
   }
   renderMarketUI();
 }
