@@ -618,7 +618,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.8</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.9</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -1985,15 +1985,21 @@ let RAW_FX_SERIES = null; // valute individuale (rată reală per USD) — folos
 // Perechile "curate" (cele 53 din dashboard/scanner) rămân cele afișate implicit; restul combinațiilor
 // sunt calculate on-demand, instant, exact când utilizatorul le caută — ca să nu aglomerăm UI-ul cu
 // sute de rânduri nefolosite, dar căutarea tot găsește literalmente orice pereche reală existentă.
-const ALL_FX_CODES = [...FX_BASKET, 'USD'];
+const ALL_FX_CODES = [...FX_BASKET, 'USD', 'CNH'];
+// CNH (yuan offshore/Hong Kong) nu are curs de referință separat la BCE — doar CNY (onshore) există
+// în setul gratuit Frankfurter. CNH tranzacționează extrem de aproape de CNY (de regulă <0.5% diferență),
+// deci îl folosim ca proxy onest, etichetat clar — la fel cum XAU/USD folosește PAXG mai sus.
+const FX_CODE_ALIASES = { CNH: 'CNY' };
 function deriveCrossOnDemand(base, quote){
   if(!RAW_FX_SERIES || base===quote) return null;
   if(!ALL_FX_CODES.includes(base) || !ALL_FX_CODES.includes(quote)) return null;
-  const key = base+'/'+quote;
+  const rBase = FX_CODE_ALIASES[base] || base;
+  const rQuote = FX_CODE_ALIASES[quote] || quote;
+  const key = base+'/'+quote; // simbolul afișat rămâne cel real cerut (ex. USD/CNH)
   const existing = PAIRS.find(x=>x.sym===key);
   if(existing) return existing;
   const n = RAW_FX_SERIES.EUR.length;
-  const closes = Array.from({length:n},(_,i)=> fxPairPrice(RAW_FX_SERIES,i,base,quote));
+  const closes = Array.from({length:n},(_,i)=> fxPairPrice(RAW_FX_SERIES,i,rBase,rQuote));
   const sig = computeSignal(key, closes, 'D1');
   if(sig){ PAIR_SERIES[key]=closes; PAIRS.push(sig); }
   return sig;
@@ -2005,6 +2011,35 @@ function findAnyPairForQuery(q){
   const base = clean.slice(0,3).toUpperCase();
   const quote = clean.slice(3,6).toUpperCase();
   return deriveCrossOnDemand(base,quote) || deriveCrossOnDemand(quote,base);
+}
+
+// Instrumente cerute care NU pot fi adăugate cu date reale — nicio sursă gratuită, fără cheie API,
+// compatibilă CORS din browser nu oferă istoric zilnic real pentru ele (spre deosebire de setul BCE
+// de mai sus sau de aur, care are proxy prin PAXG). Le semnalăm onest în search, nu inventăm cifre.
+const UNSUPPORTED_REASON = {
+  RUB:'RUB nu face parte din setul BCE (Frankfurter) — nicio sursă gratuită cu istoric zilnic real.',
+  ARS:'ARS nu are nicio sursă gratuită de date istorice reale disponibilă pentru fetch din browser.',
+  CLP:'CLP nu face parte din setul BCE — nicio sursă gratuită cu istoric real disponibilă.',
+  KZT:'KZT nu are nicio sursă gratuită de date istorice reale disponibilă.',
+  UAH:'UAH nu face parte din setul BCE — nicio sursă gratuită cu istoric real disponibilă.',
+  XAG:'Argint (XAG) — spre deosebire de aur (proxy PAXG), nu există un token gratuit fiabil cu istoric real.',
+  XPT:'Platină (XPT) — nicio sursă gratuită cu istoric real de preț spot disponibilă.',
+  XPD:'Paladiu (XPD) — nicio sursă gratuită cu istoric real de preț spot disponibilă.',
+  WTI:'Petrol WTI — necesită API cu cheie plătită; nicio sursă gratuită compatibilă CORS din browser.',
+  BRENT:'Petrol Brent — necesită API cu cheie plătită; nicio sursă gratuită compatibilă CORS.',
+  NGAS:'Gaz natural — necesită API cu cheie plătită; nicio sursă gratuită compatibilă CORS.',
+};
+const UNSUPPORTED_INDICES = {
+  US30:'Dow Jones',US100:'Nasdaq 100',US500:'S&P 500',DE40:'DAX 40',FR40:'CAC 40',UK100:'FTSE 100',JP225:'Nikkei 225'
+};
+function unsupportedReasonForQuery(q){
+  const cleanAlnum = q.replace(/[^a-z0-9]/g,'').toUpperCase(); // păstrează cifrele, pt. indici (US30, DE40...)
+  if(UNSUPPORTED_INDICES[cleanAlnum]) return `${cleanAlnum} (${UNSUPPORTED_INDICES[cleanAlnum]}) e un indice bursier, nu o pereche valutară — necesită API financiar cu cheie plătită; nicio sursă gratuită compatibilă CORS din browser.`;
+  const clean = q.replace(/[^a-z]/g,'').toUpperCase();
+  for(const code of Object.keys(UNSUPPORTED_REASON)){
+    if(clean===code || clean.includes(code)) return UNSUPPORTED_REASON[code];
+  }
+  return null;
 }
 
 function renderMarketUI(){
@@ -2767,7 +2802,12 @@ function runLiveSearch(q){
     html+=`<div class="sr-group-lbl">${LANG==='en'?'Indicators':'Indicatori'}</div>`;
     html+=inds.map(i=>`<div class="sr-item" onclick="closeSearchResults();openView('${i.view}')"><i class="icon-line-chart"></i><div class="sr-main"><div class="sr-title">${i.name}</div></div></div>`).join('');
   }
-  if(!html)html=`<div class="sr-empty">${LANG==='en'?'No live matches for':'Niciun rezultat live pentru'} "${q}"</div>`;
+  if(!html){
+    const reason=unsupportedReasonForQuery(q);
+    html = reason
+      ? `<div class="sr-empty" style="text-align:left;padding:14px 16px"><i class="icon-info" style="margin-right:6px"></i>${reason}</div>`
+      : `<div class="sr-empty">${LANG==='en'?'No live matches for':'Niciun rezultat live pentru'} "${q}"</div>`;
+  }
   box.innerHTML=html;box.classList.add('open');
 }
 function closeSearchResults(){document.getElementById('search-results').classList.remove('open');document.getElementById('search-btn').classList.remove('live');}
