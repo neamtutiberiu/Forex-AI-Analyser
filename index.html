@@ -147,9 +147,10 @@ body.light .brand-logo{color:#fff}
 .tz-diff-item.mute{color:var(--text-4);font-weight:600}
 
 .topbar-actions{display:flex;flex-wrap:wrap;row-gap:6px;gap:6px;align-items:center;margin-left:auto;justify-content:flex-end}
-.icon-btn{width:38px;height:38px;border-radius:19px;background:linear-gradient(135deg,rgba(0,229,160,.16),rgba(34,211,238,.1));border:1.5px solid rgba(0,229,160,.45);display:grid;place-items:center;color:var(--brand);cursor:pointer;transition:all .18s;position:relative;font-size:15px;text-decoration:none}
-.icon-btn-labeled{display:flex;flex-direction:column;align-items:center;width:auto;height:auto;padding:8px 14px;gap:3px;border-radius:20px}
-.icon-btn-label{font-size:11.5px;font-weight:700;letter-spacing:.02em;color:#ffffff;white-space:nowrap}
+.icon-btn{width:38px;height:38px;border-radius:19px;background:linear-gradient(135deg,rgba(0,229,160,.16),rgba(34,211,238,.1));border:1.5px solid rgba(0,229,160,.45);display:grid;place-items:center;color:var(--brand);cursor:pointer;transition:all .18s;position:relative;font-size:15px;text-decoration:none;line-height:1}
+.icon-btn-labeled{display:flex;flex-direction:row;align-items:center;justify-content:center;width:auto;height:auto;padding:9px 15px;gap:7px;border-radius:20px}
+.icon-btn-labeled i{line-height:1;display:block;flex-shrink:0}
+.icon-btn-label{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:#ffffff;white-space:nowrap;line-height:1;display:block}
 .icon-btn:hover{border-color:var(--brand);color:var(--brand);background:linear-gradient(135deg,rgba(0,229,160,.28),rgba(34,211,238,.18));transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,229,160,.25)}
 .icon-btn .badge{position:absolute;top:-5px;right:-5px;background:var(--down);color:#fff;font-size:9px;padding:2px 6px;border-radius:9px;font-weight:800;min-width:16px;text-align:center}
 .clock{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brand);letter-spacing:.5px;padding:0 8px;font-weight:600;white-space:nowrap;flex-shrink:0;min-width:96px;text-align:center}
@@ -576,9 +577,9 @@ body.light .ambient-orb{opacity:.18}
     <div class="auth-field" id="auth-field-username" style="display:none"><label>Nume utilizator</label><input type="text" id="auth-username" autocomplete="nickname"></div>
     <div class="auth-field"><label id="auth-lbl-user">Utilizator</label><input type="text" id="auth-user" autocomplete="username"></div>
     <div class="auth-field"><label id="auth-lbl-pass">Parolă</label><input type="password" id="auth-pass" autocomplete="current-password"></div>
-    <button class="btn primary auth-submit" id="auth-submit"><i class="lucide-log-in"></i><span id="auth-btn-lbl">Intră în cont</span></button>
-    <button class="btn auth-submit" id="auth-signup" style="display:none;margin-top:10px;background:transparent"><i class="lucide-user-plus"></i><span id="auth-signup-lbl">Creează cont nou</span></button>
-    <button class="btn auth-submit" id="auth-forgot" style="display:none;margin-top:10px;background:transparent;font-size:12px;color:var(--text-3)"><i class="lucide-key-round"></i><span id="auth-forgot-lbl">Recuperare cont</span></button>
+    <button class="btn primary auth-submit" id="auth-submit"><i class="icon-log-in"></i><span id="auth-btn-lbl">Intră în cont</span></button>
+    <button class="btn auth-submit" id="auth-signup" style="display:none;margin-top:10px;background:transparent"><i class="icon-user-plus"></i><span id="auth-signup-lbl">Creează cont nou</span></button>
+    <button class="btn auth-submit" id="auth-forgot" style="display:none;margin-top:10px;background:transparent;font-size:12px;color:var(--text-3)"><i class="icon-key-round"></i><span id="auth-forgot-lbl">Recuperare cont</span></button>
     <div class="auth-note" id="auth-note">Cont demo: <b>demo</b> / <b>demo</b> · Cont Creator (drepturi depline): <b>admin</b> / schimbă parola din cod înainte de lansare.</div>
   </div>
 </div>
@@ -591,7 +592,7 @@ body.light .ambient-orb{opacity:.18}
     <div class="auth-error" id="reset-error">Eroare.</div>
     <div class="auth-field"><label id="reset-lbl-pass">Parolă nouă</label><input type="password" id="reset-pass" autocomplete="new-password"></div>
     <div class="auth-field"><label id="reset-lbl-pass2">Confirmă parola</label><input type="password" id="reset-pass2" autocomplete="new-password"></div>
-    <button class="btn primary auth-submit" id="reset-submit"><i class="lucide-check"></i><span id="reset-btn-lbl">Salvează parola nouă</span></button>
+    <button class="btn primary auth-submit" id="reset-submit"><i class="icon-check"></i><span id="reset-btn-lbl">Salvează parola nouă</span></button>
   </div>
 </div>
 
@@ -617,34 +618,34 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.5</div>
-    <div class="owner-banner" id="owner-banner" style="display:none"><i class="lucide-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.6</div>
+    <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
-    <div class="nav-item" data-view="dashboard"><i class="lucide-layout-dashboard"></i><span data-i18n="n_dash">Dashboard</span></div>
-    <div class="nav-item" data-view="scanner"><i class="lucide-radar"></i><span data-i18n="n_scan">Scanner</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="recommendations"><i class="lucide-sparkles"></i><span data-i18n="n_reco">Recomandări</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="watchlist"><i class="lucide-star"></i><span data-i18n="n_watch">Watchlist</span></div>
+    <div class="nav-item" data-view="dashboard"><i class="icon-layout-dashboard"></i><span data-i18n="n_dash">Dashboard</span></div>
+    <div class="nav-item" data-view="scanner"><i class="icon-radar"></i><span data-i18n="n_scan">Scanner</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="recommendations"><i class="icon-sparkles"></i><span data-i18n="n_reco">Recomandări</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="watchlist"><i class="icon-star"></i><span data-i18n="n_watch">Watchlist</span></div>
 
     <div class="nav-section" data-i18n="s_analysis">Analiză</div>
-    <div class="nav-item" data-view="smc"><i class="lucide-network"></i><span data-i18n="n_smc">Smart Money</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="technical"><i class="lucide-line-chart"></i><span data-i18n="n_tech">Tehnic</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="sentiment"><i class="lucide-gauge"></i><span data-i18n="n_sent">Sentiment</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="smc"><i class="icon-network"></i><span data-i18n="n_smc">Smart Money</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="technical"><i class="icon-line-chart"></i><span data-i18n="n_tech">Tehnic</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="sentiment"><i class="icon-gauge"></i><span data-i18n="n_sent">Sentiment</span><span class="nav-badge pro">PRO</span></div>
 
     <div class="nav-section" data-i18n="s_market">Piață</div>
-    <div class="nav-item" data-view="news"><i class="lucide-radio"></i><span data-i18n="n_news">Știri AI</span></div>
-    <div class="nav-item" data-view="calendar"><i class="lucide-calendar-days"></i><span data-i18n="n_cal">Calendar</span></div>
-    <div class="nav-item" data-view="strength"><i class="lucide-bar-chart-3"></i><span data-i18n="n_str">Currency Strength</span></div>
+    <div class="nav-item" data-view="news"><i class="icon-radio"></i><span data-i18n="n_news">Știri AI</span></div>
+    <div class="nav-item" data-view="calendar"><i class="icon-calendar-days"></i><span data-i18n="n_cal">Calendar</span></div>
+    <div class="nav-item" data-view="strength"><i class="icon-bar-chart-3"></i><span data-i18n="n_str">Currency Strength</span></div>
 
     <div class="nav-section" data-i18n="s_trading">Trading</div>
-    <div class="nav-item" data-view="mt5"><i class="lucide-plug"></i><span data-i18n="n_mt5">MT5 · MEX Atlantic</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="journal"><i class="lucide-book-open"></i><span data-i18n="n_journal">Jurnal</span><span class="nav-badge pro">PRO</span></div>
-    <div class="nav-item" data-view="risk"><i class="lucide-shield"></i><span data-i18n="n_risk">Risk</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="mt5"><i class="icon-plug"></i><span data-i18n="n_mt5">MT5 · MEX Atlantic</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="journal"><i class="icon-book-open"></i><span data-i18n="n_journal">Jurnal</span><span class="nav-badge pro">PRO</span></div>
+    <div class="nav-item" data-view="risk"><i class="icon-shield"></i><span data-i18n="n_risk">Risk</span><span class="nav-badge pro">PRO</span></div>
 
     <div class="nav-section" data-i18n="s_ai">AI</div>
-    <div class="nav-item" data-view="chat"><i class="lucide-message-circle"></i><span data-i18n="n_chat">Chat AI</span></div>
-    <div class="nav-item active" data-view="alerts"><i class="lucide-bell"></i><span data-i18n="n_alerts">Alerte</span></div>
-    <div class="nav-item" data-view="pricing"><i class="lucide-crown"></i><span data-i18n="n_price">Planuri</span></div>
+    <div class="nav-item" data-view="chat"><i class="icon-message-circle"></i><span data-i18n="n_chat">Chat AI</span></div>
+    <div class="nav-item active" data-view="alerts"><i class="icon-bell"></i><span data-i18n="n_alerts">Alerte</span></div>
+    <div class="nav-item" data-view="pricing"><i class="icon-crown"></i><span data-i18n="n_price">Planuri</span></div>
 
   </aside>
 
@@ -654,7 +655,7 @@ body.light .ambient-orb{opacity:.18}
     <div class="topbar">
       <div class="search" id="search-wrap">
         <input type="text" data-i18n-ph="search" placeholder="Caută perechi valutare..." id="search-input" autocomplete="off">
-        <button class="search-btn" id="search-btn" title="Căutare live"><i class="lucide-search"></i></button>
+        <button class="search-btn" id="search-btn" title="Căutare live"><i class="icon-search"></i></button>
         <div class="search-results" id="search-results"></div>
       </div>
       <div class="sessions" id="sessions-row">
@@ -676,20 +677,20 @@ body.light .ambient-orb{opacity:.18}
           <button data-lang="en" class="">EN</button>
         </div>
         <div class="theme-toggle">
-          <button data-theme="dark" class="active" title="Dark (bec aprins)"><i class="lucide-lightbulb"></i></button>
-          <button data-theme="light" title="Light (bec stins)" class=""><i class="lucide-lightbulb"></i></button>
+          <button data-theme="dark" class="active" title="Dark (bec aprins)"><i class="icon-lightbulb"></i></button>
+          <button data-theme="light" title="Light (bec stins)" class=""><i class="icon-lightbulb-off"></i></button>
         </div>
-        <div class="tier-pill free" id="tier-btn" onclick="handleTierClick()" style="position:relative"><i class="lucide-crown"></i><span id="tier-label">FREE</span>
+        <div class="tier-pill free" id="tier-btn" onclick="handleTierClick()" style="position:relative"><i class="icon-crown"></i><span id="tier-label">FREE</span>
           <div class="owner-menu" id="owner-menu"></div>
         </div>
-        <div class="icon-btn icon-btn-labeled" id="notif-btn" title="Notificări"><i class="lucide-bell"></i><span class="badge" id="notif-badge">3</span>
+        <div class="icon-btn icon-btn-labeled" id="notif-btn" title="Notificări"><i class="icon-bell"></i><span class="badge" id="notif-badge">3</span>
           <span class="icon-btn-label">Notificări</span>
           <div class="notif-panel" id="notif-panel"></div>
         </div>
-        <div class="icon-btn icon-btn-labeled" id="refresh-btn" title="Actualizează date live"><i class="lucide-refresh-cw"></i>
+        <div class="icon-btn icon-btn-labeled" id="refresh-btn" title="Actualizează date live"><i class="icon-refresh-cw"></i>
           <span class="icon-btn-label">Update</span>
         </div>
-        <div class="icon-btn" id="logout-btn" title="Log Out" onclick="logoutApp()" style="display:none;gap:6px;width:auto;padding:0 14px;font-size:12px;font-weight:700;color:var(--down);white-space:nowrap;flex-shrink:0"><i class="lucide-log-out"></i><span id="logout-btn-lbl">Log Out</span></div>
+        <div class="icon-btn" id="logout-btn" title="Log Out" onclick="logoutApp()" style="display:none;align-items:center;justify-content:center;gap:6px;width:auto;padding:0 14px;font-size:12.5px;font-weight:800;color:var(--down);white-space:nowrap;flex-shrink:0;line-height:1"><i class="icon-log-out" style="line-height:1"></i><span id="logout-btn-lbl" style="line-height:1">Log Out</span></div>
       </div>
     </div>
 
@@ -728,7 +729,7 @@ body.light .ambient-orb{opacity:.18}
               </div>
             </div>
             <div class="hero-verdict">
-              <span class="rec" id="hero-rec"><i class="lucide-loader"></i>Se încarcă...</span>
+              <span class="rec" id="hero-rec"><i class="icon-loader"></i>Se încarcă...</span>
               <h2>Top setup: <span class="pair" id="hero-pair">—</span> · <span id="hero-tf">—</span></h2>
               <p class="desc" id="hero-desc">Se calculează din date reale (Frankfurter/CoinGecko)...</p>
               <div class="hero-values">
@@ -740,8 +741,8 @@ body.light .ambient-orb{opacity:.18}
                 <div class="val"><span class="lbl">Confidence</span><span class="num up" id="hero-conf">—</span></div>
               </div>
               <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
-                <button class="btn primary large"><i class="lucide-zap"></i>Trimite la MT5</button>
-                <button class="btn large" id="hero-details-btn"><i class="lucide-info"></i>Detalii complete</button>
+                <button class="btn primary large"><i class="icon-zap"></i>Trimite la MT5</button>
+                <button class="btn large" id="hero-details-btn"><i class="icon-info"></i>Detalii complete</button>
               </div>
             </div>
           </div>
@@ -752,26 +753,26 @@ body.light .ambient-orb{opacity:.18}
           <div class="card kpi hoverable">
             <div class="kpi-head">
               <div class="lbl">Trend Global Forex</div>
-              <div class="icon"><i class="lucide-trending-up"></i></div>
+              <div class="icon"><i class="icon-trending-up"></i></div>
             </div>
             <div class="val" id="kpi-trend-val">—</div>
-            <div class="delta" id="kpi-trend-delta"><i class="lucide-loader"></i>Se calculează...</div>
+            <div class="delta" id="kpi-trend-delta"><i class="icon-loader"></i>Se calculează...</div>
           </div>
           <div class="card kpi hoverable">
             <div class="kpi-head">
               <div class="lbl">Fear &amp; Greed</div>
-              <div class="icon"><i class="lucide-gauge"></i></div>
+              <div class="icon"><i class="icon-gauge"></i></div>
             </div>
             <div class="val mono" id="kpi-fg-val">—</div>
-            <div class="delta" id="kpi-fg-delta"><i class="lucide-loader"></i>Se calculează...</div>
+            <div class="delta" id="kpi-fg-delta"><i class="icon-loader"></i>Se calculează...</div>
           </div>
           <div class="card kpi hoverable">
             <div class="kpi-head">
               <div class="lbl">DXY · Dollar Index</div>
-              <div class="icon"><i class="lucide-dollar-sign"></i></div>
+              <div class="icon"><i class="icon-dollar-sign"></i></div>
             </div>
             <div class="val mono" id="kpi-dxy-val">—</div>
-            <div class="delta" id="kpi-dxy-delta"><i class="lucide-loader"></i>Se calculează...</div>
+            <div class="delta" id="kpi-dxy-delta"><i class="icon-loader"></i>Se calculează...</div>
           </div>
         </div>
 
@@ -780,7 +781,7 @@ body.light .ambient-orb{opacity:.18}
           <div class="pred-card">
             <div class="pred-head">
               <div class="pred-lbl" data-i18n="p_cons">Consens AI · 6 modele</div>
-              <div class="pred-icon"><i class="lucide-users"></i></div>
+              <div class="pred-icon"><i class="icon-users"></i></div>
             </div>
             <div class="pred-val up">6<span style="color:var(--text-4);font-size:16px">/6</span></div>
             <div class="pred-sub"><b class="up">Toate modelele confirmă BUY</b> · XGB, LSTM, Transformer, RF, GBM, Neural</div>
@@ -788,7 +789,7 @@ body.light .ambient-orb{opacity:.18}
           <div class="pred-card">
             <div class="pred-head">
               <div class="pred-lbl" data-i18n="p_hist">Setup-uri Similare · 5 ani</div>
-              <div class="pred-icon" style="background:color-mix(in srgb,var(--up) 12%,transparent);color:var(--up)"><i class="lucide-database"></i></div>
+              <div class="pred-icon" style="background:color-mix(in srgb,var(--up) 12%,transparent);color:var(--up)"><i class="icon-database"></i></div>
             </div>
             <div class="pred-val up">73%</div>
             <div class="pred-sub">247 setup-uri identificate · Avg mișcare: <b class="up">+82 pips</b></div>
@@ -796,7 +797,7 @@ body.light .ambient-orb{opacity:.18}
           <div class="pred-card">
             <div class="pred-head">
               <div class="pred-lbl" data-i18n="p_sess">Sesiune activă</div>
-              <div class="pred-icon" style="background:color-mix(in srgb,var(--violet) 12%,transparent);color:#a78bfa"><i class="lucide-clock"></i></div>
+              <div class="pred-icon" style="background:color-mix(in srgb,var(--violet) 12%,transparent);color:#a78bfa"><i class="icon-clock"></i></div>
             </div>
             <div class="pred-val" style="color:#a78bfa">LDN + NY</div>
             <div class="pred-sub">Overlap 13:00-17:00 UTC · <b>+38% volum</b> vs. mediu</div>
@@ -806,7 +807,7 @@ body.light .ambient-orb{opacity:.18}
         <!-- Smart Money Analysis mini-chart (under Sesiune activă / LDN+NY) -->
         <div class="card mt-lg">
           <div class="card-title">
-            <h3><i class="lucide-network"></i>Smart Money Analysis · <span class="accent">EUR/USD M15</span></h3>
+            <h3><i class="icon-network"></i>Smart Money Analysis · <span class="accent">EUR/USD M15</span></h3>
             <span class="risk-pill low"><span class="pulse"></span><span data-i18n-live>LIVE</span></span>
           </div>
           <div id="smc-mini-chart" style="height:180px"></div>
@@ -818,7 +819,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="grid grid-fluid mt-lg">
           <div class="card">
             <div class="card-title">
-              <h3><i class="lucide-candlestick-chart"></i>EUR/USD · H1 · Smart Money Analysis</h3>
+              <h3><i class="icon-candlestick-chart"></i>EUR/USD · H1 · Smart Money Analysis</h3>
               <div class="tabs" style="padding:2px">
                 <div class="tab">M15</div>
                 <div class="tab active">H1</div>
@@ -831,8 +832,8 @@ body.light .ambient-orb{opacity:.18}
 
           <div class="card">
             <div class="card-title">
-              <h3><i class="lucide-bar-chart-3"></i>Currency Strength · Live</h3>
-              <button class="btn" style="padding:6px 10px"><i class="lucide-refresh-cw"></i></button>
+              <h3><i class="icon-bar-chart-3"></i>Currency Strength · Live</h3>
+              <button class="btn" style="padding:6px 10px"><i class="icon-refresh-cw"></i></button>
             </div>
             <div id="strength-list"><div class="strength-item"><div class="code">EUR</div>
       <div class="strength-track"><div class="strength-bar " style="left:50%;width:34%"></div></div>
@@ -857,10 +858,10 @@ body.light .ambient-orb{opacity:.18}
         <!-- Top Opportunities -->
         <div class="card mt-lg">
           <div class="card-title">
-            <h3><i class="lucide-radar"></i>Top Oportunități · Multi-Factor Scanner</h3>
+            <h3><i class="icon-radar"></i>Top Oportunități · Multi-Factor Scanner</h3>
             <div class="flex gap" style="gap:8px">
               <span class="risk-pill low"><span class="pulse"></span>LIVE · 50+ perechi</span>
-              <button class="btn" onclick="openView('scanner')">Vezi tot <i class="lucide-arrow-right"></i></button>
+              <button class="btn" onclick="openView('scanner')">Vezi tot <i class="icon-arrow-right"></i></button>
             </div>
           </div>
           <table>
@@ -929,8 +930,8 @@ body.light .ambient-orb{opacity:.18}
         <div class="grid grid-2 mt-lg">
           <div class="card">
             <div class="card-title">
-              <h3><i class="lucide-radio"></i>Ultimele știri <span class="demo-badge">DEMO — date fictive</span></h3>
-              <button class="btn" onclick="openView('news')">Toate <i class="lucide-arrow-right"></i></button>
+              <h3><i class="icon-radio"></i>Ultimele știri <span class="demo-badge">DEMO — date fictive</span></h3>
+              <button class="btn" onclick="openView('news')">Toate <i class="icon-arrow-right"></i></button>
             </div>
             <div id="news-list"><div class="news-item">
     <div class="news-impact high"></div>
@@ -956,7 +957,7 @@ body.light .ambient-orb{opacity:.18}
           </div>
           <div class="card">
             <div class="card-title">
-              <h3><i class="lucide-calendar-days"></i>Calendar economic <span class="demo-badge">DEMO — date fictive</span></h3>
+              <h3><i class="icon-calendar-days"></i>Calendar economic <span class="demo-badge">DEMO — date fictive</span></h3>
               <span class="mute" style="font-size:12px">Următorul: <b class="mono" style="color:var(--warn)">14:30 · CPI US</b></span>
             </div>
             <div id="cal-list"><div class="cal-item"><div class="cal-time">14:30</div><div class="cal-flag">US</div>
@@ -1002,15 +1003,15 @@ body.light .ambient-orb{opacity:.18}
             </div>
             <div class="pricing-desc">Pentru începători, orientare piață.</div>
             <ul class="pricing-features">
-              <li><i class="lucide-check-circle"></i>Dashboard (5 perechi)</li>
-              <li><i class="lucide-check-circle"></i>News delay 15 min</li>
-              <li><i class="lucide-check-circle"></i>Calendar economic</li>
-              <li><i class="lucide-check-circle"></i>AI Chat 3/zi</li>
-              <li><i class="lucide-check-circle"></i>Alerte (3)</li>
-              <li class="excluded"><i class="lucide-x-circle"></i>Live Scanner</li>
-              <li class="excluded"><i class="lucide-x-circle"></i>MT5 integration</li>
-              <li class="excluded"><i class="lucide-x-circle"></i>SMC / ICT</li>
-              <li class="excluded"><i class="lucide-x-circle"></i>Trading Journal</li>
+              <li><i class="icon-check-circle"></i>Dashboard (5 perechi)</li>
+              <li><i class="icon-check-circle"></i>News delay 15 min</li>
+              <li><i class="icon-check-circle"></i>Calendar economic</li>
+              <li><i class="icon-check-circle"></i>AI Chat 3/zi</li>
+              <li><i class="icon-check-circle"></i>Alerte (3)</li>
+              <li class="excluded"><i class="icon-x-circle"></i>Live Scanner</li>
+              <li class="excluded"><i class="icon-x-circle"></i>MT5 integration</li>
+              <li class="excluded"><i class="icon-x-circle"></i>SMC / ICT</li>
+              <li class="excluded"><i class="icon-x-circle"></i>Trading Journal</li>
             </ul>
             <button class="btn" style="width:100%;justify-content:center" onclick="setTier('free')">Plan curent</button>
           </div>
@@ -1025,15 +1026,15 @@ body.light .ambient-orb{opacity:.18}
             <div class="pricing-save" id="save-pro" style="display:none">💰 Economisești $98 · 2 luni gratis</div>
             <div class="pricing-desc">Trader activ · execuție zilnică.</div>
             <ul class="pricing-features">
-              <li><i class="lucide-check-circle"></i><b>Tot din Free +</b></li>
-              <li><i class="lucide-check-circle"></i>Live Scanner 50+ perechi × 9 TF</li>
-              <li><i class="lucide-check-circle"></i>AI Recomandări A+/A</li>
-              <li><i class="lucide-check-circle"></i>Smart Money / ICT detection</li>
-              <li><i class="lucide-check-circle"></i>MT5 · MEX Atlantic</li>
-              <li><i class="lucide-check-circle"></i>Trading Journal</li>
-              <li><i class="lucide-check-circle"></i>Risk Manager complet</li>
-              <li><i class="lucide-check-circle"></i>AI Chat unlimited</li>
-              <li><i class="lucide-check-circle"></i>News LIVE fără delay</li>
+              <li><i class="icon-check-circle"></i><b>Tot din Free +</b></li>
+              <li><i class="icon-check-circle"></i>Live Scanner 50+ perechi × 9 TF</li>
+              <li><i class="icon-check-circle"></i>AI Recomandări A+/A</li>
+              <li><i class="icon-check-circle"></i>Smart Money / ICT detection</li>
+              <li><i class="icon-check-circle"></i>MT5 · MEX Atlantic</li>
+              <li><i class="icon-check-circle"></i>Trading Journal</li>
+              <li><i class="icon-check-circle"></i>Risk Manager complet</li>
+              <li><i class="icon-check-circle"></i>AI Chat unlimited</li>
+              <li><i class="icon-check-circle"></i>News LIVE fără delay</li>
             </ul>
             <button class="btn violet" style="width:100%;justify-content:center;padding:12px" onclick="setTier('pro')">Upgrade Pro · 7 zile gratis</button>
           </div>
@@ -1047,15 +1048,15 @@ body.light .ambient-orb{opacity:.18}
             <div class="pricing-save" id="save-inst" style="display:none">💰 Economisești $398 · 2 luni gratis</div>
             <div class="pricing-desc">Prop firms · funds · elite retail.</div>
             <ul class="pricing-features">
-              <li><i class="lucide-check-circle"></i><b>Tot din Pro +</b></li>
-              <li><i class="lucide-check-circle"></i>Backtesting 20 ani</li>
-              <li><i class="lucide-check-circle"></i>Monte Carlo · Walk Forward</li>
-              <li><i class="lucide-check-circle"></i>Replay Mode bar-by-bar</li>
-              <li><i class="lucide-check-circle"></i>Strategy Builder no-code</li>
-              <li><i class="lucide-check-circle"></i>AI Coach personalizat</li>
-              <li><i class="lucide-check-circle"></i>API access · webhooks</li>
-              <li><i class="lucide-check-circle"></i>Priority support 24/7</li>
-              <li><i class="lucide-check-circle"></i>White-label option</li>
+              <li><i class="icon-check-circle"></i><b>Tot din Pro +</b></li>
+              <li><i class="icon-check-circle"></i>Backtesting 20 ani</li>
+              <li><i class="icon-check-circle"></i>Monte Carlo · Walk Forward</li>
+              <li><i class="icon-check-circle"></i>Replay Mode bar-by-bar</li>
+              <li><i class="icon-check-circle"></i>Strategy Builder no-code</li>
+              <li><i class="icon-check-circle"></i>AI Coach personalizat</li>
+              <li><i class="icon-check-circle"></i>API access · webhooks</li>
+              <li><i class="icon-check-circle"></i>Priority support 24/7</li>
+              <li><i class="icon-check-circle"></i>White-label option</li>
             </ul>
             <button class="btn" style="width:100%;justify-content:center;padding:12px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border:none" onclick="setTier('inst')">Upgrade Institutional</button>
           </div>
@@ -1273,10 +1274,10 @@ body.light .ambient-orb{opacity:.18}
           <div class="card kpi"><div class="lbl">Order Block</div><div class="val mono" id="smc-ob-val">—</div><div class="delta" id="smc-ob-sub"></div></div>
           <div class="card kpi"><div class="lbl">Fair Value Gaps</div><div class="val" id="smc-fvg-val">—</div><div class="delta" id="smc-fvg-sub"></div></div>
         </div>
-        <div class="card mt-lg"><div class="card-title"><h3><i class="lucide-network"></i>Concepte detectate (pe pereche/interval curent)</h3></div>
+        <div class="card mt-lg"><div class="card-title"><h3><i class="icon-network"></i>Concepte detectate (pe pereche/interval curent)</h3></div>
           <div class="smc-list" id="smc-tag-list"><span class="dim">Se calculează...</span></div>
         </div>
-        <div class="card mt-lg"><div class="card-title"><h3><i class="lucide-list"></i>Ultimele Fair Value Gaps</h3></div>
+        <div class="card mt-lg"><div class="card-title"><h3><i class="icon-list"></i>Ultimele Fair Value Gaps</h3></div>
           <div id="smc-fvg-list"><p class="dim">Se calculează...</p></div>
         </div>
         <div class="disclaimer">⚠ Calculat din închideri zilnice (D1) reale (Frankfurter), nu din date OHLC intraday — barele sintetice (open=închiderea zilei precedente, fără meșă intraday). Structura (BOS/OB/FVG/Premium-Discount/Equal Highs-Lows) e reală pe acest interval; conceptele care necesită date intraday (Killzones, Judas Swing, CHOCH pe M15, SMT Divergence) nu sunt afișate ca să nu inducă în eroare.</div>
@@ -1284,19 +1285,19 @@ body.light .ambient-orb{opacity:.18}
       <div class="view" id="view-technical"><div class="page-head"><div><h1><span class="accent">Analiză Tehnică</span></h1><p>EMA · RSI · MACD · Bollinger · ATR — calculate real din date D1</p></div>
         <div class="tabs"><select id="tech-pair-select" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:8px 12px"></select></div></div>
         <div class="grid grid-3">
-          <div class="card"><div class="card-title"><h3><i class="lucide-trending-up"></i>Trend (EMA)</h3></div><div id="tech-ema-body"><p class="dim">Se calculează...</p></div></div>
-          <div class="card"><div class="card-title"><h3><i class="lucide-activity"></i>Momentum</h3></div><div id="tech-mom-body"><p class="dim">Se calculează...</p></div></div>
-          <div class="card"><div class="card-title"><h3><i class="lucide-waves"></i>Volatilitate</h3></div><div id="tech-vol-body"><p class="dim">Se calculează...</p></div></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-trending-up"></i>Trend (EMA)</h3></div><div id="tech-ema-body"><p class="dim">Se calculează...</p></div></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-activity"></i>Momentum</h3></div><div id="tech-mom-body"><p class="dim">Se calculează...</p></div></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-waves"></i>Volatilitate</h3></div><div id="tech-vol-body"><p class="dim">Se calculează...</p></div></div>
         </div>
-        <div class="card mt-lg"><div class="card-title"><h3><i class="lucide-gauge"></i>Convergență semnal</h3></div><div id="tech-conv-body"><p class="dim">Se calculează...</p></div></div>
+        <div class="card mt-lg"><div class="card-title"><h3><i class="icon-gauge"></i>Convergență semnal</h3></div><div id="tech-conv-body"><p class="dim">Se calculează...</p></div></div>
         <div class="disclaimer">⚠ Indicatorii sunt calculați real din prețurile de închidere zilnice (D1) via Frankfurter/CoinGecko — nu sunt date intraday multi-timeframe (M15/H1/H4 reale ar necesita un backend cu feed live).</div>
       </div>
       <div class="view" id="view-sentiment"><div class="page-head"><div><h1><span class="accent">Sentiment</span> &amp; Bias</h1><p>Compozit real din Currency Strength + momentum — nu COT/options-flow (acelea necesită un feed plătit)</p></div></div>
         <div class="grid grid-2">
-          <div class="card"><div class="card-title"><h3><i class="lucide-bar-chart-3"></i>Bias per valută (real)</h3></div><div id="sent-bias-body"><p class="dim">Se calculează...</p></div></div>
-          <div class="card"><div class="card-title"><h3><i class="lucide-newspaper"></i>Sentiment știri (mediu, demo)</h3></div><div id="sent-news-body"><p class="dim">Se calculează...</p></div></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-bar-chart-3"></i>Bias per valută (real)</h3></div><div id="sent-bias-body"><p class="dim">Se calculează...</p></div></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-newspaper"></i>Sentiment știri (mediu, demo)</h3></div><div id="sent-news-body"><p class="dim">Se calculează...</p></div></div>
         </div>
-        <div class="card mt-lg"><div class="card-title"><h3><i class="lucide-gauge"></i>Scor compozit de piață</h3></div><div id="sent-composite-body"><p class="dim">Se calculează...</p></div></div>
+        <div class="card mt-lg"><div class="card-title"><h3><i class="icon-gauge"></i>Scor compozit de piață</h3></div><div id="sent-composite-body"><p class="dim">Se calculează...</p></div></div>
         <div class="disclaimer">⚠ "Bias per valută" e calculat real din STRENGTH (mișcarea reală pe 20 de zile) și din confidence-ul semnalelor din Scanner. COT Report, options flow și social sentiment necesită surse de date plătite/cu cheie API — nu sunt simulate aici.</div>
       </div>
       <div class="view" id="view-calendar"><div class="page-head"><div><h1>Economic <span class="accent">Calendar</span></h1><p>Calendarul folosește Finnhub prin backend când e disponibil; altfel arată un calendar ilustrativ (demo), etichetat clar.</p></div></div><div class="card"><div id="cal-full"><p class="dim">Se încarcă...</p></div></div></div>
@@ -1324,7 +1325,7 @@ body.light .ambient-orb{opacity:.18}
           <div class="card kpi"><div class="lbl">Discipline</div><div class="val" id="j-discipline">—</div></div>
         </div>
         <div class="card mt-lg">
-          <div class="card-title"><h3><i class="lucide-plus-circle"></i>Adaugă tranzacție</h3></div>
+          <div class="card-title"><h3><i class="icon-plus-circle"></i>Adaugă tranzacție</h3></div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;margin-bottom:10px">
             <select id="j-symbol-select" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px"></select>
             <select id="j-dir-select" class="mono" style="background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px">
@@ -1341,7 +1342,7 @@ body.light .ambient-orb{opacity:.18}
       </div>
       <div class="view" id="view-risk"><div class="page-head"><div><h1>Risk <span class="accent">Manager</span></h1><p>Position Size · Kelly · VaR · Monte Carlo · Risk of Ruin</p></div></div>
         <div class="grid grid-3">
-          <div class="card"><div class="card-title"><h3><i class="lucide-calculator"></i>Position Size</h3></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-calculator"></i>Position Size</h3></div>
             <div style="margin-bottom:14px"><label class="form-label">Cont ($)</label><input class="form-input" type="number" value="10000" id="calc-acc"></div>
             <div style="margin-bottom:14px"><label class="form-label">Risk %</label><input class="form-input" type="number" value="1" step="0.1" id="calc-risk"></div>
             <div style="margin-bottom:14px"><label class="form-label">SL (pips)</label><input class="form-input" type="number" value="20" id="calc-sl"></div>
@@ -1350,10 +1351,10 @@ body.light .ambient-orb{opacity:.18}
               <div class="flex between" style="padding:5px 0"><span>Risk $</span><b class="mono" id="risk-usd">$100</b></div>
             </div>
           </div>
-          <div class="card"><div class="card-title"><h3><i class="lucide-target"></i>Kelly</h3></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-target"></i>Kelly</h3></div>
             <div id="risk-kelly-body"><p class="dim">Se calculează din Jurnal...</p></div>
           </div>
-          <div class="card"><div class="card-title"><h3><i class="lucide-shield"></i>Metrici</h3></div>
+          <div class="card"><div class="card-title"><h3><i class="icon-shield"></i>Metrici</h3></div>
             <div id="risk-metrics-body"><p class="dim">Se calculează din Jurnal...</p></div>
           </div>
         </div>
@@ -1384,7 +1385,7 @@ body.light .ambient-orb{opacity:.18}
 </div>
 
 <button id="dl-source-btn" title="Descarcă acest fișier .html pe calculatorul tău">
-  <i class="lucide-download"></i><span>Descarcă .html</span>
+  <i class="icon-download"></i><span>Descarcă .html</span>
 </button>
 
 
@@ -1977,6 +1978,34 @@ let PAIRS = [];
 let STRENGTH = STRENGTH_CODES.map(c=>({c,v:0}));
 let MARKET_DATA_STATUS = 'loading'; // 'loading' | 'ok' | 'error'
 let MARKET_DATA_ERROR = '';
+let RAW_FX_SERIES = null; // valute individuale (rată reală per USD) — folosit pentru a deriva ORICE cross pair la cerere
+
+// Toate valutele cu date reale (ECB/Frankfurter) disponibile = 31 (7 majore + 23 exotice + USD).
+// Din ele se pot forma 465 de perechi unice — practic orice pereche valutară reală tranzacționată.
+// Perechile "curate" (cele 53 din dashboard/scanner) rămân cele afișate implicit; restul combinațiilor
+// sunt calculate on-demand, instant, exact când utilizatorul le caută — ca să nu aglomerăm UI-ul cu
+// sute de rânduri nefolosite, dar căutarea tot găsește literalmente orice pereche reală existentă.
+const ALL_FX_CODES = [...FX_BASKET, 'USD'];
+function deriveCrossOnDemand(base, quote){
+  if(!RAW_FX_SERIES || base===quote) return null;
+  if(!ALL_FX_CODES.includes(base) || !ALL_FX_CODES.includes(quote)) return null;
+  const key = base+'/'+quote;
+  const existing = PAIRS.find(x=>x.sym===key);
+  if(existing) return existing;
+  const n = RAW_FX_SERIES.EUR.length;
+  const closes = Array.from({length:n},(_,i)=> fxPairPrice(RAW_FX_SERIES,i,base,quote));
+  const sig = computeSignal(key, closes, 'D1');
+  if(sig){ PAIR_SERIES[key]=closes; PAIRS.push(sig); }
+  return sig;
+}
+function findAnyPairForQuery(q){
+  // q e deja lowercase, trim. Acceptă "eurtry", "eur/try", "EURTRY" etc.
+  const clean = q.replace(/[^a-z]/g,'');
+  if(clean.length !== 6) return null;
+  const base = clean.slice(0,3).toUpperCase();
+  const quote = clean.slice(3,6).toUpperCase();
+  return deriveCrossOnDemand(base,quote) || deriveCrossOnDemand(quote,base);
+}
 
 function renderMarketUI(){
   const loadingRow = `<tr><td colspan="8" class="mute" style="text-align:center;padding:20px;">${LANG==='en'?'Loading real market data…':'Se încarcă date reale de piață…'}</td></tr>`;
@@ -2036,7 +2065,7 @@ function renderDashboardHero(){
   set('hero-score',top.conf);
   const recEl=document.getElementById('hero-rec');
   if(recEl){
-    const icon=top.sig==='BUY'?'lucide-trending-up':top.sig==='SELL'?'lucide-trending-down':'lucide-minus';
+    const icon=top.sig==='BUY'?'icon-trending-up':top.sig==='SELL'?'icon-trending-down':'icon-minus';
     recEl.innerHTML=`<i class="${icon}"></i>${top.sig} · GRADE ${top.grade}`;
     recEl.style.color=top.sig==='SELL'?'var(--down)':top.sig==='WAIT'?'var(--warn)':'var(--up)';
   }
@@ -2066,7 +2095,7 @@ function renderDashboardHero(){
     const riskOn=usd.v<0;
     set('kpi-trend-val',riskOn?'Risk-On':'Risk-Off');
     document.getElementById('kpi-trend-val').className='val '+(riskOn?'up':'down');
-    document.getElementById('kpi-trend-delta').innerHTML=`<i class="lucide-arrow-${riskOn?'up':'down'}"></i>USD ${usd.v>=0?'se întărește':'slăbește'} · ${strongest} forte`;
+    document.getElementById('kpi-trend-delta').innerHTML=`<i class="icon-arrow-${riskOn?'up':'down'}"></i>USD ${usd.v>=0?'se întărește':'slăbește'} · ${strongest} forte`;
     document.getElementById('kpi-trend-delta').className='delta '+(riskOn?'up':'down');
   }
 
@@ -2085,10 +2114,10 @@ function renderDashboardHero(){
   if(fgDeltaEl){
     if(prevFg!=null && prevFg.value!=null){
       const diff=fg-prevFg.value;
-      fgDeltaEl.innerHTML=`<i class="lucide-arrow-${diff>=0?'up':'down'}"></i>${diff>=0?'+':''}${diff} ${LANG==='en'?'vs. last check':'vs. ultima verificare'}`;
+      fgDeltaEl.innerHTML=`<i class="icon-arrow-${diff>=0?'up':'down'}"></i>${diff>=0?'+':''}${diff} ${LANG==='en'?'vs. last check':'vs. ultima verificare'}`;
       fgDeltaEl.className='delta '+(diff>=0?'up':'down');
     }else{
-      fgDeltaEl.innerHTML=`<i class="lucide-info"></i>${LANG==='en'?'First calculation':'Primul calcul'}`;
+      fgDeltaEl.innerHTML=`<i class="icon-info"></i>${LANG==='en'?'First calculation':'Primul calcul'}`;
       fgDeltaEl.className='delta';
     }
   }
@@ -2099,7 +2128,7 @@ function renderDashboardHero(){
   if(dxy){
     set('kpi-dxy-val',dxy.px);
     document.getElementById('kpi-dxy-val').className='val mono '+(dxy.ch>=0?'up':'down');
-    document.getElementById('kpi-dxy-delta').innerHTML=`<i class="lucide-arrow-${dxy.ch>=0?'up':'down'}"></i>${dxy.ch>=0?'+':''}${dxy.ch.toFixed(2)}%`;
+    document.getElementById('kpi-dxy-delta').innerHTML=`<i class="icon-arrow-${dxy.ch>=0?'up':'down'}"></i>${dxy.ch>=0?'+':''}${dxy.ch.toFixed(2)}%`;
     document.getElementById('kpi-dxy-delta').className='delta '+(dxy.ch>=0?'up':'down');
   }
 }
@@ -2155,6 +2184,7 @@ let PAIR_DATES=[];  // date reale aliniate cu seriile FX (BTC are propriul istor
 async function initRealMarketData(){
   try{
     const [fxHist, btcCloses] = await Promise.all([ fetchFxHistory(280), fetchBtcHistory(280) ]);
+    RAW_FX_SERIES = fxHist.series;
     const fxPairSeries = deriveFxPairSeries(fxHist);
     const tfLabel = 'D1';
     const results = [];
@@ -2571,7 +2601,7 @@ function regenerateChart(tf){
   mainChartSeries.setData(data);
   mainChart.timeScale().fitContent();
   const h3=document.querySelector('#view-dashboard .card .card-title h3');
-  if(h3)h3.innerHTML=`<i class="lucide-candlestick-chart"></i>EUR/USD · ${tf} · Smart Money Analysis`;
+  if(h3)h3.innerHTML=`<i class="icon-candlestick-chart"></i>EUR/USD · ${tf} · Smart Money Analysis`;
   toast((LANG==='en'?'Timeframe: ':'Timeframe: ')+tf,'info');
 }
 
@@ -2593,7 +2623,7 @@ document.addEventListener('click',e=>{
 /* ============ CURRENCY STRENGTH REFRESH ============ */
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.card-title .btn');
-  if(!btn||!btn.querySelector('.lucide-refresh-cw'))return;
+  if(!btn||!btn.querySelector('.icon-refresh-cw'))return;
   if(btn.id==='refresh-btn')return; // handled separately
   STRENGTH.forEach(c=>{c.v=Math.max(-99,Math.min(99,Math.round(c.v+(Math.random()-0.5)*8)));});
   renderStrength('strength-list');renderStrength('strength-full');
@@ -2608,7 +2638,7 @@ function showPairDetail(sym){
   const dirWord=p.sig==='BUY'?(en?'bullish':'bullish'):p.sig==='SELL'?(en?'bearish':'bearish'):(en?'neutral':'neutral');
   const box=document.getElementById('pair-modal-box');
   box.innerHTML=`
-    <div class="modal-close" onclick="closePairModal()"><i class="lucide-x"></i></div>
+    <div class="modal-close" onclick="closePairModal()"><i class="icon-x"></i></div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
       <span class="grade ${p.grade==='A+'?'aplus':p.grade==='A'?'a':'b'}">${p.grade}</span>
       <h3 style="margin:0;font-size:18px">${p.sym}</h3>
@@ -2642,7 +2672,7 @@ function showPairDetail(sym){
       ⚠ ${en?'This reasoning is generated to illustrate a structured decision process, not a live analysis of real market data. Always confirm with your own analysis and risk management before acting — trading carries risk of loss.':'Acest raționament este generat pentru a ilustra un proces de decizie structurat, nu o analiză live pe date reale de piață. Confirmă mereu cu propria analiză și management de risc — trading-ul implică risc de pierdere.'}
     </p>
     <div style="display:flex;gap:10px">
-      <button class="btn primary" style="flex:1;justify-content:center" onclick="closePairModal();openView('scanner')"><i class="lucide-radar"></i>${en?'View in Scanner':'Vezi în Scanner'}</button>
+      <button class="btn primary" style="flex:1;justify-content:center" onclick="closePairModal();openView('scanner')"><i class="icon-radar"></i>${en?'View in Scanner':'Vezi în Scanner'}</button>
       <button class="btn" style="flex:1;justify-content:center" onclick="closePairModal()">${en?'Close':'Închide'}</button>
     </div>`;
   document.getElementById('pair-modal-overlay').classList.add('open');
@@ -2711,7 +2741,12 @@ function runLiveSearch(q){
   if(!q){box.classList.remove('open');btn.classList.remove('live');return;}
   btn.classList.add('live');
   const qNoSlash=q.replace('/','');
-  const pairs=PAIRS.filter(p=>p.sym.toLowerCase().includes(q)||p.sym.toLowerCase().replace('/','').includes(qNoSlash)).slice(0,6);
+  let pairs=PAIRS.filter(p=>p.sym.toLowerCase().includes(q)||p.sym.toLowerCase().replace('/','').includes(qNoSlash));
+  if(!pairs.length){
+    const derived=findAnyPairForQuery(q);
+    if(derived) pairs=[derived];
+  }
+  pairs=pairs.slice(0,6);
   const news=NEWS.filter(n=>(LANG==='en'?n.title_en:n.title).toLowerCase().includes(q)).slice(0,3);
   const inds=INDICATORS.filter(i=>i.name.toLowerCase().includes(q)).slice(0,4);
   let html='';
@@ -2721,16 +2756,16 @@ function runLiveSearch(q){
       const sub=p.sig!=='WAIT'
         ?`${p.grade} · ${p.sig} · Conf ${p.conf}% · RSI ${p.rsi} · Entry ${p.entry} · SL ${p.sl} · TP ${p.tp} · R:R ${p.rr}`
         :`${p.grade} · ${p.sig} · Conf ${p.conf}% · RSI ${p.rsi}`;
-      return `<div class="sr-item" onclick="closeSearchResults();showPairDetail('${p.sym}')"><i class="lucide-candlestick-chart"></i><div class="sr-main"><div class="sr-title">${p.sym}</div><div class="sr-sub">${sub}</div></div><div class="sr-val ${p.ch>=0?'up':'down'}">${p.px}<br><span style="font-size:10px">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div></div>`;
+      return `<div class="sr-item" onclick="closeSearchResults();showPairDetail('${p.sym}')"><i class="icon-candlestick-chart"></i><div class="sr-main"><div class="sr-title">${p.sym}</div><div class="sr-sub">${sub}</div></div><div class="sr-val ${p.ch>=0?'up':'down'}">${p.px}<br><span style="font-size:10px">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div></div>`;
     }).join('');
   }
   if(news.length){
     html+=`<div class="sr-group-lbl">${LANG==='en'?'News':'Știri'}</div>`;
-    html+=news.map(n=>`<div class="sr-item" onclick="closeSearchResults();openView('news')"><i class="lucide-radio"></i><div class="sr-main"><div class="sr-title">${LANG==='en'?n.title_en:n.title}</div><div class="sr-sub">${n.src} · ${n.time}</div></div></div>`).join('');
+    html+=news.map(n=>`<div class="sr-item" onclick="closeSearchResults();openView('news')"><i class="icon-radio"></i><div class="sr-main"><div class="sr-title">${LANG==='en'?n.title_en:n.title}</div><div class="sr-sub">${n.src} · ${n.time}</div></div></div>`).join('');
   }
   if(inds.length){
     html+=`<div class="sr-group-lbl">${LANG==='en'?'Indicators':'Indicatori'}</div>`;
-    html+=inds.map(i=>`<div class="sr-item" onclick="closeSearchResults();openView('${i.view}')"><i class="lucide-line-chart"></i><div class="sr-main"><div class="sr-title">${i.name}</div></div></div>`).join('');
+    html+=inds.map(i=>`<div class="sr-item" onclick="closeSearchResults();openView('${i.view}')"><i class="icon-line-chart"></i><div class="sr-main"><div class="sr-title">${i.name}</div></div></div>`).join('');
   }
   if(!html)html=`<div class="sr-empty">${LANG==='en'?'No live matches for':'Niciun rezultat live pentru'} "${q}"</div>`;
   box.innerHTML=html;box.classList.add('open');
@@ -3107,7 +3142,7 @@ function handleTierClick(){
     const menu=document.getElementById('owner-menu');
     menu.classList.toggle('open');
     if(menu.classList.contains('open')){
-      menu.innerHTML=`<div class="om-item" onclick="changeOwnerPassword()"><i class="lucide-key"></i>${LANG==='en'?'Change password':'Schimbă parola'}</div><div class="om-item" onclick="logoutApp()"><i class="lucide-log-out"></i>${LANG==='en'?'Log out':'Deconectare'}</div>`;
+      menu.innerHTML=`<div class="om-item" onclick="changeOwnerPassword()"><i class="icon-key"></i>${LANG==='en'?'Change password':'Schimbă parola'}</div><div class="om-item" onclick="logoutApp()"><i class="icon-log-out"></i>${LANG==='en'?'Log out':'Deconectare'}</div>`;
     }
   }else{
     openView('pricing');
@@ -3325,7 +3360,7 @@ async function renderJournal(){
       <div><b>${it.symbol}</b><div class="dim" style="font-size:11px">${it.direction||''}</div></div>
       <div>${it.note?String(it.note).replace(/</g,'&lt;'):'<span class="dim">—</span>'}<div class="dim" style="font-size:11px">${dateStr}</div></div>
       <div class="j-pnl ${+it.pnl>=0?'up':'down'}">${+it.pnl>=0?'+':''}$${(+it.pnl).toFixed(2)}</div>
-      <button class="icon-btn" onclick="journalRemoveClick(${it.id})" title="${LANG==='en'?'Delete':'Șterge'}"><i class="lucide-trash-2"></i></button>
+      <button class="icon-btn" onclick="journalRemoveClick(${it.id})" title="${LANG==='en'?'Delete':'Șterge'}"><i class="icon-trash-2"></i></button>
     </div>`;
   }).join('');
 }
@@ -3366,7 +3401,7 @@ async function renderWatchlist(){
       <div style="flex:1"><b>${it.symbol}</b></div>
       <div class="mono" style="width:90px;text-align:right">${px}</div>
       <div class="mono ${ch>=0?'up':'down'}" style="width:70px;text-align:right">${ch>=0?'+':''}${ch}%</div>
-      <button class="icon-btn" onclick="wlRemoveClick(${it.id})" title="Șterge"><i class="lucide-trash-2"></i></button>
+      <button class="icon-btn" onclick="wlRemoveClick(${it.id})" title="Șterge"><i class="icon-trash-2"></i></button>
     </div>`;
   }).join('');
 }
@@ -3400,7 +3435,7 @@ async function renderAlerts(){
     return `<div style="display:flex;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="flex:1"><b>${it.symbol}</b> ${condLbl} <span class="mono">${it.target}</span></div>
       <div style="width:90px">${it.active?'<span class="up">Activă</span>':'<span class="dim">Declanșată</span>'}</div>
-      <button class="icon-btn" onclick="alertRemoveClick(${it.id})" title="Șterge"><i class="lucide-trash-2"></i></button>
+      <button class="icon-btn" onclick="alertRemoveClick(${it.id})" title="Șterge"><i class="icon-trash-2"></i></button>
     </div>`;
   }).join('');
 }
