@@ -602,7 +602,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.4</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.5</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -922,7 +922,11 @@ body.light .ambient-orb{opacity:.18}
           </div>
         </div>
         <div class="disclaimer" id="live-disclaimer">
-          ⚠ Analiza tehnică (EMA/RSI/MACD/ATR/Efficiency Ratio) și Smart Money (BOS/Order Block/FVG) sunt calculate real din închideri D1. Contextul „fundamental" e construit din date reale disponibile gratuit — variația recentă a fiecărei valute, evenimente de calendar și știri relevante — nu dintr-un model economic propriu-zis. Lot-ul sugerat folosește setările din pagina Risk (cont/risc%). Nimic din acestea nu reprezintă sfat financiar.
+          ⚠ Analiza tehnică (EMA/RSI/MACD/ATR/Efficiency Ratio) și Smart Money (BOS/Order Block/FVG) sunt calculate real din închideri D1. Contextul „fundamental" e construit din date reale disponibile gratuit — variația recentă a fiecărei valute, evenimente de calendar și știri relevante — nu dintr-un model economic propriu-zis. Lot-ul sugerat folosește setările din pagina Risk (cont/risc%) — modifică-le acolo dacă îți schimbi contul. Nimic din acestea nu reprezintă sfat financiar.
+        </div>
+        <div class="card mt-lg" id="live-budget-card" style="display:none">
+          <div class="card-title"><h3><i class="icon-piggy-bank"></i>Buget zilnic de risc</h3></div>
+          <div id="live-budget-body"></div>
         </div>
         <div id="live-analysis-list" class="mt-lg"><p class="dim">Se încarcă analizele...</p></div>
       </div>
@@ -1201,8 +1205,8 @@ body.light .ambient-orb{opacity:.18}
       <div class="view" id="view-risk"><div class="page-head"><div><h1>Risk <span class="accent">Manager</span></h1><p>Position Size · Kelly · VaR · Monte Carlo · Risk of Ruin</p></div></div>
         <div class="grid grid-3">
           <div class="card"><div class="card-title"><h3><i class="icon-calculator"></i>Position Size</h3></div>
-            <div style="margin-bottom:14px"><label class="form-label">Cont ($)</label><input class="form-input" type="number" value="10000" id="calc-acc"></div>
-            <div style="margin-bottom:14px"><label class="form-label">Risk %</label><input class="form-input" type="number" value="1" step="0.1" id="calc-risk"></div>
+            <div style="margin-bottom:14px"><label class="form-label">Cont ($)</label><input class="form-input" type="number" value="200" id="calc-acc"></div>
+            <div style="margin-bottom:14px"><label class="form-label">Risk % <span class="dim" style="font-weight:500">(per tranzacție, max 1-3%/zi)</span></label><input class="form-input" type="number" value="1" step="0.1" max="3" id="calc-risk"></div>
             <div style="margin-bottom:14px"><label class="form-label">SL (pips)</label><input class="form-input" type="number" value="20" id="calc-sl"></div>
             <div style="padding:16px;background:color-mix(in srgb,var(--brand) 8%,transparent);border-radius:10px;border:1px solid color-mix(in srgb,var(--brand) 25%,transparent)">
               <div class="flex between" style="padding:5px 0"><span>Lot Size</span><b class="mono up" id="lots">0.50</b></div>
@@ -2284,18 +2288,30 @@ async function renderCalendar(week){
 function pipSizeFor(sym){ return /JPY/.test(sym)?0.01:0.0001; }
 // Lot sugerat pentru un setup — folosește EXACT aceeași formulă ca și calculatorul din Risk Manager
 // (risc$ = cont × risc% / 100; lot = risc$ / (SL_pips × 10)), citind valorile live din acel
-// calculator (#calc-acc/#calc-risk) dacă există în pagină, altfel valorile implicite 10000/1%.
+// calculator (#calc-acc/#calc-risk) dacă există în pagină, altfel valorile implicite (cont mic, 200$/1%).
+// IMPORTANT pentru conturi mici: majoritatea brokerilor nu permit loturi sub 0.01 (micro-lot). Pe un
+// cont de 200$ cu risc 1% ($2), lotul "teoretic" e adesea sub 0.01 — real, brokerul rotunjește în sus
+// la 0.01, ceea ce înseamnă risc REAL mai mare decât procentul ales. Raportăm cinstit ambele valori,
+// nu doar cifra teoretică, ca să nu inducă în eroare pe un cont mic.
+const MIN_BROKER_LOT=0.01;
 function suggestLotSize(p){
   if(!p||p.entry==null||p.sl==null)return null;
   const accEl=document.getElementById('calc-acc'), riskEl=document.getElementById('calc-risk');
-  const acc=accEl&&accEl.value?(+accEl.value):10000;
+  const acc=accEl&&accEl.value?(+accEl.value):200;
   const riskPct=riskEl&&riskEl.value?(+riskEl.value):1;
   const pip=pipSizeFor(p.sym);
   const slPips=Math.abs(p.entry-p.sl)/pip;
   if(!slPips)return null;
-  const riskUsd=acc*riskPct/100;
-  const lots=riskUsd/(slPips*10);
-  return {lots:Math.max(0.01,Math.round(lots*100)/100),riskUsd,acc,riskPct,slPips:Math.round(slPips)};
+  const targetRiskUsd=acc*riskPct/100;
+  const theoreticalLots=targetRiskUsd/(slPips*10);
+  const lots=Math.max(MIN_BROKER_LOT,Math.round(theoreticalLots*100)/100);
+  const actualRiskUsd=lots*slPips*10;
+  const actualRiskPct=(actualRiskUsd/acc)*100;
+  const clamped=theoreticalLots<MIN_BROKER_LOT; // lotul minim de broker forțează risc mai mare decât cel ales
+  return {
+    lots, acc, riskPct, slPips:Math.round(slPips),
+    targetRiskUsd, actualRiskUsd, actualRiskPct:Number(actualRiskPct.toFixed(2)), clamped
+  };
 }
 function posList(){ return localGet('fipa-local-positions'); }
 function posAdd(pos){
@@ -2473,7 +2489,9 @@ function renderLiveAnalysisCard(p){
       <div class="live-fact"><span>Take Profit</span><b class="up">${p.tp}</b></div>
       <div class="live-fact"><span>Risk:Reward</span><b>${p.rr}</b></div>
       <div class="live-fact"><span>${en?'Suggested lot':'Lot sugerat'}</span><b>${lotInfo?lotInfo.lots:'—'}</b></div>
-      ${lotInfo?`<p class="dim" style="margin-top:6px;font-size:11px">${en?`Based on Risk Manager settings: $${lotInfo.acc} account, ${lotInfo.riskPct}% risk ($${lotInfo.riskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`:`Din setările Risk Manager: cont $${lotInfo.acc}, risc ${lotInfo.riskPct}% ($${lotInfo.riskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`}</p>`:''}
+      ${lotInfo?`<div class="live-fact"><span>${en?'Real risk at this lot':'Risc real la acest lot'}</span><b class="${lotInfo.clamped?'down':''}">${'$'+lotInfo.actualRiskUsd.toFixed(2)+' ('+lotInfo.actualRiskPct+'%)'}</b></div>`:''}
+      ${lotInfo?`<p class="dim" style="margin-top:6px;font-size:11px">${en?`Based on Risk Manager settings: $${lotInfo.acc} account, ${lotInfo.riskPct}% target risk ($${lotInfo.targetRiskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`:`Din setările Risk Manager: cont $${lotInfo.acc}, risc țintă ${lotInfo.riskPct}% ($${lotInfo.targetRiskUsd.toFixed(2)}), SL ≈ ${lotInfo.slPips} pips.`}</p>`:''}
+      ${lotInfo&&lotInfo.clamped?`<p style="margin-top:4px;font-size:11.5px;color:var(--down)">⚠ ${en?`Broker minimum lot (0.01) forces a real risk of $${lotInfo.actualRiskUsd.toFixed(2)} (${lotInfo.actualRiskPct}%) — higher than your ${lotInfo.riskPct}% target. On a $${lotInfo.acc} account this happens often on wider-stop setups. Consider skipping trades where real risk exceeds ~3%, or fund a slightly larger account.`:`Lotul minim de broker (0.01) forțează un risc real de $${lotInfo.actualRiskUsd.toFixed(2)} (${lotInfo.actualRiskPct}%) — mai mare decât ținta ta de ${lotInfo.riskPct}%. Pe un cont de $${lotInfo.acc} se întâmplă des la setup-uri cu SL mai larg. Ia în calcul să sari peste tranzacțiile unde riscul real trece de ~3%, sau alimentează contul cu ceva mai mult.`}</p>`:''}
       <p style="margin-top:8px">${tradeTimingText(p,en)}</p>
     </div>`;
 
@@ -2506,10 +2524,47 @@ function quickOpenPosition(sym,dir,entry){
   if(dirSel)dirSel.value=dir;
   if(entryInput)entryInput.value=entry;
 }
+function isToday(iso){
+  if(!iso)return false;
+  const d=new Date(iso), now=new Date();
+  return d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth() && d.getDate()===now.getDate();
+}
+// Buget zilnic de risc — folosește exclusiv date reale, locale: pierderile realizate azi din Jurnal
+// + pierderea nerealizată curentă a pozițiilor deschise azi în tracker-ul MT5. Nimic simulat.
+async function renderRiskBudget(){
+  const card=document.getElementById('live-budget-card'), body=document.getElementById('live-budget-body');
+  if(!card||!body)return;
+  const en=LANG==='en';
+  const accEl=document.getElementById('calc-acc'), riskEl=document.getElementById('calc-risk');
+  const acc=accEl&&accEl.value?(+accEl.value):200;
+  const riskPct=riskEl&&riskEl.value?(+riskEl.value):1;
+  card.style.display='';
+  const capMinUsd=acc*0.01, capMaxUsd=acc*0.03;
+  const perTradeUsd=acc*riskPct/100;
+  const maxTradesInCap=perTradeUsd>0?Math.floor(capMaxUsd/perTradeUsd):0;
+  let journalToday=[];
+  try{ journalToday=(await journalList()).filter(e=>isToday(e.opened_at)); }catch(e){}
+  const realizedTodayUsd=journalToday.reduce((a,e)=>a+Math.min(0,+e.pnl||0),0);
+  const openToday=(typeof posList==='function'?posList():[]).filter(p=>isToday(p.opened_at));
+  const openRiskTodayUsd=openToday.reduce((a,pos)=>{ const {usd}=computePosPnl(pos); return a+Math.min(0,usd); },0);
+  const usedUsd=Math.abs(realizedTodayUsd)+Math.abs(openRiskTodayUsd);
+  const remainingUsd=Math.max(0,capMaxUsd-usedUsd);
+  body.innerHTML=`
+    <div class="live-grid">
+      <div class="live-block"><div class="live-fact"><span>${en?'Account':'Cont'}</span><b>$${acc}</b></div>
+        <div class="live-fact"><span>${en?'Daily cap (1-3%)':'Plafon zilnic (1-3%)'}</span><b>$${capMinUsd.toFixed(2)} – $${capMaxUsd.toFixed(2)}</b></div></div>
+      <div class="live-block"><div class="live-fact"><span>${en?'Risk/trade':'Risc/tranzacție'}</span><b>$${perTradeUsd.toFixed(2)} (${riskPct}%)</b></div>
+        <div class="live-fact"><span>${en?'Max trades in cap':'Max tranzacții în plafon'}</span><b>${maxTradesInCap}</b></div></div>
+      <div class="live-block"><div class="live-fact"><span>${en?'Used today (real)':'Folosit azi (real)'}</span><b class="${usedUsd>0?'down':''}">$${usedUsd.toFixed(2)}</b></div>
+        <div class="live-fact"><span>${en?'Remaining today':'Rămas azi'}</span><b class="${remainingUsd<=0?'down':'up'}">$${remainingUsd.toFixed(2)}</b></div></div>
+    </div>
+    <p class="dim" style="margin-top:8px;font-size:11.5px">${en?'"Used today" sums realized losses from Journal trades opened today plus the current unrealized loss (if any) of MT5-tracker positions opened today — real, local data, winning trades excluded. If it hits the cap, the honest move is to stop for today.':'„Folosit azi" adună pierderile realizate din Jurnal deschise azi plus pierderea nerealizată curentă (dacă există) a pozițiilor din tracker-ul MT5 deschise azi — date reale, locale; tranzacțiile câștigătoare nu sunt incluse. Dacă atinge plafonul, decizia corectă e să te oprești pentru azi.'}</p>`;
+}
 function renderLiveAnalysisList(filter){
   const el=document.getElementById('live-analysis-list');
   if(!el)return;
   if(!PAIRS.length){ el.innerHTML=`<p class="dim">${LANG==='en'?'Loading real data...':'Se încarcă date reale...'}</p>`; return; }
+  renderRiskBudget();
   filter=filter||'Toate';
   let rows=PAIRS.filter(p=>p.sym!=='DXY');
   if(filter==='A+/A')rows=rows.filter(p=>p.grade==='A+'||p.grade==='A');
