@@ -618,7 +618,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.9</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.0</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -930,7 +930,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="grid grid-2 mt-lg">
           <div class="card">
             <div class="card-title">
-              <h3><i class="icon-radio"></i>Ultimele știri <span class="demo-badge">DEMO — date fictive</span></h3>
+              <h3><i class="icon-radio"></i>Ultimele știri <span class="demo-badge" id="news-demo-badge">DEMO — date fictive</span></h3>
               <button class="btn" onclick="openView('news')">Toate <i class="icon-arrow-right"></i></button>
             </div>
             <div id="news-list"><div class="news-item">
@@ -1172,8 +1172,8 @@ body.light .ambient-orb{opacity:.18}
 
       <!-- ============ NEWS ============ -->
       <div class="view" id="view-news">
-        <div class="page-head"><div><h1><span data-i18n="nw_h">AI News</span> <span class="accent" data-i18n="nw_a">Engine</span></h1><p>Reuters · Bloomberg · CNBC · FT · Fed · ECB · Analiză sentiment AI</p></div></div>
-        <div class="disclaimer">⚠ Fără un backend de știri live conectat, aici vezi știri ilustrative (demo), nu un feed live. Aplicația încearcă automat un feed real dacă backend-ul devine disponibil.</div>
+        <div class="page-head"><div><h1><span data-i18n="nw_h">AI News</span> <span class="accent" data-i18n="nw_a">Engine</span></h1><p id="news-subtitle">ForexLive / InvestingLive RSS · analiză sentiment bazată pe cuvinte-cheie (nu NLP/AI)</p></div></div>
+        <div class="disclaimer" id="news-disclaimer">⚠ Se încarcă feed-ul real de știri (ForexLive RSS, prin proxy public rss2json)…</div>
         <div class="card mt-lg"><div id="news-full"><div class="news-item">
     <div class="news-impact high"></div>
     <div><div class="news-title">Fed Powell: "Politica va rămâne restrictivă până când inflația scade clar"</div>
@@ -1256,7 +1256,7 @@ body.light .ambient-orb{opacity:.18}
       </div>
 
       <!-- Placeholders -->
-      <div class="view" id="view-recommendations"><div class="page-head"><div><h1>AI <span class="accent">Recomandări</span></h1><p>Doar setup-uri A+/A · Confluence Engine · reasoning complet AI</p></div></div><div class="card"><table><thead><tr><th>Grade</th><th>Pereche</th><th>Direction</th><th>Confidence</th><th>Entry</th><th>SL</th><th>TP</th><th>R:R</th></tr></thead><tbody id="rec-body"><tr><td><span class="grade aplus">A+</span></td><td><b>EUR/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">93%</td><td class="mono">1.0694</td><td class="mono down">1.0674</td><td class="mono up">1.0804</td><td>1:3.8</td></tr><tr><td><span class="grade aplus">A+</span></td><td><b>XAU/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">94%</td><td class="mono">2043.2770</td><td class="mono down">2043.2750</td><td class="mono up">2043.2880</td><td>1:4.5</td></tr><tr><td><span class="grade aplus">A+</span></td><td><b>AUD/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">91%</td><td class="mono">0.6554</td><td class="mono down">0.6534</td><td class="mono up">0.6664</td><td>1:4.2</td></tr><tr><td><span class="grade a">A</span></td><td><b>GBP/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">87%</td><td class="mono">1.2668</td><td class="mono down">1.2648</td><td class="mono up">1.2778</td><td>1:2.9</td></tr><tr><td><span class="grade a">A</span></td><td><b>USD/CAD</b></td><td><span class="signal-badge sell">SELL</span></td><td class="up mono">84%</td><td class="mono">1.3517</td><td class="mono down">1.3497</td><td class="mono up">1.3627</td><td>1:3.1</td></tr><tr><td><span class="grade a">A</span></td><td><b>DXY</b></td><td><span class="signal-badge sell">SELL</span></td><td class="up mono">83%</td><td class="mono">103.2370</td><td class="mono down">103.2350</td><td class="mono up">103.2480</td><td>1:2.8</td></tr><tr><td><span class="grade a">A</span></td><td><b>NZD/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">82%</td><td class="mono">0.6097</td><td class="mono down">0.6077</td><td class="mono up">0.6207</td><td>1:3.4</td></tr><tr><td><span class="grade a">A</span></td><td><b>BTC/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">81%</td><td class="mono">43782.3970</td><td class="mono down">43782.3950</td><td class="mono up">43782.4080</td><td>1:3.2</td></tr><tr><td><span class="grade a">A</span></td><td><b>EUR/JPY</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">79%</td><td class="mono">160.6470</td><td class="mono down">160.6450</td><td class="mono up">160.6580</td><td>1:2.6</td></tr></tbody></table></div></div>
+      <div class="view" id="view-recommendations"><div class="page-head"><div><h1>AI <span class="accent">Recomandări</span></h1><p>Doar setup-uri A+/A · scor real trend+moment+regim de piață · niciun "reasoning AI" fabricat</p></div></div><div id="methodology-panel" class="card" style="margin-bottom:16px"></div><div class="card"><table><thead><tr><th>Grade</th><th>Pereche</th><th>Direction</th><th>Confidence</th><th>Entry</th><th>SL</th><th>TP</th><th>R:R</th></tr></thead><tbody id="rec-body"><tr><td><span class="grade aplus">A+</span></td><td><b>EUR/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">93%</td><td class="mono">1.0694</td><td class="mono down">1.0674</td><td class="mono up">1.0804</td><td>1:3.8</td></tr><tr><td><span class="grade aplus">A+</span></td><td><b>XAU/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">94%</td><td class="mono">2043.2770</td><td class="mono down">2043.2750</td><td class="mono up">2043.2880</td><td>1:4.5</td></tr><tr><td><span class="grade aplus">A+</span></td><td><b>AUD/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">91%</td><td class="mono">0.6554</td><td class="mono down">0.6534</td><td class="mono up">0.6664</td><td>1:4.2</td></tr><tr><td><span class="grade a">A</span></td><td><b>GBP/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">87%</td><td class="mono">1.2668</td><td class="mono down">1.2648</td><td class="mono up">1.2778</td><td>1:2.9</td></tr><tr><td><span class="grade a">A</span></td><td><b>USD/CAD</b></td><td><span class="signal-badge sell">SELL</span></td><td class="up mono">84%</td><td class="mono">1.3517</td><td class="mono down">1.3497</td><td class="mono up">1.3627</td><td>1:3.1</td></tr><tr><td><span class="grade a">A</span></td><td><b>DXY</b></td><td><span class="signal-badge sell">SELL</span></td><td class="up mono">83%</td><td class="mono">103.2370</td><td class="mono down">103.2350</td><td class="mono up">103.2480</td><td>1:2.8</td></tr><tr><td><span class="grade a">A</span></td><td><b>NZD/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">82%</td><td class="mono">0.6097</td><td class="mono down">0.6077</td><td class="mono up">0.6207</td><td>1:3.4</td></tr><tr><td><span class="grade a">A</span></td><td><b>BTC/USD</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">81%</td><td class="mono">43782.3970</td><td class="mono down">43782.3950</td><td class="mono up">43782.4080</td><td>1:3.2</td></tr><tr><td><span class="grade a">A</span></td><td><b>EUR/JPY</b></td><td><span class="signal-badge buy">BUY</span></td><td class="up mono">79%</td><td class="mono">160.6470</td><td class="mono down">160.6450</td><td class="mono up">160.6580</td><td>1:2.6</td></tr></tbody></table></div></div>
       <div class="view" id="view-watchlist"><div class="page-head"><div><h1><span class="accent">Watchlist</span></h1><p>Perechile tale favorite cu alerte personalizate</p></div></div>
         <div class="card">
           <div style="display:flex;gap:8px;margin-bottom:14px">
@@ -1732,6 +1732,38 @@ function efficiencyRatioCalc(closes, period=10){
   return vol===0?0:direction/vol;
 }
 
+// Descrie REAL, pe baza criteriilor deja calculate mai jos, de ce o pereche a primit gradul/semnalul ei —
+// nicio cifră inventată aici, doar traducerea în text a valorilor trend/moment/regim folosite în formula reală.
+function buildSetupRationale(ema200,rsi,macdV,er,trendScore,sig,confidence,grade){
+  const ro=[], en=[];
+  if(ema200!=null){
+    if(trendScore===2){ro.push('preț > EMA20 > EMA50 > EMA200 — aliniere de trend ascendent pe toate orizonturile');en.push('price > EMA20 > EMA50 > EMA200 — bullish trend aligned across all horizons');}
+    else if(trendScore===-2){ro.push('preț < EMA20 < EMA50 < EMA200 — aliniere de trend descendent pe toate orizonturile');en.push('price < EMA20 < EMA50 < EMA200 — bearish trend aligned across all horizons');}
+    else if(trendScore===1){ro.push('preț peste EMA50 — trend de fond ascendent, fără aliniere completă EMA20/EMA200');en.push('price above EMA50 — underlying uptrend, EMA20/EMA200 not fully aligned');}
+    else if(trendScore===-1){ro.push('preț sub EMA50 — trend de fond descendent, fără aliniere completă EMA20/EMA200');en.push('price below EMA50 — underlying downtrend, EMA20/EMA200 not fully aligned');}
+    else {ro.push('trend neclar — EMA-urile nu sunt aliniate direcțional');en.push('unclear trend — EMAs are not directionally aligned');}
+  }else{
+    if(trendScore>0){ro.push('preț > EMA20 > EMA50 — trend ascendent pe termen scurt/mediu (istoric insuficient pentru EMA200)');en.push('price > EMA20 > EMA50 — short/medium-term uptrend (not enough history for EMA200 yet)');}
+    else if(trendScore<0){ro.push('preț < EMA20 < EMA50 — trend descendent pe termen scurt/mediu (istoric insuficient pentru EMA200)');en.push('price < EMA20 < EMA50 — short/medium-term downtrend (not enough history for EMA200 yet)');}
+    else {ro.push('trend neclar pe termen scurt/mediu');en.push('unclear short/medium-term trend');}
+  }
+  const mRo=[], mEn=[];
+  if(rsi>60){mRo.push(`RSI(14)=${Math.round(rsi)} — zonă de forță/supracumpărare`);mEn.push(`RSI(14)=${Math.round(rsi)} — strength/overbought zone`);}
+  else if(rsi<40){mRo.push(`RSI(14)=${Math.round(rsi)} — zonă de slăbiciune/supravânzare`);mEn.push(`RSI(14)=${Math.round(rsi)} — weakness/oversold zone`);}
+  else {mRo.push(`RSI(14)=${Math.round(rsi)} — zonă neutră`);mEn.push(`RSI(14)=${Math.round(rsi)} — neutral zone`);}
+  if(macdV){
+    if(macdV.hist>0){mRo.push('histogramă MACD pozitivă (moment bullish)');mEn.push('positive MACD histogram (bullish momentum)');}
+    else if(macdV.hist<0){mRo.push('histogramă MACD negativă (moment bearish)');mEn.push('negative MACD histogram (bearish momentum)');}
+  }
+  ro.push(mRo.join(', ')); en.push(mEn.join(', '));
+  if(er!=null){
+    if(er>=0.5){ro.push(`Efficiency Ratio=${er.toFixed(2)} — mișcare direcțională/eficientă (crește ponderea semnalului)`);en.push(`Efficiency Ratio=${er.toFixed(2)} — efficient/directional move (boosts signal weight)`);}
+    else {ro.push(`Efficiency Ratio=${er.toFixed(2)} — piață zgomotoasă/range-bound (reduce ponderea semnalului)`);en.push(`Efficiency Ratio=${er.toFixed(2)} — noisy/range-bound market (reduces signal weight)`);}
+  }
+  const conclRo=`→ Scor combinat trend+moment ${sig==='WAIT'?'insuficient pentru un semnal clar':`declanșează ${sig}`}. Confidence ${confidence}% (grad ${grade}) = bază 35% + aliniere trend/moment ponderată de regimul de piață + bonus regularitate.`;
+  const conclEn=`→ Combined trend+momentum score ${sig==='WAIT'?'not enough for a clear signal':`triggers ${sig}`}. Confidence ${confidence}% (grade ${grade}) = 35% base + trend/momentum alignment weighted by market regime + consistency bonus.`;
+  return { ro: ro.join(' · ')+'. '+conclRo, en: en.join(' · ')+'. '+conclEn };
+}
 function computeSignal(sym, closes, tf){
   if(closes.length < 55) return null; // not enough real history yet for this instrument
   const price = closes[closes.length-1];
@@ -1776,12 +1808,14 @@ function computeSignal(sym, closes, tf){
   const decimals = price>=100?2:(price>=10?3:5);
   const round = v=> v==null?null:Number(v.toFixed(decimals));
   const ch = closes.length>=2 ? ((closes[closes.length-1]-closes[closes.length-2])/closes[closes.length-2]*100) : 0;
+  const rationale = buildSetupRationale(ema200,rsi,macdV,er,trendScore,sig,confidence,grade);
 
   return {
     sym, px: round(price), ch, grade, sig, conf: confidence,
     rr: sig==='WAIT' ? '—' : `1:${rrTarget.toFixed(1)}`, tf,
     entry: sig==='WAIT'?null:round(entry), sl: round(sl), tp: round(tp),
-    atr: round(atr), rsi: Math.round(rsi), er: er!=null?Number(er.toFixed(2)):null
+    atr: round(atr), rsi: Math.round(rsi), er: er!=null?Number(er.toFixed(2)):null,
+    rationale: rationale.ro, rationaleEn: rationale.en
   };
 }
 
@@ -2063,7 +2097,7 @@ function renderMarketUI(){
   document.getElementById('ticker-track').innerHTML=[...PAIRS,...PAIRS].map(p=>`<div class="tick"><span class="sym">${p.sym}</span><span class="px">${p.px}</span><span class="chg ${p.ch>=0?'up':'down'}">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div>`).join('');
   document.getElementById('scanner-body').innerHTML=PAIRS.slice(0,8).map(scanRowDash).join('');
   renderScannerFull();
-  document.getElementById('rec-body').innerHTML=PAIRS.filter(p=>p.grade==='A+'||p.grade==='A').map(p=>`<tr><td><span class="grade ${p.grade==='A+'?'aplus':'a'}">${p.grade}</span></td><td><b>${p.sym}</b></td><td><span class="signal-badge ${p.sig.toLowerCase()}">${p.sig}</span></td><td class="up mono">${p.conf}%</td><td class="mono">${p.entry!=null?p.entry:'—'}</td><td class="mono down">${p.sl!=null?p.sl:'—'}</td><td class="mono up">${p.tp!=null?p.tp:'—'}</td><td>${p.rr}</td></tr>`).join('');
+  document.getElementById('rec-body').innerHTML=PAIRS.filter(p=>p.grade==='A+'||p.grade==='A').map(p=>`<tr><td><span class="grade ${p.grade==='A+'?'aplus':'a'}">${p.grade}</span></td><td><b>${p.sym}</b></td><td><span class="signal-badge ${p.sig.toLowerCase()}">${p.sig}</span></td><td class="up mono">${p.conf}%</td><td class="mono">${p.entry!=null?p.entry:'—'}</td><td class="mono down">${p.sl!=null?p.sl:'—'}</td><td class="mono up">${p.tp!=null?p.tp:'—'}</td><td>${p.rr}</td></tr><tr class="rec-why-row"><td colspan="8" style="padding:4px 12px 14px;border-top:none"><div style="font-size:12px;line-height:1.6;color:var(--text-3);background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:10px 12px"><i class="icon-lightbulb" style="color:var(--brand);margin-right:6px"></i>${LANG==='en'?p.rationaleEn:p.rationale}</div></td></tr>`).join('');
   renderStrength('strength-list'); renderStrength('strength-full');
   renderDashboardHero();
   if(typeof renderSMCPage==='function')renderSMCPage();
@@ -2071,6 +2105,7 @@ function renderMarketUI(){
   if(typeof renderSentimentPage==='function')renderSentimentPage();
   if(typeof renderMT5Demo==='function')renderMT5Demo();
   if(typeof populateSymbolSelects==='function')populateSymbolSelects();
+  if(typeof renderMainChartReal==='function')renderMainChartReal(CURRENT_CHART_TF||'D1');
 }
 
 /* ---- MT5: cont demo simulat local (nu e o conexiune reală la broker) ----
@@ -2257,12 +2292,126 @@ async function initRealMarketData(){
 }
 initRealMarketData();
 
-const NEWS=[
+const NEWS_DEMO=[
   {impact:'high',title:'Fed Powell: "Politica va rămâne restrictivă până când inflația scade clar"',title_en:'Fed Powell: "Policy will stay restrictive until inflation clearly falls"',src:'Reuters',time:'3m',tags:['USD','FED'],sent:-0.42,text:'Piața interpretează dovish. DXY -0.4%.',text_en:'Markets read it as dovish. DXY -0.4%.'},
   {impact:'high',title:'ECB Lagarde: hawkish stance — hike potențial la reuniunea următoare',title_en:'ECB Lagarde: hawkish stance — potential hike at next meeting',src:'Bloomberg',time:'12m',tags:['EUR','ECB'],sent:0.68,text:'EUR/USD bullish spre 1.0850.',text_en:'EUR/USD bullish toward 1.0850.'},
   {impact:'med',title:'BOJ menține yield-uri ultra-scăzute — Yen slăbește 0.3%',title_en:'BOJ keeps ultra-low yields — Yen weakens 0.3%',src:'CNBC',time:'24m',tags:['JPY'],sent:-0.31,text:'USDJPY revine peste 149.80.',text_en:'USDJPY back above 149.80.'},
   {impact:'high',title:'US CPI 3.1% (sub forecast 3.2%) — expectările de rate cut cresc',title_en:'US CPI 3.1% (below forecast 3.2%) — rate cut expectations rise',src:'Reuters',time:'47m',tags:['USD','CPI'],sent:-0.55,text:'DXY -0.6%. Gold +1.2%.',text_en:'DXY -0.6%. Gold +1.2%.'},
 ];
+let NEWS = NEWS_DEMO;
+let NEWS_IS_REAL = false;
+
+/* ============ ȘTIRI REALE (RSS ForexLive/InvestingLive, prin proxy public rss2json) ============
+   Fără backend propriu, nu există un API de știri financiare gratuit, fără cheie, CORS-friendly
+   direct din browser. rss2json.com e un proxy public gratuit care convertește orice feed RSS în
+   JSON cu CORS activat — îl folosim ca să citim un feed real (ForexLive/InvestingLive).
+   Titlurile rămân în engleză (sursa originală) — nu traducem automat știri financiare fără o
+   sursă de încredere, ca să nu riscăm să denaturăm o declarație despre rate/politică monetară.
+   Sentiment-ul e un scor euristic simplu bazat pe cuvinte-cheie (nu NLP/AI reală) — etichetat clar. */
+const NEWS_POS_WORDS=['rally','rallies','rallying','jumps','jump','surges','surge','soars','soar','gains','gain','rises','rise','rising','strengthens','strengthen','strong','beats','beat','upgrade','recovery','rebound','rebounds','robust','hawkish'];
+const NEWS_NEG_WORDS=['falls','fall','falling','drops','drop','plunges','plunge','slumps','slump','weakens','weaken','weak','misses','miss','downgrade','recession','crash','crashes','dovish','cuts','cut','slowdown','contraction','tumbles','tumble'];
+const NEWS_CURRENCY_KEYWORDS={
+  USD:['usd','dollar','fed','federal reserve','powell','fomc'],
+  EUR:['eur','euro','ecb','lagarde','eurozone'],
+  GBP:['gbp','pound','sterling','boe','bailey','bank of england'],
+  JPY:['jpy','yen','boj','bank of japan','ueda'],
+  AUD:['aud','aussie','rba'],
+  NZD:['nzd','kiwi','rbnz'],
+  CAD:['cad','loonie','boc','bank of canada'],
+  CHF:['chf','franc','snb'],
+  CNY:['cny','yuan','renminbi','pboc'],
+  XAU:['gold','xau'],
+  BTC:['bitcoin','btc','crypto'],
+  OIL:['oil','wti','brent','crude'],
+};
+function guessNewsTags(text){
+  const low=text.toLowerCase();
+  const tags=[];
+  for(const code in NEWS_CURRENCY_KEYWORDS){ if(NEWS_CURRENCY_KEYWORDS[code].some(k=>low.includes(k)))tags.push(code); }
+  return tags.length?tags:['FX'];
+}
+function guessNewsSentiment(text){
+  const low=text.toLowerCase();
+  let pos=0,neg=0;
+  NEWS_POS_WORDS.forEach(w=>{if(low.includes(w))pos++;});
+  NEWS_NEG_WORDS.forEach(w=>{if(low.includes(w))neg++;});
+  if(pos===0&&neg===0)return 0;
+  return Math.max(-1,Math.min(1,(pos-neg)/(pos+neg)));
+}
+function relTimeFromDate(d){
+  const mins=Math.round((Date.now()-d.getTime())/60000);
+  if(!isFinite(mins))return '—';
+  if(mins<1)return LANG==='en'?'now':'acum';
+  if(mins<60)return mins+'m';
+  const hrs=Math.round(mins/60);
+  if(hrs<24)return hrs+'h';
+  return Math.round(hrs/24)+'d';
+}
+function stripHtml(s){ return (s||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(); }
+async function fetchRealNewsRSS(){
+  try{
+    const url='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://www.forexlive.com/feed/news');
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('rss2json HTTP '+res.status);
+    const data=await res.json();
+    if(data.status!=='ok'||!Array.isArray(data.items)||!data.items.length)throw new Error('rss2json: fără items');
+    NEWS=data.items.slice(0,20).map(it=>{
+      const title=stripHtml(it.title);
+      const desc=stripHtml(it.description).slice(0,160);
+      const pub=new Date(String(it.pubDate).replace(' ','T')+'Z');
+      const combined=title+' '+desc;
+      const impact=/fed|ecb|boj|boe|rate decision|\bcpi\b|\bnfp\b|\bgdp\b|fomc/i.test(title)?'high':'med';
+      return { impact, title, title_en:title, src:'ForexLive', time:relTimeFromDate(pub),
+        tags:guessNewsTags(combined), sent:guessNewsSentiment(combined), text:desc, text_en:desc, url:it.link };
+    });
+    NEWS_IS_REAL=true;
+  }catch(e){
+    console.warn('Fetch știri reale eșuat, revenim la demo etichetat onest:',e);
+    NEWS=NEWS_DEMO; NEWS_IS_REAL=false;
+  }
+  const badge=document.getElementById('news-demo-badge');
+  if(badge){
+    if(NEWS_IS_REAL){ badge.textContent=LANG==='en'?'LIVE · ForexLive RSS':'LIVE · ForexLive RSS'; badge.style.background='color-mix(in srgb,var(--up) 18%,transparent)'; badge.style.color='var(--up)'; }
+    else { badge.textContent=LANG==='en'?'DEMO — fictional data':'DEMO — date fictive'; badge.style.background=''; badge.style.color=''; }
+  }
+  const disc=document.getElementById('news-disclaimer');
+  if(disc){
+    disc.textContent = NEWS_IS_REAL
+      ? (LANG==='en'?'✓ Live headlines from ForexLive/InvestingLive RSS (via public rss2json proxy). Sentiment is a simple keyword heuristic, not real NLP/AI. Titles stay in original English — not machine-translated, to avoid misrepresenting rate/policy statements.'
+                     :'✓ Titluri live din RSS ForexLive/InvestingLive (prin proxy public rss2json). Sentiment-ul e un scor euristic simplu pe cuvinte-cheie, nu NLP/AI reală. Titlurile rămân în engleză, sursa originală — nu traducem automat, ca să nu denaturăm declarații despre rate/politică monetară.')
+      : (LANG==='en'?'⚠ Live fetch failed — showing illustrative demo items instead, clearly labeled.':'⚠ Fetch-ul live a eșuat — afișăm date demo ilustrative, etichetate clar.');
+  }
+  renderNews('news-list',NEWS.slice(0,4));
+  renderNews('news-full',NEWS);
+}
+async function refreshRealNews(){ await fetchRealNewsRSS(); }
+
+/* ============ METODOLOGIE — cum se construiește analiza, onest, fără marketing gol ============ */
+function renderMethodologyPanel(){
+  const el=document.getElementById('methodology-panel');
+  if(!el)return;
+  const en=LANG==='en';
+  el.innerHTML=`
+    <div class="card-title"><h3><i class="icon-book-open"></i>${en?'How this analysis is built':'Cum se construiește această analiză'}</h3></div>
+    <div style="font-size:12.5px;line-height:1.8;color:var(--text-2)">
+      <p><b style="color:var(--text)">${en?'1. Data sources (real, not simulated):':'1. Surse de date (reale, nu simulate):'}</b><br>
+      ${en?'Forex: European Central Bank daily reference rates via Frankfurter API (31 currencies). Bitcoin &amp; Gold (via PAX Gold, a token backed 1:1 by physical gold): CoinGecko daily history. News: live RSS from ForexLive/InvestingLive via the public rss2json proxy.'
+          :'Forex: cursuri de referință zilnice BCE, prin Frankfurter API (31 valute). Bitcoin și Aur (via PAX Gold, un token susținut 1:1 de aur fizic): istoric zilnic CoinGecko. Știri: RSS live din ForexLive/InvestingLive, prin proxy public rss2json.'}</p>
+      <p><b style="color:var(--text)">${en?'2. Technical indicators computed from those real closes:':'2. Indicatori tehnici calculați din aceste close-uri reale:'}</b><br>
+      EMA(20/50/200) ${en?'for trend':'pentru trend'} · RSI(14) Wilder ${en?'for momentum':'pentru momentum'} · MACD(12,26,9) ${en?'for momentum confirmation':'pentru confirmarea momentum-ului'} · ATR(14) ${en?'(close-to-close proxy, no free intraday high/low) for stop/target sizing':'(proxy close-to-close, fără high/low intraday gratuit) pentru dimensionarea SL/TP'} · Efficiency Ratio(10) ${en?'to measure whether the market is trending cleanly or just noisy/range-bound':'pentru a măsura dacă piața se mișcă direcțional-curat sau e doar zgomot/range'}.</p>
+      <p><b style="color:var(--text)">${en?'3. Scoring formula (transparent, not a black box):':'3. Formula de scor (transparentă, nu o cutie neagră):'}</b><br>
+      ${en?'trendScore (EMA alignment, −2…+2) + momScore (RSI zone + MACD histogram sign, −2…+2) = rawScore. Confidence % = 35% base + trend/momentum alignment × market-regime factor (from Efficiency Ratio) + small consistency bonus. Grade: A+ ≥82%, A ≥70%, B ≥55%, else C. Signal fires BUY/SELL only when rawScore ≥ +2 or ≤ −2, otherwise WAIT.'
+          :'trendScore (aliniere EMA, −2…+2) + momScore (zonă RSI + semn histogramă MACD, −2…+2) = rawScore. Confidence % = bază 35% + aliniere trend/moment × factor de regim de piață (din Efficiency Ratio) + bonus mic de regularitate. Grad: A+ ≥82%, A ≥70%, B ≥55%, altfel C. Semnalul devine BUY/SELL doar când rawScore ≥ +2 sau ≤ −2, altfel WAIT.'}</p>
+      <p><b style="color:var(--text)">${en?'4. Entry / Stop Loss / Take Profit:':'4. Entry / Stop Loss / Take Profit:'}</b><br>
+      ${en?'SL = 1.5× real ATR(14) from entry. TP = 2.5× that same ATR distance (fixed 1:2.5 reward:risk target). Not fixed pip values — they scale with each pair’s real recent volatility.'
+          :'SL = 1,5× ATR(14) real, față de preț. TP = 2,5× aceeași distanță ATR (raport fix 1:2,5 reward:risk). Nu sunt valori fixe în pips — se ajustează la volatilitatea recentă reală a fiecărei perechi.'}</p>
+      <p><b style="color:var(--text)">${en?'5. Smart Money Concepts (Tehnic/Smart Money pages):':'5. Smart Money Concepts (paginile Tehnic/Smart Money):'}</b><br>
+      ${en?'Swing highs/lows, Break of Structure, Order Blocks, Fair Value Gaps and Premium/Discount zones are detected geometrically from real price action — not predicted by a model.'
+          :'Swing highs/lows, Break of Structure, Order Blocks, Fair Value Gaps și zonele Premium/Discount sunt detectate geometric din price action real — nu prezise de un model.'}</p>
+      <p style="color:var(--text-3)"><b style="color:var(--warn)">${en?'Honest limits:':'Limite oneste:'}</b> ${en?'this is daily (EOD) data, not intraday ticks — there is no free, key-free, real-time forex feed. The economic calendar remains illustrative (demo) since no free real calendar API exists. News sentiment is a simple keyword heuristic, not NLP/AI. None of this is financial advice.'
+          :'acestea sunt date zilnice (EOD), nu tick-uri intraday — nu există niciun feed forex gratuit, fără cheie, în timp real. Calendarul economic rămâne ilustrativ (demo) — nicio sursă gratuită reală de calendar economic nu există. Sentiment-ul știrilor e un scor euristic simplu pe cuvinte-cheie, nu NLP/AI. Nimic din acestea nu reprezintă sfat financiar.'}</p>
+    </div>`;
+}
 const CAL=[
   {t:'14:30',c:'US',i:'h',e:'CPI y/y',f:'3.2%',p:'3.4%'},
   {t:'15:00',c:'EU',i:'h',e:'ECB Rate Decision',f:'4.50%',p:'4.50%'},
@@ -2276,14 +2425,21 @@ const CAL=[
 /* Render News */
 function renderNews(id,items){
   const el=document.getElementById(id);if(!el)return;
-  el.innerHTML=items.map(n=>`<div class="news-item">
+  el.innerHTML=items.map(n=>{
+    const titleHtml = n.url
+      ? `<a href="${n.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${LANG==='en'?n.title_en:n.title}<i class="icon-external-link" style="font-size:11px;margin-left:5px;opacity:.6"></i></a>`
+      : (LANG==='en'?n.title_en:n.title);
+    return `<div class="news-item">
     <div class="news-impact ${n.impact}"></div>
-    <div><div class="news-title">${LANG==='en'?n.title_en:n.title}</div>
+    <div><div class="news-title">${titleHtml}</div>
       <div class="news-meta"><span>${n.src} · ${n.time}</span>${n.tags.map(t=>'<span class="news-tag">'+t+'</span>').join('')}<span class="mute">${LANG==='en'?n.text_en:n.text}</span></div></div>
-    <div class="news-sentiment ${n.sent>0?'up':'down'}">${n.sent>0?'+':''}${n.sent.toFixed(2)}</div>
-  </div>`).join('');
+    <div class="news-sentiment ${n.sent>0?'up':n.sent<0?'down':''}">${n.sent>0?'+':''}${n.sent.toFixed(2)}</div>
+  </div>`;
+  }).join('');
 }
-renderNews('news-list',NEWS);renderNews('news-full',[...NEWS,...NEWS]);
+renderNews('news-list',NEWS.slice(0,4));renderNews('news-full',NEWS);
+fetchRealNewsRSS(); // preluare reală, la încărcare — înlocuiește demo-ul dacă reușește
+renderMethodologyPanel();
 
 /* Render Calendar */
 function renderCal(id,items){
@@ -2307,15 +2463,9 @@ setTimeout(()=>{
   });
   const series=chart.addCandlestickSeries({upColor:'#00e5a0',downColor:'#f43f5e',borderUpColor:'#00e5a0',borderDownColor:'#f43f5e',wickUpColor:'#00e5a0',wickDownColor:'#f43f5e'});
   mainChart=chart;mainChartSeries=series;
-  const data=[];let p=1.070;
-  for(let i=0;i<120;i++){
-    const o=p;const move=(Math.random()-0.45)*0.0022;const c=+(p+move).toFixed(5);
-    const h=+(Math.max(o,c)+Math.random()*0.0007).toFixed(5);
-    const l=+(Math.min(o,c)-Math.random()*0.0007).toFixed(5);
-    data.push({time:Math.floor(Date.now()/1000)-(120-i)*3600,open:o,high:h,low:l,close:c});p=c;
-  }
-  series.setData(data);
-  chart.timeScale().fitContent();
+  // Datele reale (Frankfurter EOD) încă se încarcă la acest moment — graficul se populează
+  // cu bare reale din renderMainChartReal(), apelat din renderMarketUI() când datele sosesc.
+  if(PAIR_SERIES['EUR/USD'])renderMainChartReal('D1');
 },200);
 
 /* AI Ring animation */
@@ -2619,24 +2769,57 @@ function renderScannerFull(){
   filterScanner(activeTab?activeTab.textContent.trim():'Toate');
 }
 
-/* ============ CHART TIMEFRAME REGEN ============ */
-let mainChartSeries=null,mainChart=null;
-function regenerateChart(tf){
-  if(!mainChartSeries)return;
-  const bars={M15:180,H1:120,H4:90,D1:60}[tf]||120;
-  const vol={M15:0.0009,H1:0.0022,H4:0.0045,D1:0.009}[tf]||0.0022;
-  const step={M15:60*15,H1:3600,H4:3600*4,D1:86400}[tf]||3600;
-  const data=[];let p=1.070;
-  for(let i=0;i<bars;i++){
-    const o=p;const move=(Math.random()-0.45)*vol;const c=+(p+move).toFixed(5);
-    const h=+(Math.max(o,c)+Math.random()*vol*0.3).toFixed(5);
-    const l=+(Math.min(o,c)-Math.random()*vol*0.3).toFixed(5);
-    data.push({time:Math.floor(Date.now()/1000)-(bars-i)*step,open:o,high:h,low:l,close:c});p=c;
+/* ============ CHART TIMEFRAME REGEN — date reale, nu Math.random() ============
+   D1: bare reale, construite direct din close-urile zilnice reale (Frankfurter EOD).
+   M15/H1/H4: nu există nicio sursă gratuită de date intraday reale — în loc să inventăm o
+   plimbare aleatorie de la un preț fictiv (cum era înainte), interpolăm între close-urile
+   D1 REALE consecutive + un zgomot mic legat de ATR real, ca nivelul afișat să rămână mereu
+   ancorat la prețul real. Etichetat clar în titlu ca aproximare. */
+let mainChartSeries=null,mainChart=null,CURRENT_CHART_TF='D1';
+function buildIntradayApprox(dailyCloses, tf){
+  const subBarsPerDay={M15:96,H1:24,H4:6}[tf]||24;
+  const stepSec={M15:900,H1:3600,H4:14400}[tf]||3600;
+  const daysBack=Math.min(30,dailyCloses.length-1);
+  const startIdx=dailyCloses.length-1-daysBack;
+  const atr=atrFromClosesCalc(dailyCloses,14)||(dailyCloses[dailyCloses.length-1]*0.003);
+  const bars=[];
+  let barTime=Math.floor(Date.now()/1000)-daysBack*subBarsPerDay*stepSec;
+  for(let d=startIdx; d<dailyCloses.length-1; d++){
+    const c0=dailyCloses[d], c1=dailyCloses[d+1];
+    for(let i=0;i<subBarsPerDay;i++){
+      const t=i/subBarsPerDay;
+      const base=c0+(c1-c0)*t;
+      const o=base+(Math.random()-0.5)*atr*0.15;
+      const c=base+(c1-c0)/subBarsPerDay*0.5+(Math.random()-0.5)*atr*0.15;
+      const h=Math.max(o,c)+Math.random()*atr*0.05;
+      const l=Math.min(o,c)-Math.random()*atr*0.05;
+      bars.push({time:barTime,open:+o.toFixed(5),high:+h.toFixed(5),low:+l.toFixed(5),close:+c.toFixed(5)});
+      barTime+=stepSec;
+    }
   }
-  mainChartSeries.setData(data);
+  return bars;
+}
+function renderMainChartReal(tf){
+  if(!mainChartSeries)return;
+  const sym='EUR/USD';
+  const closes=PAIR_SERIES[sym];
+  if(!closes||closes.length<20)return; // date reale încă nu sunt gata la acest moment
+  const bars = tf==='D1'
+    ? buildSyntheticBars(closes.slice(-90),(PAIR_DATES||[]).slice(-90))
+    : buildIntradayApprox(closes, tf);
+  mainChartSeries.setData(bars);
   mainChart.timeScale().fitContent();
   const h3=document.querySelector('#view-dashboard .card .card-title h3');
-  if(h3)h3.innerHTML=`<i class="icon-candlestick-chart"></i>EUR/USD · ${tf} · Smart Money Analysis`;
+  if(h3){
+    const tag = tf==='D1'
+      ? (LANG==='en'?'real D1 closes':'close-uri D1 reale')
+      : (LANG==='en'?'intraday approx. from real D1':'aproximare intraday din D1 real');
+    h3.innerHTML=`<i class="icon-candlestick-chart"></i>EUR/USD · ${tf} · Smart Money Analysis <span class="mute" style="font-size:11px;font-weight:600">(${tag})</span>`;
+  }
+}
+function regenerateChart(tf){
+  CURRENT_CHART_TF=tf;
+  renderMainChartReal(tf);
   toast((LANG==='en'?'Timeframe: ':'Timeframe: ')+tf,'info');
 }
 
@@ -2669,8 +2852,8 @@ document.addEventListener('click',e=>{
 function showPairDetail(sym){
   const p=PAIRS.find(x=>x.sym===sym);if(!p)return;
   const en=LANG==='en';
-  const entry=p.px,sl=(p.px-(p.sig==='SELL'?-0.003:0.003)).toFixed(p.px>100?2:4),tp=(p.px+(p.sig==='SELL'?-0.008:0.008)).toFixed(p.px>100?2:4);
-  const dirWord=p.sig==='BUY'?(en?'bullish':'bullish'):p.sig==='SELL'?(en?'bearish':'bearish'):(en?'neutral':'neutral');
+  const entry=p.entry!=null?p.entry:p.px, sl=p.sl!=null?p.sl:'—', tp=p.tp!=null?p.tp:'—';
+  const dirWord=p.sig==='BUY'?'bullish':p.sig==='SELL'?'bearish':'neutral';
   const box=document.getElementById('pair-modal-box');
   box.innerHTML=`
     <div class="modal-close" onclick="closePairModal()"><i class="icon-x"></i></div>
@@ -2681,30 +2864,31 @@ function showPairDetail(sym){
     </div>
     <div class="hero-values" style="margin-bottom:18px">
       <div class="val"><span class="lbl">${en?'Price':'Preț'}</span><span class="num">${p.px}</span></div>
-      <div class="val"><span class="lbl">${en?'Change':'Variație'}</span><span class="num ${p.ch>=0?'up':'down'}">${p.ch>=0?'+':''}${p.ch}%</span></div>
+      <div class="val"><span class="lbl">${en?'Change':'Variație'}</span><span class="num ${p.ch>=0?'up':'down'}">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div>
       <div class="val"><span class="lbl">Confidence</span><span class="num up">${p.conf}%</span></div>
       <div class="val"><span class="lbl">R:R</span><span class="num">${p.rr}</span></div>
       <div class="val"><span class="lbl">Entry</span><span class="num">${entry}</span></div>
       <div class="val"><span class="lbl">Stop Loss</span><span class="num down">${sl}</span></div>
       <div class="val"><span class="lbl">Target</span><span class="num up">${tp}</span></div>
-      <div class="val"><span class="lbl">TF</span><span class="num">${p.tf||'H1'}</span></div>
+      <div class="val"><span class="lbl">TF</span><span class="num">${p.tf||'D1'}</span></div>
     </div>
     <div style="margin-bottom:16px">
-      <div style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px">${en?'Why this setup':'De ce acest setup'}</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px">${en?'Why this setup — real criteria':'De ce acest setup — criterii reale'}</div>
       <div style="font-size:12.5px;line-height:1.7;color:var(--text-2)">
-        ${en?`Structure is ${dirWord} on ${p.tf||'H1'}: price confirms with EMA20/50 alignment, RSI supports continuation, and the setup sits inside an unmitigated Order Block / FVG zone. Confidence score (${p.conf}%) blends trend, momentum, smart-money structure and risk quality.`
-        :`Structura este ${dirWord} pe ${p.tf||'H1'}: prețul confirmă alinierea EMA20/50, RSI susține continuarea, iar setup-ul se află într-o zonă de Order Block / FVG nemitigat. Scorul de confidence (${p.conf}%) combină trend, momentum, structură smart-money și calitatea riscului.`}
+        ${en?p.rationaleEn:p.rationale}
       </div>
     </div>
     <div style="margin-bottom:16px">
       <div style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px">${en?'Exit plan':'Plan de ieșire'}</div>
       <div style="font-size:12.5px;line-height:1.7;color:var(--text-2)">
-        ${en?`<b class="up">Take profit</b> at ${tp} if structure keeps confirming ${dirWord}. <b class="down">Invalidation / Stop Loss</b> at ${sl} — if price closes beyond this level, the setup thesis is invalid and the trade should be closed regardless of P&L.`
-        :`<b class="up">Take profit</b> la ${tp} dacă structura continuă să confirme direcția ${dirWord}. <b class="down">Invalidare / Stop Loss</b> la ${sl} — dacă prețul închide dincolo de acest nivel, teza setup-ului este invalidată și poziția trebuie închisă indiferent de P&L.`}
+        ${p.sig==='WAIT'
+          ?(en?'No active BUY/SELL signal — trend and momentum are not aligned enough to justify an entry right now.':'Niciun semnal activ de BUY/SELL — trendul și momentum-ul nu sunt suficient aliniate pentru a justifica o intrare acum.')
+          :(en?`<b class="up">Take profit</b> at ${tp} (ATR(14)×1.5 risk, ${p.rr} reward:risk). <b class="down">Stop Loss</b> at ${sl} — sized from real ATR(14)≈${p.atr}, not a fixed pip value. If price closes beyond this level, the setup thesis is invalid.`
+             :`<b class="up">Take profit</b> la ${tp} (risc ATR(14)×1.5, reward:risk ${p.rr}). <b class="down">Stop Loss</b> la ${sl} — dimensionat din ATR(14) real ≈${p.atr}, nu o valoare fixă în pips. Dacă prețul închide dincolo de acest nivel, teza setup-ului este invalidată.`)}
       </div>
     </div>
     <p class="dim" style="font-size:11.5px;line-height:1.6;margin-bottom:18px">
-      ⚠ ${en?'This reasoning is generated to illustrate a structured decision process, not a live analysis of real market data. Always confirm with your own analysis and risk management before acting — trading carries risk of loss.':'Acest raționament este generat pentru a ilustra un proces de decizie structurat, nu o analiză live pe date reale de piață. Confirmă mereu cu propria analiză și management de risc — trading-ul implică risc de pierdere.'}
+      ⚠ ${en?'Computed from real EOD closes (Frankfurter/ECB or CoinGecko) using EMA/RSI/MACD/ATR/Efficiency Ratio — not intraday tick data, not fundamental/news analysis. Always confirm with your own analysis and risk management before acting — trading carries risk of loss.':'Calculat din close-uri EOD reale (Frankfurter/BCE sau CoinGecko) folosind EMA/RSI/MACD/ATR/Efficiency Ratio — nu date intraday tick-by-tick, nu analiză fundamentală/știri. Confirmă mereu cu propria analiză și management de risc — trading-ul implică risc de pierdere.'}
     </p>
     <div style="display:flex;gap:10px">
       <button class="btn primary" style="flex:1;justify-content:center" onclick="closePairModal();openView('scanner')"><i class="icon-radar"></i>${en?'View in Scanner':'Vezi în Scanner'}</button>
@@ -2754,10 +2938,10 @@ document.getElementById('refresh-btn').addEventListener('click',async()=>{
   const btn=document.getElementById('refresh-btn');
   if(btn.classList.contains('spinning'))return;
   btn.classList.add('spinning');
-  await refreshLiveData(true);
+  await refreshRealMarketData(true);
   setTimeout(()=>{
     btn.classList.remove('spinning');
-    toast(LANG==='en'?'✓ Live data refreshed':'✓ Date live actualizate','success');
+    toast(LANG==='en'?'✓ Real data refreshed':'✓ Date reale actualizate','success');
   },400);
 });
 
@@ -2912,7 +3096,8 @@ function translateStaticTree(){
   });
 }
 function rerenderDynamicForLang(){
-  renderNews('news-list',NEWS);renderNews('news-full',[...NEWS,...NEWS]);
+  renderNews('news-list',NEWS.slice(0,4));renderNews('news-full',NEWS);
+  if(typeof renderMethodologyPanel==='function')renderMethodologyPanel();
   renderChatSeed();
   renderNotifs();
   if(typeof applyAuthTexts==='function')applyAuthTexts();
@@ -3325,38 +3510,31 @@ document.getElementById('reset-submit')?.addEventListener('click',async()=>{
   return;
 })();
 
-/* ============ 5-SECOND LIVE LOOP ============ */
-async function refreshLiveData(silent){
-  let liveData=null;
-  if(BACKEND_ENABLED)liveData=await fetchLiveMarketData(PAIRS.map(p=>p.sym));
-  if(liveData&&liveData.data){
-    PAIRS.forEach(p=>{
-      const d=liveData.data[p.sym];
-      if(d&&typeof d.price==='number'&&!d.error){
-        p.px=+d.price.toFixed(p.px>100?2:4);
-        p.ch=+(d.changePct||0).toFixed(2);
-      }
-    });
-  }else{
-    // fallback: simulare locală (fără backend configurat sau request eșuat)
-    PAIRS.forEach(p=>{
-      const jitter=(Math.random()-0.5)*(p.px>100?p.px*0.0007:0.0004);
-      p.px=+(p.px+jitter).toFixed(p.px>100?2:4);
-      p.ch=+(p.ch+(Math.random()-0.5)*0.08).toFixed(2);
-      p.conf=Math.max(55,Math.min(99,Math.round(p.conf+(Math.random()-0.5)*2)));
-    });
-  }
+/* ============ REFRESH REAL (nu mai simulăm mișcare falsă) ============
+   Înainte, la fiecare 5 secunde se aplica un jitter Math.random() peste preț/confidence ca să
+   "pară" live — asta era o simulare falsă, nu date reale. Nicio sursă gratuită de tick-uri forex
+   în timp real nu există fără backend/cheie API plătită, deci am eliminat complet fabricarea de
+   mișcare. În schimb: re-randăm UI-ul (fără să atingem cifrele) des, și la fiecare 5 minute
+   re-preluăm date REALE (Frankfurter/CoinGecko/PAXG) și recalculăm toate semnalele din nou. */
+function refreshLiveData(silent){
   document.getElementById('ticker-track').innerHTML=[...PAIRS,...PAIRS].map(p=>`<div class="tick"><span class="sym">${p.sym}</span><span class="px">${p.px}</span><span class="chg ${p.ch>=0?'up':'down'}">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div>`).join('');
   renderScannerFull();
   document.getElementById('scanner-body').innerHTML=PAIRS.slice(0,8).map(scanRowDash).join('');
-  if(smcSeries)pushSMCTick();
   renderIndicatorBadges();
   checkAlerts();
   if(typeof renderMT5Demo==='function')renderMT5Demo();
   if(typeof renderDashboardHero==='function')renderDashboardHero();
   if(!silent){toast(LANG==='en'?'✓ Live data refreshed':'✓ Date live actualizate','success');}
 }
-setInterval(()=>refreshLiveData(true),5000);
+let LAST_REAL_REFRESH=null;
+async function refreshRealMarketData(silent){
+  await initRealMarketData(); // re-fetch date reale EOD + recalculează toate semnalele (real, nu fake)
+  if(typeof refreshRealNews==='function')await refreshRealNews();
+  LAST_REAL_REFRESH=new Date();
+  refreshLiveData(true);
+  if(!silent){toast(LANG==='en'?'✓ Real data re-fetched':'✓ Date reale reîmprospătate','success');}
+}
+setInterval(()=>refreshRealMarketData(true), 5*60*1000); // la 5 minute, date reale — nu tick fals
 
 /* ============ WATCHLIST & ALERTS & JURNAL UI ============ */
 function populateSymbolSelects(){
