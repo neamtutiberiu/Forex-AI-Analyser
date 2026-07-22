@@ -602,7 +602,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.3</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v2.4</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -1746,13 +1746,13 @@ function renderSMCPage(){
   const eqLows=detectEqualLevels(swingLows);
   const dec=closes[closes.length-1]>=100?2:5;
 
-  setT('smc-bos-val', bos?(bos.type==='bullish'?'BULLISH':'BEARISH'):'—');
+  setT('smc-bos-val', bos?(bos.type==='bullish'?'BULLISH':'BEARISH'):(LANG==='en'?'None active':'Niciunul activ'));
   const bosValEl=document.getElementById('smc-bos-val');
   if(bosValEl)bosValEl.className='val '+(bos?(bos.type==='bullish'?'up':'down'):'');
-  setT('smc-bos-sub', bos?`${LANG==='en'?'Level broken':'Nivel spart'}: ${bos.level.price.toFixed(dec)}`:(LANG==='en'?'No clear BOS in recent bars':'Niciun BOS clar în barele recente'));
+  setT('smc-bos-sub', bos?`${LANG==='en'?'Level broken':'Nivel spart'}: ${bos.level.price.toFixed(dec)}`:(LANG==='en'?'Price still inside recent swing range — normal, not an error':'Prețul e încă în intervalul recent de swing — stare normală, nu o eroare'));
 
-  setT('smc-ob-val', ob?ob.level.toFixed(dec):'—');
-  setT('smc-ob-sub', ob?(LANG==='en'?'Last opposite candle before BOS':'Ultima lumânare opusă înainte de BOS'):'—');
+  setT('smc-ob-val', ob?ob.level.toFixed(dec):(LANG==='en'?'n/a':'n/a'));
+  setT('smc-ob-sub', ob?(LANG==='en'?'Last opposite candle before BOS':'Ultima lumânare opusă înainte de BOS'):(LANG==='en'?'Needs an active BOS first':'Necesită întâi un BOS activ'));
 
   setT('smc-fvg-val', String(fvgs.length));
   setT('smc-fvg-sub', fvgs.length?(LANG==='en'?'In the last detected gaps':'În ultimele gap-uri detectate'):(LANG==='en'?'No recent FVG':'Niciun FVG recent'));
@@ -2441,12 +2441,15 @@ function renderLiveAnalysisCard(p){
   const lotInfo=suggestLotSize(p);
   const rationale=en?p.rationaleEn:p.rationale;
 
+  const zoneLbl={premium:en?'Premium':'Premium',discount:en?'Discount':'Discount',equilibrium:en?'Equilibrium':'Echilibru'}[smc.zone]||smc.zone;
+  const lastFvg=smc&&smc.fvgs.length?smc.fvgs[smc.fvgs.length-1]:null;
   const smcHtml=smc?`
-    <div class="live-fact"><span>BOS</span><b class="${smc.bos?(smc.bos.type==='bullish'?'up':'down'):''}">${smc.bos?smc.bos.type.toUpperCase():'—'}</b></div>
-    <div class="live-fact"><span>Order Block</span><b>${smc.ob?smc.ob.level.toFixed(smc.dec):'—'}</b></div>
-    <div class="live-fact"><span>FVG</span><b>${smc.fvgs.length}</b></div>
-    <div class="live-fact"><span>${en?'Zone':'Zonă'}</span><b>${smc.zone}</b></div>`
-    : `<p class="dim">${en?'Not enough data yet.':'Date insuficiente încă.'}</p>`;
+    <div class="live-fact"><span>BOS</span><b class="${smc.bos?(smc.bos.type==='bullish'?'up':'down'):''}">${smc.bos?(smc.bos.type==='bullish'?(en?'BULLISH':'BULLISH'):(en?'BEARISH':'BEARISH')):(en?'none active':'niciunul activ')}</b></div>
+    <div class="live-fact"><span>Order Block</span><b>${smc.ob?smc.ob.level.toFixed(smc.dec):(en?'n/a':'n/a')}</b></div>
+    <div class="live-fact"><span>FVG</span><b>${smc.fvgs.length}${lastFvg?' ('+(lastFvg.type==='bullish'?'▲':'▼')+' '+lastFvg.from.toFixed(smc.dec)+'→'+lastFvg.to.toFixed(smc.dec)+')':''}</b></div>
+    <div class="live-fact"><span>${en?'Zone':'Zonă'}</span><b>${zoneLbl}</b></div>
+    <p class="dim" style="margin-top:6px;font-size:11px">${smc.bos?(en?'Structure just broke — a fresh directional move.':'Structura tocmai a fost spartă — mișcare direcțională proaspătă.'):(en?'No fresh break of structure right now — price is still inside its recent swing range (this is the normal/common state, not an error).':'Fără o spargere proaspătă de structură acum — prețul e încă în intervalul recent de swing (e starea normală/frecventă, nu o eroare).')}</p>`
+    : `<p class="dim">${en?'Not enough real history for this pair yet.':'Nu există încă suficient istoric real pentru această pereche.'}</p>`;
 
   const fundHtml=`
     <div class="live-fact"><span>${base}</span><b class="${baseMom!=null?(baseMom>=0?'up':'down'):''}">${baseMom!=null?(baseMom>=0?'+':'')+baseMom.toFixed(2)+'%':'—'} <span class="dim" style="font-weight:500">(20z)</span></b></div>
