@@ -113,7 +113,7 @@ body.light .brand-logo{color:#fff}
 
 /* ============ TOPBAR ============ */
 .topbar{display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--bg-elevated) 80%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:30;box-shadow:0 1px 0 0 color-mix(in srgb,var(--accent) 5%,transparent)}
-.search{flex:1;max-width:380px;position:relative}
+.search{flex:1 1 auto;min-width:180px;max-width:380px;position:relative}
 .search input{width:100%;background:var(--bg-input);border:1px solid var(--border);color:var(--text);padding:10px 42px 10px 14px;border-radius:10px;font-size:13.5px;font-family:inherit;outline:none;transition:all .2s;font-weight:500}
 .search input:focus{border-color:var(--brand-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-2) 15%,transparent)}
 .search-btn{position:absolute;right:5px;top:5px;width:30px;height:30px;border-radius:7px;background:transparent;border:none;color:var(--text-4);cursor:pointer;display:grid;place-items:center;font-size:15px;transition:all .2s}
@@ -132,15 +132,16 @@ body.light .brand-logo{color:#fff}
 .sr-item .sr-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
 .sr-empty{padding:24px 12px;text-align:center;color:var(--text-4);font-size:12.5px}
 
-.sessions{display:flex;gap:6px;flex-wrap:wrap}
-.session{display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--text-3)}
-.session .dot{width:6px;height:6px;border-radius:50%;background:var(--text-4)}
+.sessions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.session-group{display:flex;flex-direction:column;gap:4px}
+.session{display:flex;align-items:center;gap:5px;padding:3.5px 8px;border-radius:6px;background:var(--bg-input);border:1px solid var(--border);font-size:9.5px;font-weight:700;letter-spacing:.5px;color:var(--text-3);white-space:nowrap}
+.session .dot{width:5px;height:5px;border-radius:50%;background:var(--text-4);flex-shrink:0}
 .session.open .dot{background:var(--up);box-shadow:0 0 10px var(--up)}
 .session.open{color:var(--up);border-color:color-mix(in srgb,var(--up) 35%,transparent)}
-.session .sess-time{color:var(--text-4);font-weight:600;letter-spacing:.3px}
+.session .sess-time{color:var(--text-4);font-weight:600;letter-spacing:.2px}
 .session.open .sess-time{color:var(--up)}
-.tz-diff{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-left:2px}
-.tz-diff-item{display:flex;align-items:center;gap:5px;padding:7px 11px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:.3px;white-space:nowrap}
+.tz-diff{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0;margin-left:10px}
+.tz-diff-item{display:flex;align-items:center;gap:5px;padding:7px 11px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
 .tz-diff-item b{color:var(--text-2);font-weight:800}
 .tz-diff-item .mono{color:var(--brand-2);font-weight:700}
 .tz-diff-item.mute{color:var(--text-4);font-weight:600}
@@ -151,7 +152,7 @@ body.light .brand-logo{color:#fff}
 .icon-btn-label{font-size:9px;font-weight:600;letter-spacing:.03em;color:var(--text-4);white-space:nowrap}
 .icon-btn:hover{border-color:var(--brand-2);color:var(--brand-2);transform:translateY(-1px)}
 .icon-btn .badge{position:absolute;top:-5px;right:-5px;background:var(--down);color:#fff;font-size:9px;padding:2px 6px;border-radius:9px;font-weight:800;min-width:16px;text-align:center}
-.clock{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brand);letter-spacing:.5px;padding:0 6px;font-weight:600}
+.clock{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brand);letter-spacing:.5px;padding:0 8px;font-weight:600;white-space:nowrap;flex-shrink:0;min-width:96px;text-align:center}
 .notif-panel{position:absolute;top:calc(100% + 10px);right:0;width:320px;background:var(--bg-elevated);border:1px solid var(--border-strong);border-radius:12px;box-shadow:var(--shadow-lg);z-index:50;display:none;overflow:hidden}
 .notif-panel.open{display:block;animation:riseIn .2s ease}
 .notif-head{padding:12px 14px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-3)}
@@ -641,21 +642,25 @@ body.light .ambient-orb{opacity:.18}
     <!-- TOPBAR -->
     <div class="topbar">
       <div class="search" id="search-wrap">
-        <input type="text" data-i18n-ph="search" placeholder="Caută pereche, știre, indicator..." id="search-input" autocomplete="off">
+        <input type="text" data-i18n-ph="search" placeholder="Caută perechi valutare..." id="search-input" autocomplete="off">
         <button class="search-btn" id="search-btn" title="Căutare live"><i class="lucide-search"></i></button>
         <div class="search-results" id="search-results"></div>
       </div>
       <div class="sessions" id="sessions-row">
-        <div class="session" id="sess-syd" title="Sydney"><span class="dot"></span><span class="sess-code">SYD</span><span class="sess-time mono" id="time-syd">--:--:--</span></div>
-        <div class="session" id="sess-tyo" title="Tokyo"><span class="dot"></span><span class="sess-code">TYO</span><span class="sess-time mono" id="time-tyo">--:--:--</span></div>
-        <div class="session" id="sess-ldn" title="London"><span class="dot"></span><span class="sess-code">LDN</span><span class="sess-time mono" id="time-ldn">--:--:--</span></div>
-        <div class="session" id="sess-ny" title="New York"><span class="dot"></span><span class="sess-code">NY</span><span class="sess-time mono" id="time-ny">--:--:--</span></div>
+        <div class="session-group">
+          <div class="session" id="sess-syd" title="Sydney"><span class="dot"></span><span class="sess-code">SYD</span><span class="sess-time mono" id="time-syd">--:--:--</span></div>
+          <div class="session" id="sess-tyo" title="Tokyo"><span class="dot"></span><span class="sess-code">TYO</span><span class="sess-time mono" id="time-tyo">--:--:--</span></div>
+        </div>
+        <div class="session-group">
+          <div class="session" id="sess-ldn" title="London"><span class="dot"></span><span class="sess-code">LDN</span><span class="sess-time mono" id="time-ldn">--:--:--</span></div>
+          <div class="session" id="sess-ny" title="New York"><span class="dot"></span><span class="sess-code">NY</span><span class="sess-time mono" id="time-ny">--:--:--</span></div>
+        </div>
       </div>
       <div class="tz-diff" id="tz-diff-wrap"></div>
       <div class="topbar-actions">
         <div class="connection-pill"><span class="pulse"></span>LIVE</div>
         <div class="clock mono" id="clock">21:14:39 UTC</div>
-        <div class="icon-btn" id="logout-btn" title="Log Out" onclick="logoutApp()" style="display:none;gap:6px;width:auto;padding:0 12px;font-size:12px;font-weight:700;color:var(--down)"><i class="lucide-log-out"></i><span id="logout-btn-lbl">Log Out</span></div>
+        <div class="icon-btn" id="logout-btn" title="Log Out" onclick="logoutApp()" style="display:none;gap:6px;width:auto;padding:0 14px;font-size:12px;font-weight:700;color:var(--down);white-space:nowrap;flex-shrink:0"><i class="lucide-log-out"></i><span id="logout-btn-lbl">Log Out</span></div>
         <div class="lang-toggle">
           <button data-lang="ro" class="active">RO</button>
           <button data-lang="en" class="">EN</button>
@@ -2628,13 +2633,19 @@ function runLiveSearch(q){
   q=q.trim().toLowerCase();
   if(!q){box.classList.remove('open');btn.classList.remove('live');return;}
   btn.classList.add('live');
-  const pairs=PAIRS.filter(p=>p.sym.toLowerCase().includes(q)).slice(0,5);
+  const qNoSlash=q.replace('/','');
+  const pairs=PAIRS.filter(p=>p.sym.toLowerCase().includes(q)||p.sym.toLowerCase().replace('/','').includes(qNoSlash)).slice(0,6);
   const news=NEWS.filter(n=>(LANG==='en'?n.title_en:n.title).toLowerCase().includes(q)).slice(0,3);
   const inds=INDICATORS.filter(i=>i.name.toLowerCase().includes(q)).slice(0,4);
   let html='';
   if(pairs.length){
-    html+=`<div class="sr-group-lbl">${LANG==='en'?'Pairs · live price':'Perechi · preț live'}</div>`;
-    html+=pairs.map(p=>`<div class="sr-item" onclick="closeSearchResults();showPairDetail('${p.sym}')"><i class="lucide-candlestick-chart"></i><div class="sr-main"><div class="sr-title">${p.sym}</div><div class="sr-sub">${p.grade} · ${p.sig} · Conf ${p.conf}%</div></div><div class="sr-val ${p.ch>=0?'up':'down'}">${p.px}</div></div>`).join('');
+    html+=`<div class="sr-group-lbl">${LANG==='en'?'Pairs · live details':'Perechi · detalii live'}</div>`;
+    html+=pairs.map(p=>{
+      const sub=p.sig!=='WAIT'
+        ?`${p.grade} · ${p.sig} · Conf ${p.conf}% · RSI ${p.rsi} · Entry ${p.entry} · SL ${p.sl} · TP ${p.tp} · R:R ${p.rr}`
+        :`${p.grade} · ${p.sig} · Conf ${p.conf}% · RSI ${p.rsi}`;
+      return `<div class="sr-item" onclick="closeSearchResults();showPairDetail('${p.sym}')"><i class="lucide-candlestick-chart"></i><div class="sr-main"><div class="sr-title">${p.sym}</div><div class="sr-sub">${sub}</div></div><div class="sr-val ${p.ch>=0?'up':'down'}">${p.px}<br><span style="font-size:10px">${p.ch>=0?'+':''}${p.ch.toFixed(2)}%</span></div></div>`;
+    }).join('');
   }
   if(news.length){
     html+=`<div class="sr-group-lbl">${LANG==='en'?'News':'Știri'}</div>`;
