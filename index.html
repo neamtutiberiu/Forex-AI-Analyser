@@ -150,7 +150,7 @@ body.light .brand-logo{color:#fff}
 .icon-btn{width:38px;height:38px;border-radius:19px;background:linear-gradient(135deg,rgba(0,229,160,.16),rgba(34,211,238,.1));border:1.5px solid rgba(0,229,160,.45);display:grid;place-items:center;color:var(--brand);cursor:pointer;transition:all .18s;position:relative;font-size:15px;text-decoration:none;line-height:1}
 .icon-btn-labeled{display:flex;flex-direction:row;align-items:center;justify-content:center;width:auto;height:auto;padding:9px 15px;gap:7px;border-radius:20px}
 .icon-btn-labeled i{line-height:1;display:block;flex-shrink:0}
-.icon-btn-label{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:#ffffff;white-space:nowrap;line-height:1;display:block}
+.icon-btn-label{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--text);white-space:nowrap;line-height:1;display:block}
 .icon-btn:hover{border-color:var(--brand);color:var(--brand);background:linear-gradient(135deg,rgba(0,229,160,.28),rgba(34,211,238,.18));transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,229,160,.25)}
 .icon-btn .badge{position:absolute;top:-5px;right:-5px;background:var(--down);color:#fff;font-size:9px;padding:2px 6px;border-radius:9px;font-weight:800;min-width:16px;text-align:center}
 .clock{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brand);letter-spacing:.5px;padding:0 8px;font-weight:600;white-space:nowrap;flex-shrink:0;min-width:96px;text-align:center}
@@ -169,7 +169,7 @@ body.light .brand-logo{color:#fff}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 
 .lang-toggle,.theme-toggle{display:flex;border:1.5px solid rgba(0,229,160,.4);border-radius:19px;overflow:hidden;background:linear-gradient(135deg,rgba(0,229,160,.1),rgba(34,211,238,.06))}
-.lang-toggle button,.theme-toggle button{background:transparent;border:none;color:#fff;width:30px;height:26px;padding:0;display:grid;place-items:center;font-size:10.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.2px}
+.lang-toggle button,.theme-toggle button{background:transparent;border:none;color:var(--text);width:30px;height:26px;padding:0;display:grid;place-items:center;font-size:10.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.2px}
 .lang-toggle button.active,.theme-toggle button.active{background:var(--grad);color:#031}
 body.light .lang-toggle button.active,body.light .theme-toggle button.active{color:#fff}
 .theme-toggle button i{font-size:13px;transition:all .25s}
@@ -618,7 +618,7 @@ body.light .ambient-orb{opacity:.18}
         <div class="brand-name">Forex AI Pro</div>
       </div>
     </div>
-    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.7</div>
+    <div class="app-version mono" id="app-version" title="Versiune aplicație">v1.8</div>
     <div class="owner-banner" id="owner-banner" style="display:none"><i class="icon-shield-check"></i><span data-i18n-ownertxt>Owner Mode · Acces complet</span></div>
 
     <div class="nav-section" data-i18n="s_overview">Overview</div>
@@ -3590,9 +3590,10 @@ function updateSMCTags(bos,ob,fvgs){
 async function initSMCChart(){
   const el=document.getElementById('smc-mini-chart');
   if(!el||typeof LightweightCharts==='undefined')return;
+  const isDark=!document.body.classList.contains('light');
   smcChart=LightweightCharts.createChart(el,{
-    height:180,layout:{background:{color:'transparent'},textColor:'rgba(255,255,255,0.9)',fontSize:10},
-    grid:{vertLines:{visible:false},horzLines:{color:'rgba(255,255,255,0.04)'}},
+    height:180,layout:{background:{color:'transparent'},textColor:isDark?'rgba(255,255,255,0.9)':'rgba(0,0,0,0.85)',fontSize:10},
+    grid:{vertLines:{visible:false},horzLines:{color:isDark?'rgba(255,255,255,0.04)':'rgba(0,0,0,0.06)'}},
     timeScale:{visible:true,borderVisible:false,timeVisible:true},
     rightPriceScale:{borderVisible:false},crosshair:{mode:0},
   });
